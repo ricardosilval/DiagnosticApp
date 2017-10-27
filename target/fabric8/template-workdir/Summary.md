@@ -1,1 +1,0 @@
-Simple JAXWS application deployed on Wildfly-Camel
