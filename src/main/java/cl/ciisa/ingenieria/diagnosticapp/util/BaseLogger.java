@@ -1,6 +1,7 @@
 package cl.ciisa.ingenieria.diagnosticapp.util;
 
 import cl.ciisa.ingenieria.diagnosticapp.dto.LogLocation;
+import cl.ciisa.ingenieria.diagnosticapp.model.Log;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;

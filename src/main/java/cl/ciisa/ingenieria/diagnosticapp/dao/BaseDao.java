@@ -5,7 +5,7 @@ import cl.ciisa.ingenieria.diagnosticapp.handlers.Messages;
 import cl.ciisa.ingenieria.diagnosticapp.handlers.Messages.Errores;
 import cl.ciisa.ingenieria.diagnosticapp.model.CSV;
 import cl.ciisa.ingenieria.diagnosticapp.model.BaseModel;
-import cl.ciisa.ingenieria.diagnosticapp.to.Paginacion;
+import cl.ciisa.ingenieria.diagnosticapp.dto.Paginacion;
 import cl.ciisa.ingenieria.diagnosticapp.util.BaseLogger;
 import cl.ciisa.ingenieria.diagnosticapp.util.HibernateUtil;
 import cl.ciisa.ingenieria.diagnosticapp.util.LogicUtil;
@@ -615,35 +615,35 @@ public abstract class BaseDao<T extends BaseModel> {
      * @param parameters
      * @return
      */
-    public List<T> executeHQL(String hql, HashMap<String, Object> parameters) throws BaseException {
-        Transaction transaction = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            Query query = session.createQuery(hql);
-            if (parameters != null && !parameters.isEmpty()) {
-                parameters.entrySet().stream().forEach((pair) -> {
-                    query.setParameter(pair.getKey(), pair.getValue());
-                });
-            }
-            List<T> results = query.list();
-            transaction.commit();
-            return results;
-        } catch (RuntimeException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            throw new BaseException(Errores.DATABASE_ERROR) //no se puede leer
-                    .set("metodo", "executeHQL")
-                    .set("query", hql)
-                    .set("clase", this.getClass().getSimpleName())
-                    .set("stacktrace", LOG.cleanStacktrace(e));
-        }
-    }
+//    public List<T> executeHQL(String hql, HashMap<String, Object> parameters) throws BaseException {
+//        Transaction transaction = null;
+//        try {
+//            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//            transaction = session.beginTransaction();
+//            Query query = session.createQuery(hql);
+//            if (parameters != null && !parameters.isEmpty()) {
+//                parameters.entrySet().stream().forEach((pair) -> {
+//                    query.setParameter(pair.getKey(), pair.getValue());
+//                });
+//            }
+//            List<T> results = query.list();
+//            transaction.commit();
+//            return results;
+//        } catch (RuntimeException e) {
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//            throw new BaseException(Errores.DATABASE_ERROR) //no se puede leer
+//                    .set("metodo", "executeHQL")
+//                    .set("query", hql)
+//                    .set("clase", this.getClass().getSimpleName())
+//                    .set("stacktrace", LOG.cleanStacktrace(e));
+//        }
+//    }
 
-    public Object executeUniqueHQL(String hql) throws BaseException {
-        return executeUniqueHQL(hql, null);
-    }
+//    public Object executeUniqueHQL(String hql) throws BaseException {
+//        return executeUniqueHQL(hql, null);
+//    }
 
     /**
      *
@@ -651,87 +651,31 @@ public abstract class BaseDao<T extends BaseModel> {
      * @param parameters
      * @return
      */
-    public Object executeUniqueHQL(String hql, HashMap<String, Object> parameters) throws BaseException {
-        Transaction transaction = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            Query query = session.createQuery(hql);
-            if (parameters != null && !parameters.isEmpty()) {
-                parameters.entrySet().stream().forEach((pair) -> {
-                    query.setParameter(pair.getKey(), pair.getValue());
-                });
-            }
-            Object obj = query.uniqueResult();
-            transaction.commit();
-            return obj;
-        } catch (RuntimeException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            throw new BaseException(Errores.DATABASE_ERROR) //no se puede leer
-                    .set("metodo", "executeHQL")
-                    .set("query", hql)
-                    .set("clase", this.getClass().getSimpleName())
-                    .set("stacktrace", LOG.cleanStacktrace(e));
-        }
-    }
+//    public Object executeUniqueHQL(String hql, HashMap<String, Object> parameters) throws BaseException {
+//        Transaction transaction = null;
+//        try {
+//            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//            transaction = session.beginTransaction();
+//            Query query = session.createQuery(hql);
+//            if (parameters != null && !parameters.isEmpty()) {
+//                parameters.entrySet().stream().forEach((pair) -> {
+//                    query.setParameter(pair.getKey(), pair.getValue());
+//                });
+//            }
+//            Object obj = query.uniqueResult();
+//            transaction.commit();
+//            return obj;
+//        } catch (RuntimeException e) {
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//            throw new BaseException(Errores.DATABASE_ERROR) //no se puede leer
+//                    .set("metodo", "executeHQL")
+//                    .set("query", hql)
+//                    .set("clase", this.getClass().getSimpleName())
+//                    .set("stacktrace", LOG.cleanStacktrace(e));
+//        }
+//    }
 
-    /**
-     * Revisar para que es
-     *
-     * @param params
-     * @param pagina
-     * @param filas
-     * @return
-     * @throws BaseException
-     */
-    public List<Sucursal> like(HashMap<String, Object> params, int pagina, int filas) throws BaseException {
-        StringBuilder hqlBuilder = new StringBuilder("FROM " + model.getSimpleName() + " ");
-        boolean hasItems = params.values().stream().anyMatch((v) -> v != null);
-        if (hasItems) {
-            hqlBuilder.append("WHERE ");
-            params.entrySet().stream()
-                    .filter((e) -> e.getValue() != null)
-                    .forEach((e) -> {
-                        hqlBuilder.append(e.getKey());
-                        if (!(e.getValue() instanceof String)) {
-                            hqlBuilder.append(" = ");
-                            hqlBuilder.append(e.getValue());
-                            hqlBuilder.append(" AND");
-                        } else {
-                            hqlBuilder.append(" LIKE '%");
-                            hqlBuilder.append(e.getValue());
-                            hqlBuilder.append("%' AND");
-                        }
-                    });
-            hqlBuilder.delete(hqlBuilder.length() - 4, hqlBuilder.length());
-            LOG.info(hqlBuilder.toString());
-        }
-        Transaction transaction = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            Query query = session.createQuery(hqlBuilder.toString());
-
-            query.setFirstResult((pagina - 1) * filas);
-            query.setMaxResults(filas);
-
-            List<Sucursal> result = query.list();
-
-            transaction.commit();
-            return result;
-
-        } catch (RuntimeException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            throw new BaseException(Messages.Errores.DATABASE_ERROR) //no se puede leer
-                    .set("error", e.getMessage())
-                    .set("metodo", "like")
-                    .set("clase", this.getClass().getSimpleName())
-                    .set("exception", e.getMessage())
-                    .set("stacktrace", LOG.cleanStacktrace(e));
-        }
-    }
+    
 }
