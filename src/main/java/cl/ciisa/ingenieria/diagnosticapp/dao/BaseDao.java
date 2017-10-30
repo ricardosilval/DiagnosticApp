@@ -201,7 +201,7 @@ public abstract class BaseDao<T extends BaseModel> {
             Object obj;
             transaction = session.beginTransaction();
 //            String packageLocation = this.modelPackage;
-            //if(this.getClass().getSimpleName().equalsIgnoreCase("logdao"))packageLocation="cl.febos.modell.";
+            //if(this.getClass().getSimpleName().equalsIgnoreCase("logdao"))packageLocation="cl.ciisa.modell.";
             obj = session.get(model, id);
             transaction.commit();
             return (T) obj;
