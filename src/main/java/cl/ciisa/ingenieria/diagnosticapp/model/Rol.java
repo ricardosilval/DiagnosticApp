@@ -3,55 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Rol {
+@Entity
+@Table(name = "roles")
+@XmlRootElement
+public class Rol extends BaseModel implements Serializable {
+
+    @Id
+    @Column(name = "rol_id")
     private String id;
+    @Column(name = "nombre")
     private String nombre;
 
     public Rol() {
 
-        
     }
 
-    public Rol(String id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-    
-
-    public List<Rol> listar() {
-
-        return new ArrayList<>();
-    }
-
-    public Rol ver(String rolId) {
-
-        return new Rol();
-    }
-
-    public Rol crear(Rol rol) {
-        return new Rol();
-    }
-
-    public Rol modificar(String rolId) {
-
-        return new Rol();
-    }
-
-    public void eliminar(Rol rol) {
-        
-    }
-
-    
     public String getId() {
         return id;
     }
@@ -67,6 +48,5 @@ public class Rol {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
 
 }

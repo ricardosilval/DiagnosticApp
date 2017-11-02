@@ -5,49 +5,31 @@
  */
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Jornada {
+@Entity
+@Table(name = "jornadas")
+@XmlRootElement
+public class Jornada extends BaseModel implements Serializable {
 
+    @Id
+    @Column(name = "jornada_id")
     private String id;
+    @Column(name = "codigo")
     private String codigo;
+    @Column(name = "nombre")
     private String nombre;
 
     public Jornada() {
-    }
-
-    public Jornada(String id, String codigo, String nombre) {
-        this.id = id;
-        this.codigo = codigo;
-        this.nombre = nombre;
-    }
-
-    public List<Jornada> listar() {
-
-        return new ArrayList<>();
-    }
-
-    public Jornada ver(String jornadaId) {
-
-        return new Jornada();
-    }
-
-    public Jornada crear(Jornada jornada) {
-        return new Jornada();
-    }
-
-    public Jornada modificar(String jornadaId) {
-
-        return new Jornada();
-    }
-
-    public void eliminar(Jornada jornada) {
-
     }
 
     public String getId() {
