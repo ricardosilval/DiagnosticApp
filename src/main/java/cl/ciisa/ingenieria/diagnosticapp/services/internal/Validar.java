@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 
 /**
  * Interfaz que permite realizar validaciones sobre POJOs.
- * @author Michel Munoz <michel@febos.cl>
+ * @author ricardo
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})

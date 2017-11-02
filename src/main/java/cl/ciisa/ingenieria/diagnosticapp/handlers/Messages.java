@@ -85,10 +85,6 @@ public class Messages {
          * Dte ya tiene asociado un adjunto
          */
         ATTACHMENT_EXIST(219, "El archivo que intenta subir ya existe"),
-        /**
-         * Dte no existe
-         */
-        DTE_NOT_FOUND(220, "Dte indicado no existe"),
         RE_PASSWORD_ERROR(221, "Las contrase\u00F1as no coinciden, verifique informaci\u00F3n");
 
         private final int code;
