@@ -1,5 +1,6 @@
 package cl.ciisa.ingenieria.diagnosticapp.controller;
 
+import cl.ciisa.ingenieria.diagnosticapp.business.UsuarioLogic;
 import cl.ciisa.ingenieria.diagnosticapp.handlers.Messages;
 import cl.ciisa.ingenieria.diagnosticapp.dao.UsuarioDao;
 import cl.ciisa.ingenieria.diagnosticapp.handlers.BaseException;
@@ -32,9 +33,7 @@ public class AuthController {
 
     /**
      * Permite la autenticacion al sistema
-     *
-     * @param mail Correo electronico de ingreso del usuario
-     * @param password Contrasena de ingreso del usuario
+     * @param request
      * @return Respuesta en JSON (API)
      */
     @Path("/login")
@@ -47,14 +46,8 @@ public class AuthController {
             if (request.getMail() == null && request.getPassword() == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
-            Credenciales credentials = new Credenciales();
-
-            credentials.setNombreUsuario(request.getMail());
-
-            credentials.setClave(request.getPassword());
-
-            Usuario usuario = UsuarioDao.getInstance().login(credentials);
-            LOG.info("PASO EL LOGIN DAO");
+            UsuarioLogic usuarioLogic = new UsuarioLogic();
+            Usuario usuario = usuarioLogic.login(request);
 
             if (usuario == null) {
                 LOG.info("USUARIO NULL");
