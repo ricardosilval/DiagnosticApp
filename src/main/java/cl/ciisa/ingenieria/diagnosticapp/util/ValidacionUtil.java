@@ -31,7 +31,7 @@ public class ValidacionUtil {
         IP_V4(
                 "No es una IP valida, debe tener el formato xxx.xxx.xxx.xxx, donde xxx representa un numero entre 0 y 255",
                 "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"),
-        MAIL("No es una direccion de correo valida", "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$"),
+        CORREO("No es una direccion de correo valida", "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$"),
         NIVEL_LOG("No es un nivel de log valido, los posibles valores son: info, warning, debug, critical y error", "(info|warning|debug|critical|error)"),
         TIMESTAMP("No es una fecha valida, debe tener el formato yyyy-MM-dd hh:mm:ss o hasta con 4 decimales para los nanosegundos, con el formato yyyy-MM-dd hh:mm:ss.SSSS", "(2[0-9]{3}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])) ([012][0-9]):([0-5][0-9]):([0-5][0-9])|(2[0-9]{3}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])) ([012][0-9]):([0-5][0-9]):([0-5][0-9])\\.[0-9]{1,4}");
 

@@ -5,49 +5,59 @@
  */
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Calendarizacion extends BaseModel{
+@Entity
+@Table(name = "calendarizaciones")
+@XmlRootElement
+public class Calendarizacion extends BaseModel implements Serializable {
 
+    @Id
+    @Column(name = "calendarizacion_id")
     private String id;
-    private LocalDate fechaInicio;
-    private LocalDate fechaTermino;
+    @Column(name = "fecha_inicio")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaInicio;
+    @Column(name = "fecha_termino")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaTermino;
+    @Column(name = "titulo")
     private String titulo;
+    @Column(name = "descripcion")
     private String descripcion;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
+    @JsonIgnore
     private Usuario usuario;
+    @Column(name = "estado")
     private int estado;
-    private List<Evaluacion> evaluaciones;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "calendarizaciones_evaluaciones", joinColumns = @JoinColumn(name = "calendarizacion_id"), inverseJoinColumns = @JoinColumn(name = "evaluacion_id"))
+    @JsonIgnore
+    private Set<Evaluacion> evaluaciones;
 
     public Calendarizacion() {
-    }
-
-    public List<Calendarizacion> listar() {
-
-        return new ArrayList<>();
-    }
-
-    public Calendarizacion ver(String calendarizacionId) {
-
-        return new Calendarizacion();
-    }
-
-    public Calendarizacion crear(Calendarizacion calendarizacion) {
-        return new Calendarizacion();
-    }
-
-    public Calendarizacion modificar(String calendarizacionId) {
-
-        return new Calendarizacion();
-    }
-
-    public void eliminar(Calendarizacion calendarizacion) {
-
     }
 
     public String getId() {
@@ -58,19 +68,19 @@ public class Calendarizacion extends BaseModel{
         this.id = id;
     }
 
-    public LocalDate getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(LocalDate fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public LocalDate getFechaTermino() {
+    public Date getFechaTermino() {
         return fechaTermino;
     }
 
-    public void setFechaTermino(LocalDate fechaTermino) {
+    public void setFechaTermino(Date fechaTermino) {
         this.fechaTermino = fechaTermino;
     }
 
@@ -106,11 +116,11 @@ public class Calendarizacion extends BaseModel{
         this.estado = estado;
     }
 
-    public List<Evaluacion> getEvaluaciones() {
+    public Set<Evaluacion> getEvaluaciones() {
         return evaluaciones;
     }
 
-    public void setEvaluaciones(List<Evaluacion> evaluaciones) {
+    public void setEvaluaciones(Set<Evaluacion> evaluaciones) {
         this.evaluaciones = evaluaciones;
     }
 

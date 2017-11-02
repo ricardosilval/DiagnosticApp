@@ -3,56 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Imagen {
+@Entity
+@Table(name = "imagenes")
+@XmlRootElement
+public class Imagen extends BaseModel implements Serializable {
+
+    @Id
+    @Column(name = "imagen_id")
     private String id;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "data")
     private byte[] data;
-    private String entidad;
 
     public Imagen() {
     }
 
-    public Imagen(String id, String nombre, byte[] data, String entidad) {
-        this.id = id;
-        this.nombre = nombre;
-        this.data = data;
-        this.entidad = entidad;
-    }
-
-    public List<Imagen> listar() {
-
-        return new ArrayList<>();
-    }
-
-    public Imagen ver(String imagenId) {
-
-        return new Imagen();
-    }
-
-    public Imagen crear(Imagen imagen) {
-        return new Imagen();
-    }
-
-    public Imagen modificar(String imagenId) {
-
-        return new Imagen();
-    }
-
-    public void eliminar(Imagen imagen) {
-
-    }
-
-    
     public String getId() {
         return id;
     }
@@ -76,14 +57,5 @@ public class Imagen {
     public void setData(byte[] data) {
         this.data = data;
     }
-
-    public String getEntidad() {
-        return entidad;
-    }
-
-    public void setEntidad(String entidad) {
-        this.entidad = entidad;
-    }
-    
 
 }

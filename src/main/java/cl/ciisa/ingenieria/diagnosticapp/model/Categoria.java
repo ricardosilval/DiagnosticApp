@@ -5,57 +5,45 @@
  */
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Categoria {
+@Entity
+@Table(name = "categorias")
+@XmlRootElement
+public class Categoria extends BaseModel implements Serializable {
 
+    @Id
+    @Column(name = "cateogoria_id")
     private String id;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "descripcion")
     private String descripcion;
-    private List<Categoria> subcategorias;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
+    private Set<Categoria> subcategorias = new HashSet<>();
 
     public Categoria() {
     }
 
-    public Categoria(String id, String nombre, String descripcion, List<Categoria> subcategorias) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.subcategorias = subcategorias;
-    }
-
-    public List<Categoria> listar() {
-
-        return new ArrayList<>();
-    }
-
-    public Categoria ver(String categoriaId) {
-
-        return new Categoria();
-    }
-
-    public Categoria crear(Categoria categoria) {
-        return new Categoria();
-    }
-
-    public Categoria modificar(String categoriaId) {
-
-        return new Categoria();
-    }
-
-    public void eliminar(Categoria categoria) {
-
-    }
-
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
@@ -76,11 +64,11 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
-    public List<Categoria> getSubcategorias() {
+    public Set<Categoria> getSubcategorias() {
         return subcategorias;
     }
 
-    public void setSubcategorias(List<Categoria> subcategorias) {
+    public void setSubcategorias(Set<Categoria> subcategorias) {
         this.subcategorias = subcategorias;
     }
 

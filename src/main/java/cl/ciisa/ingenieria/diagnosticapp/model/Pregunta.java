@@ -5,55 +5,49 @@
  */
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Pregunta {
+@Entity
+@Table(name = "preguntas")
+@XmlRootElement
+public class Pregunta extends BaseModel implements Serializable {
 
+    @Id
+    @Column(name = "pregunta_id")
     private String id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "evaluacion_id")
+    @JsonIgnore
     private Evaluacion evaluacion;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "imagen_id")
+    @JsonIgnore
     private Imagen imagen;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoria_id")
+    @JsonIgnore
     private Categoria categoria;
+    @Column(name = "cuerpo")
     private String cuerpo;
+    @Column(name = "estado")
     private int estado;
 
     public Pregunta() {
-    }
-
-    public Pregunta(String id, Evaluacion evaluacion, Imagen imagen, Categoria subcategoria, String cuerpo, int estado) {
-        this.id = id;
-        this.evaluacion = evaluacion;
-        this.imagen = imagen;
-        this.categoria = subcategoria;
-        this.cuerpo = cuerpo;
-        this.estado = estado;
-    }
-
-    public List<Pregunta> listar() {
-
-        return new ArrayList<>();
-    }
-
-    public Pregunta ver(String preguntaId) {
-
-        return new Pregunta();
-    }
-
-    public Pregunta crear(Pregunta pregunta) {
-        return new Pregunta();
-    }
-
-    public Pregunta modificar(String preguntaId) {
-
-        return new Pregunta();
-    }
-
-    public void eliminar(Pregunta pregunta) {
-
     }
 
     public String getId() {

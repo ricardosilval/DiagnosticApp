@@ -5,57 +5,50 @@
  */
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Usuario {
+@Entity
+@Table(name = "usuarios")
+@XmlRootElement
+public class Usuario extends BaseModel implements Serializable {
+    
+    public static final int ESTADO_ACTIVO = 1;
+    public static final int ESTADO_INACTIVO = 2;
 
+    @Id
+    @Column(name = "usuario_id")
     private String id;
+    @Column(name = "correo")
     private String correo;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "apellido")
     private String apellido;
+    @Column(name = "run")
     private String run;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rol_id")
+    @JsonIgnore
     private Rol rol;
+    @Column(name = "clave")
     private String clave;
+    @Column(name = "estado")
+    private int estado;
 
     public Usuario() {
-    }
-
-    public Usuario(String id, String correo, String nombre, String apellido, String run, Rol rol, String clave) {
-        this.id = id;
-        this.correo = correo;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.run = run;
-        this.rol = rol;
-        this.clave = clave;
-    }
-
-    public List<Usuario> listar() {
-
-        return new ArrayList<>();
-    }
-
-    public Usuario ver(String usuarioId) {
-
-        return new Usuario();
-    }
-
-    public Usuario crear(Usuario usuario) {
-        return new Usuario();
-    }
-
-    public Usuario modificar(String usuarioId) {
-
-        return new Usuario();
-    }
-
-    public void eliminar(Usuario usuario) {
-
     }
 
     public String getId() {
@@ -112,6 +105,14 @@ public class Usuario {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
 }

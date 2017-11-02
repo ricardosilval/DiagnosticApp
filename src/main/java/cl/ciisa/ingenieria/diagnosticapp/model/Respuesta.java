@@ -5,20 +5,44 @@
  */
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Respuesta {
+@Entity
+@Table(name = "respuestas")
+@XmlRootElement
+public class Respuesta extends BaseModel implements Serializable {
 
+    @Id
+    @Column(name = "respuesta_id")
     private String id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pregunta_id")
+    @JsonIgnore
     private Pregunta pregunta;
+    @Column(name = "cuerpo")
     private String cuerpo;
+    @Column(name = "valor")
     private int valor;
+    @Column(name = "estado")
     private int estado;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "imagen_id")
+    @JsonIgnore
     private Imagen imagen;
 
     public Respuesta() {

@@ -5,29 +5,59 @@
  */
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Alumno {
+@Entity
+@Table(name = "alumnos")
+@XmlRootElement
+public class Alumno extends BaseModel implements Serializable {
 
+    @Id
+    @Column(name = "alumno_id")
     private String id;
+    @Column(name = "nombres")
     private String nombres;
+    @Column(name = "apellido_paterno")
     private String apellidoPaterno;
+    @Column(name = "apellido_materno")
     private String apellidoMaterno;
+    @Column(name = "run")
     private String run;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "carrera_id")
+    @JsonIgnore
     private Carrera carrera;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "jornada_id")
+    @JsonIgnore
     private Jornada jornada;
-    private List<Respuesta> respuestas;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "alumnos_respuestas", joinColumns = @JoinColumn(name = "alumno_id"), inverseJoinColumns = @JoinColumn(name = "respuesta_id"))
+    @JsonIgnore
+    private Set<Respuesta> respuestas;
 
     public Alumno() {
     }
 
- 
     public String getId() {
         return id;
     }
@@ -84,4 +114,13 @@ public class Alumno {
         this.jornada = jornada;
     }
 
+    public Set<Respuesta> getRespuestas() {
+        return respuestas;
+    }
+
+    public void setRespuestas(Set<Respuesta> respuestas) {
+        this.respuestas = respuestas;
+    }
+
+    
 }

@@ -5,49 +5,33 @@
  */
 package cl.ciisa.ingenieria.diagnosticapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ricardo
  */
-public class Carrera {
+@Entity
+@Table(name = "carreras")
+@XmlRootElement
+public class Carrera extends BaseModel implements Serializable {
 
+    @Id
+    @Column(name = "carrera_id")
     private String id;
+    @Column(name = "codigo")
     private String codigo;
+    @Column(name = "nombre")
     private String nombre;
 
     public Carrera() {
-    }
-
-    public Carrera(String id, String codigo, String nombre) {
-        this.id = id;
-        this.codigo = codigo;
-        this.nombre = nombre;
-    }
-
-    public List<Carrera> listar() {
-
-        return new ArrayList<>();
-    }
-
-    public Carrera ver(String carreraId) {
-
-        return new Carrera();
-    }
-
-    public Carrera crear(Carrera carrera) {
-        return new Carrera();
-    }
-
-    public Carrera modificar(String carreraId) {
-
-        return new Carrera();
-    }
-
-    public void eliminar(Carrera carrera) {
-
     }
 
     public String getId() {
