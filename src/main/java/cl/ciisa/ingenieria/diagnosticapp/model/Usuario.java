@@ -24,6 +24,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "usuarios")
 @XmlRootElement
 public class Usuario extends BaseModel implements Serializable {
+    
+    public static final int ESTADO_ACTIVO = 1;
+    public static final int ESTADO_INACTIVO = 2;
 
     @Id
     @Column(name = "usuario_id")
@@ -42,6 +45,8 @@ public class Usuario extends BaseModel implements Serializable {
     private Rol rol;
     @Column(name = "clave")
     private String clave;
+    @Column(name = "estado")
+    private int estado;
 
     public Usuario() {
     }
@@ -100,6 +105,14 @@ public class Usuario extends BaseModel implements Serializable {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
 }

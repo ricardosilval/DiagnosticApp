@@ -16,11 +16,11 @@ public class LoginResponse extends BaseResponse {
     private String run;
     private Rol rol;
 
-    public LoginResponse(Usuario usuario, Rol rol) {
+    public LoginResponse(Usuario usuario) {
         this.usuarioId = usuario.getId();
         this.nombre = usuario.getNombre() + " " + usuario.getApellido();
         this.correoUsuario = usuario.getCorreo();
-        this.rol = rol;
+        this.rol = usuario.getRol();
 
     }
 
