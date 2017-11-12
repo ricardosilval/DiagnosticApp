@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="connection.datasource">java:/DiagnosticAppDS</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <mapping class="cl.diagnosticapp.model.Alumno"/>
+        <mapping class="cl.diagnosticapp.model.Calendarizacion"/>
+        <mapping class="cl.diagnosticapp.model.Carrera"/>
+        <mapping class="cl.diagnosticapp.model.Categoria"/>
+        <mapping class="cl.diagnosticapp.model.Credenciales"/>
+        <mapping class="cl.diagnosticapp.model.Evaluacion"/>
+        <mapping class="cl.diagnosticapp.model.Imagen"/>
+        <mapping class="cl.diagnosticapp.model.Jornada"/>
+        <mapping class="cl.diagnosticapp.model.Pregunta"/>
+        <mapping class="cl.diagnosticapp.model.Respuesta"/>
+        <mapping class="cl.diagnosticapp.model.Rol"/>
+        <mapping class="cl.diagnosticapp.model.Usuario"/>
+        <mapping class="cl.diagnosticapp.model.Log"/>
+        <mapping class="cl.diagnosticapp.model.Token"/>
+
+        
+    </session-factory>  
+</hibernate-configuration>

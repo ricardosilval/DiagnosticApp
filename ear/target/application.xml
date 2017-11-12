@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd" version="6">
+  <description>Contiene el package completo DiagnosticApp compuesto por las librerias
+        CORE, la API, la aplicación web y todas las dependencias asociadas.</description>
+  <display-name>DiagnosticApp-Package</display-name>
+  <module>
+    <web>
+      <web-uri>DiagnosticApp-API.war</web-uri>
+      <context-root>/api</context-root>
+    </web>
+  </module>
+  <module>
+    <web>
+      <web-uri>DiagnosticApp-Webapp.war</web-uri>
+      <context-root>/</context-root>
+    </web>
+  </module>
+  <library-directory>lib</library-directory>
+</application>

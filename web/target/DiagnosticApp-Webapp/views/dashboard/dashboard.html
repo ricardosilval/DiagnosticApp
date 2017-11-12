@@ -1,0 +1,117 @@
+
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/">Inicio</a>
+            <i class="fa fa-circle"></i>
+        </li>
+
+    </ul>
+    <div class="page-toolbar">
+        <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Cambiar el intervalo de fechas del panel de control">
+            <i class="icon-calendar"></i>&nbsp;
+            <span class="thin uppercase hidden-xs"></span>&nbsp;
+            <i class="fa fa-angle-down"></i>
+        </div>
+    </div>
+</div>
+<h3 class="page-title">Inicio </h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+
+<div class="row" ng-controller="DashboardCtrl">
+
+    <div class="col-md-12">
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                    <div class="visual">
+                        <i class="fa fa-wpforms"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value="lotesRegistrados">{{lotesRegistrados}}</span>
+                        </div>
+                        <div class="desc">  </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2 green-haze" href="#">
+                    <div class="visual">
+                        <i class="fa fa-files-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value="documentosEmtidos">{{documentosEmtidos}}</span></div>
+                        <div class="desc">  </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2 yellow-gold" href="#">
+                    <div class="visual">
+                        <i class="fa fa-ticket"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value="comprobantesNoFacturados">{{comprobantesNoFacturados}}</span>
+                        </div>
+                        <div class="desc"> </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+        </div>
+        <div class="clearfix"></div>    
+
+
+        <div class="col-md-5">
+            <!--                           <div bar-chart bar-data='dataSource' bar-x='aduanaLoteadora' bar-y='["cantidadPreFacturas"]' bar-labels='["Pre Facturas"]' bar-colors='["#4276A4"]'>
+              </div>-->
+
+            <div donut-chart donut-data='laData' donut-colors='[
+                 "#0C3D75",	
+                 "#238BFF",
+                 "#0B66CC",
+                 "#04182E",
+                 "#32489B",
+                 "#1D147C",
+                 "#4330FF",
+                 "#2514D2",
+                 "#0B0731",
+                 "#010103",
+                 "#037653",
+                 "#10FFB7",
+                 "#00CD8F",
+                 "#002F21",
+                 "#4276A4",
+                 "#304A3E",
+                 "#FFA110",
+                 "#FF9A00",
+                 "#472B00",
+                 "#040301"]'> </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <!-- FIN ESTO ES PP -->
+
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS-->
+<script>
+    // call any jquery or angularjs code ehre
+</script>
+<!-- BEGIN MAIN JS -->

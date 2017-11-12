@@ -1,0 +1,88 @@
+<project default="all">
+    <property name="root-dir" location="C:\Users\up\Documents\IASolutions\aduanas2" />
+    <property name="project-name" value="Aduanas" />
+    <property name="deploy-dir" location="C:\opt\wildfly\standalone\deployments" />
+    <property name="version-file" value="ejb/src/main/resources/version.properties" />
+
+<!-- tareas para el manejo de versiones -->
+	<target name="compile">
+		<echo message="Compiling source code"/>
+	</target>
+    <target name="-timestamp">
+        <tstamp>
+                <format property="timestamp" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <format property="build.date" pattern="yyyy-MM-dd"/>
+        </tstamp>
+        <echo message="${timestamp}" />
+    </target>
+    <target name="update-version" depends="-timestamp,branch">
+        <propertyfile file="${version-file}">
+                <!--<entry key="version" value="${version}"/>-->
+                <entry key="timestamp" value="${timestamp}"/>
+                <entry key="build.date" value="${build.date}"/>
+                <entry key="branch" value="${branch}"/>
+        </propertyfile>
+     </target>
+     <!--<target name="version">
+        <exec dir="./" executable="./version.sh" outputproperty="version">
+        </exec>
+        <echo message="${version}"/>
+     </target>-->
+
+    <target name="branch">
+        <exec dir="${root-dir}/" executable="git" outputproperty="branch">
+                <arg line="rev-parse --abbrev-ref HEAD"/>
+        </exec>
+        <echo message="${branch}" />
+    </target>
+    <!-- fin de tareas para el manejo de versiones -->
+
+
+    <target name="undeploy">
+
+        <echo message="Iniciando Undeploy de ${project-name}" />
+	<echo message="Eliminando: ${deploy-dir}/${project-name}-Package.ear" />
+        <delete file="${deploy-dir}/${project-name}-Package.ear"/>
+        <echo message="Eliminando: ${deploy-dir}/${project-name}-Package.ear.deployed" />
+        <delete file="${deploy-dir}/${project-name}-Package.ear.deployed"/>
+        <echo message="Esperando archivo ${project-name}-Package.ear.undeployed" /> 
+        <waitfor maxwait="20" maxwaitunit="second">
+          <available file="${deploy-dir}/${project-name}-Package.ear.undeployed"/>
+        </waitfor>
+        <echo message="Eliminando: ${project-name}-Package.ear.undeployed" />
+        <delete file="${deploy-dir}/${project-name}-Package.ear.undeployed"/>
+    </target>
+
+    <target name="deploy">
+        <echo message="Deployment: Instalando ${project-name} en el servidor" />
+	<sleep seconds="2"/> 
+       <copy file="${root-dir}/ear/target/${project-name}-Package.ear" tofile="${deploy-dir}/${project-name}-Package.ear"/>
+        <waitfor maxwait="20" maxwaitunit="second">
+          <available file="${deploy-dir}/${project-name}-Package.ear.deployed"/>
+        </waitfor>
+        <local name="timestamp" />
+        <tstamp>
+          <format property="timestamp" pattern="yyyy-MM-dd HH:mm:ss" />
+        </tstamp>
+        <echo message="Aplicacion ${project-name} desplegada a las ${timestamp}" />
+    </target>
+
+    <target name="build" depends="update-version">
+       <echo message="Compilando ${project-name}" />
+       <exec executable="cmd" dir="${root-dir}">
+         <arg line="mvn package"/>
+       </exec>
+    </target>
+
+   <target name="test">
+       <echo message="Iniciando Pruebas Unitarias"/>
+       <exec executable="cmd" dir="${root-dir}">
+         <arg line="/q mvn test"/>
+       </exec>
+   </target>
+
+    <target name="all" depends="build,undeploy,deploy">
+	<echo message="${project-name} Instalado"/>
+    </target>
+
+</project>

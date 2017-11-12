@@ -1,0 +1,260 @@
+ .area-folio {
+     text-align: center;
+     color: #000;
+     font-weight: bold;
+ }
+ #scrollAreaVista {
+  height: 500px;
+  overflow: auto;
+ 
+}
+#bottomVista {
+  display: block;
+  
+}
+ .cab-area-folio-up {
+     border: solid 2px #000;
+     height: 200px;
+     padding: 15px;
+     font-size: 20px;
+ }
+ 
+ .tipo-doc {
+     margin-top: 30px;
+ }
+ 
+ .folio {
+     margin-top: 10px;
+ }
+ 
+ .razon-social {
+     font-size: 20px;
+     text-align: l;
+ }
+ 
+ .cab-area-folio-up p {
+     font-size: 18px;
+ }
+ 
+ .no-border-in td {
+     border-top: none !important;
+     padding: 2px !important;
+ }
+ 
+ .border-out-round {
+     margin-top: 10px !important;
+     border: solid 2px !important;
+     border-color: #000000 !important;
+ }
+ 
+ .border-detail td,
+ .border-detail th {
+     border-top: solid 2px #000000 !important;
+     border-right: solid 2px #000000 !important;
+ }
+ 
+ .col-cant {
+     width: 79px;
+ }
+ 
+ .col-desc {
+     width: 330px;
+ }
+ 
+ .col-precio {
+     width: 110px;
+ }
+ 
+ .border-abajo td {
+     border-bottom: solid 2px #000000 !important;
+     border-top: solid 2px #000000 !important;
+     text-align: center;
+ }
+ 
+ #contenido-guia {
+     margin-top: 50px;
+ }
+ 
+ .col-monto-txt {
+     width: 130px;
+ }
+ 
+ .col-monto-val {
+     width: 90px;
+ }
+ 
+ .brdr-btm-guia {
+     border-bottom: solid 2px #000;
+ }
+ 
+ .solo_muestra {
+     margin: 35% 0px 0px;
+     font-size: 47px !important;
+     color: rgba(255, 202, 202, 0.6) !important;
+     font-weight: bold !important;
+     z-index: 0;
+     position: absolute;
+     -webkit-transform: rotate(-45deg);
+     -moz-transform: rotate(-45deg);
+     -ms-transform: rotate(-45deg);
+     -o-transform: rotate(-45deg);
+ }
+ 
+ td.titulo {
+     width: 18%
+ }
+ 
+ .titulo-0 {
+     width: 6.5%
+ }
+ 
+ .contenido-0 {
+     width: 16%
+ }
+ 
+ .dos_puntos {
+     width: 1%
+ }
+ 
+ .contenido-1 {
+     width: 38%
+ }
+ 
+ .margintop20 {
+     margin-top: 20px;
+ }
+ 
+ .table {
+     position: relative;
+ }
+ 
+ .uppercase {
+     text-transform: uppercase;
+ }
+ 
+ .datos-emisor {
+     font-size: 15px;
+     text-align: left;
+ }
+ 
+ .no-border {
+     border-bottom: 1px solid transparent;
+     padding-top: 0px !important;
+     padding: bottom: 0px !important;
+ }
+ 
+ .print-desc {}
+ 
+ .slim {
+     padding-top: 0px !important;
+     padding: bottom: 0px !important;
+ }
+ 
+ .preltable thead > tr > th,
+ .preltable tbody > tr > th,
+ .preltable tfoot > tr > th,
+ .preltable thead > tr > td,
+ .preltable tbody > tr > td,
+ .preltable tfoot > tr > td {
+     padding: 0;
+ }
+ 
+ .empty {
+     padding: 6px;
+ }
+ 
+ pre.blanco {
+     background: transparent;
+     border: none;
+     font-family: 'Open Sans', sans-serif;
+     font-size: 13px;
+ }
+ 
+ td#cuadroDesc {
+     height: 300px;
+ }
+ 
+ @media print {
+     /*
+            * Estructura de la cabecera
+            */
+     body {
+         font-family: Arial, Helvetica, sans-serif;
+     }
+     .area-logo {
+         width: 9cm;
+         float: left;
+         display: inline;
+     }
+     .area-rs {
+         width: 8cm;
+         display: inline-block;
+     }
+     .area-folio {
+         width: 6.0cm;
+         float: right;
+         margin-top: 0;
+     }
+     .razon-social {
+         font-size: 12pt !important;
+     }
+     .borde {}
+     #cabecera-guia {
+         width: 100%;
+         display: inline-block;
+     }
+     .area-left {
+         width: 20cm;
+         display: inline;
+     }
+     .cab-area-folio-up {
+         margin-top: -4.5cm;
+         border: solid 0.06cm #000;
+         height: 3cm;
+         padding: 0.03cm;
+     }
+     .cab-area-folio-up p {
+         font-size: 11pt;
+     }
+     .folio {
+         margin-top: 0.5cm;
+     }
+     .tipo-doc {
+         margin-top: 0.5cm;
+     }
+     .titulo,
+     .contenido-1 {
+         font-size: 9pt;
+     }
+     #contenido-guia {
+         margin-top: -1cm;
+     }
+     table td tr {
+         padding: 0;
+     }
+     td#cuadroDesc {
+         width: 270mm;
+         max-width: 270mm;
+         height: 120mm;
+         margin-top: 0;
+         padding: 5mm;
+         vertical-align: top;
+     }
+     .print-desc {
+         width: 200mm;
+     }
+     p.blanco {
+         position: relative;
+         font-family: 'Open Sans', sans-serif;
+         font-size: 10pt;
+         padding: 0;
+         margin-bottom: auto;
+     }
+     .tablas table .tablas td .tablas tr {
+         margin: 0 !important;
+         padding: 0 !important;
+     }
+     .oculto {
+         display: none;
+     }
+ }

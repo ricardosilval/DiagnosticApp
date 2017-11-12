@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="diagnosticapp">
+            <file>file:/Users/ricardo/Code/aduanas/web/src/main/webapp/index.html</file>
+            <file>file:/Users/ricardo/Code/aduanas/web/src/main/webapp/js/services/auth.js</file>
+            <file>file:/Users/ricardo/Code/aduanas/web/src/main/webapp/js/controllers/AuthController.js</file>
+            <file>file:/Users/ricardo/Code/aduanas/web/src/main/webapp/js/services/portalUtil.js</file>
+            <file>file:/Users/ricardo/Code/aduanas/web/src/main/webapp/js/services/localStorage.js</file>
+            <file>file:/Users/ricardo/Code/aduanas/web/src/main/webapp/js/main.js</file>
+            <file>file:/Users/ricardo/Code/aduanas/web/src/main/webapp/js/controllers/DashboardController.js</file>
+            <file>file:/Users/ricardo/Code/aduanas/web/src/main/webapp/js/services/session.js</file>
+        </group>
+    </open-files>
+</project-private>
