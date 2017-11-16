@@ -53,7 +53,8 @@ public class UsuarioDao extends BaseDao<Usuario> {
             transaction = session.beginTransaction();
             Usuario usuario = (Usuario) session.createQuery(hqlBuilder.toString())
                     .setParameter("username", credentials.getUsername())
-                    .setParameter("clave", LogicUtil.getInstance().hashPassword(credentials.getPass()))
+                    .setParameter("clave", credentials.getPass())
+                    //.setParameter("clave", LogicUtil.getInstance().hashPassword(credentials.getPass()))
                     .uniqueResult();
             if (usuario != null) {
                 Hibernate.initialize(usuario.getRol());
