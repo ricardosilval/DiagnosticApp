@@ -27,7 +27,7 @@ angular.module('DiagnosticApp').controller('AuthCtrl', ['$rootScope', '$scope', 
 
         });
         var mailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        var rutRegex = /^\d+\.\d+\.\d+-(\d|[kK])$/;
+        var rutRegex = /^0*(\d{1,3}(\.?\d{3})*)\-?([\dkK])$/;
         $scope.user = {};
         $scope.authError = null;
 
@@ -72,6 +72,8 @@ angular.module('DiagnosticApp').controller('AuthCtrl', ['$rootScope', '$scope', 
                             function (error) {
                                 $scope.authError = error;
                             });
+            
+           // $state.go('private.dashboard');
         };
 
         $scope.passwordRecovery = function () {
