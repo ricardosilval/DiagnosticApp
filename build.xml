@@ -22,7 +22,7 @@
      </target>
      <target name="version">
         
-         <exec dir="./" executable="./version.bat" outputproperty="version">
+         <exec dir="./" executable="./version.sh" outputproperty="version">
         </exec>
         <echo message="${version}"/>
      </target>
