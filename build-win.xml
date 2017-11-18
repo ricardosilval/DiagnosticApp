@@ -1,6 +1,6 @@
 <project default="all">
-    <property name="root-dir" location="C:\Users\up\Documents\IASolutions\aduanas2" />
-    <property name="project-name" value="Aduanas" />
+    <property name="root-dir" location="C:\Users\...ruta\a\repositorio\DiagnosticApp" />
+    <property name="project-name" value="DiagnosticApp" />
     <property name="deploy-dir" location="C:\opt\wildfly\standalone\deployments" />
     <property name="version-file" value="ejb/src/main/resources/version.properties" />
 
