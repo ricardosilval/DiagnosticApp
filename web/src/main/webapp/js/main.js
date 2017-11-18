@@ -283,6 +283,56 @@ DiagnosticApp.config(['$stateProvider', '$urlRouterProvider', function ($statePr
                                 });
                             }]
                     }
+                }).state('private.evaluacionEditar', {
+                    url: "/evaluaciones/modificar/:id",
+                    templateUrl: "views/evaluaciones/modificar.html",
+                    data: {
+                        pageTitle: 'Modificar de Evaluacion'
+                    },
+                    controller: "EvaluacionesEditarCtrl",
+                    resolve: {
+                        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                                return $ocLazyLoad.load({
+                                    name: 'DiagnosticApp',
+                                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                                    files: [
+                                        ///'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.css',
+                                        //'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
+                                        //'/assets/global/plugins/moment.min.js',
+                                        //'/assets/global/plugins/jquery.sparkline.min.js',
+                                        //'/assets/pages/scripts/dashboard.js',
+                                        //'/assets/global/plugins/counterup/jquery.waypoints.min.js',
+                                        //'/assets/global/plugins/counterup/jquery.counterup.min.js',
+                                        'js/controllers/evaluaciones_editar.js'
+                                    ]
+                                });
+                            }]
+                    }
+                }).state('private.calendarizaciones', {
+                    url: "/calendarizaciones",
+                    templateUrl: "views/calendarizaciones/listar.html",
+                    data: {
+                        pageTitle: 'Gestión de Calendarizaciones'
+                    },
+                    controller: "CalendarizacionesCtrl",
+                    resolve: {
+                        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                                return $ocLazyLoad.load({
+                                    name: 'DiagnosticApp',
+                                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                                    files: [
+                                        ///'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.css',
+                                        //'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
+                                        //'/assets/global/plugins/moment.min.js',
+                                        //'/assets/global/plugins/jquery.sparkline.min.js',
+                                        //'/assets/pages/scripts/dashboard.js',
+                                        //'/assets/global/plugins/counterup/jquery.waypoints.min.js',
+                                        //'/assets/global/plugins/counterup/jquery.counterup.min.js',
+                                        'js/controllers/calendarizaciones.js'
+                                    ]
+                                });
+                            }]
+                    }
                 });
     
 

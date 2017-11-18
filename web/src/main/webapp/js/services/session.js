@@ -22,13 +22,16 @@ angular.module('DiagnosticApp')
         };
 
          this.isAdmin = function () {
-            var user = this.getUser();
+             return true;
+            /*
+             var user = this.getUser();
             if(user.rol.nombre.toLowerCase === 'administrador'){
                 
                 return true;
             }
+            */
             
-            return false;
+            //return false;
         };
 
         this.isExaminador = function () {
