@@ -45,7 +45,7 @@ DiagnosticApp.factory('settings', ['$rootScope', function ($rootScope) {
             },
             assetsPath: '../assets',
             globalPath: '../assets/global',
-            layoutPath: '../assets/layouts/layout'
+            layoutPath: '../assets/layouts/layout2'
         };
 
         $rootScope.settings = settings;

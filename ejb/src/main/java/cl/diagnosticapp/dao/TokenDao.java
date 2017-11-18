@@ -66,6 +66,7 @@ public class TokenDao extends BaseDao<Token> {
                 return tokenFound;
             }
         } catch (NoResultException e) {
+            System.out.println("ERROR" + e.getMessage());
             return null;
         }
     }
