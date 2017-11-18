@@ -6,38 +6,39 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="#">Usuarios</a>
+            <a href="#">Evaluaciones</a>
         </li>
     </ul>
     <div class="page-toolbar">
 
     </div>
 </div>
-<h3 class="page-title">Gestor de Usuarios <small></small></h3>
+<h3 class="page-title">Gestor de Evaluaciones <small></small>
+</h3>
 <!-- END PAGE HEADER-->
 <!-- BEGIN MAIN CONTENT -->
 
-<div class="row" ng-controller="UsuariosCtrl">
-    <div class="modal fade" data-backdrop="static" modal-show="crearUsuarioModal">
-        <form name="crearUsuario" ng-submit="save(crearUsuario)">
+<div class="row" ng-controller="EvaluacionesCtrl">
+    <div class="modal fade" data-backdrop="static" modal-show="crearEvaluacionModal">
+        <form name="crearEvaluacion" ng-submit="save(crearEvaluacion)">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" ng-click="crearUsuarioModal = false;">&times;</button>
-                        <h4 class="modal-title" ng-if="currentUsuario !== ''">Edición de Usuario</h4>
-                        <h4 class="modal-title" ng-if="currentUsuario === ''">Registro de Usuario</h4>
+                        <button type="button" class="close" ng-click="crearEvaluacionModal = false;">&times;</button>
+                        <h4 class="modal-title" ng-if="currentEvaluacion !== ''">Edición de Evaluación</h4>
+                        <h4 class="modal-title" ng-if="currentEvaluacion === ''">Registro de Evaluacion</h4>
                     </div>
                     <div class="modal-body">
                         <h5>Datos básicos</h5>
                         <div class="row ">
                             <div class="form-group col-md-6">
-                                <label>Nombre</label>
+                                <label>Titulo</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
-                                    <input type="text" ng-model="usuario.nombre" class="form-control" placeholder="Nombre" > 
+                                    <input type="text" ng-model="evaluacion.titulo" class="form-control" placeholder="Titulo" > 
                                 </div>
                             </div>
 
@@ -171,7 +172,7 @@
             </div>
         </form>
     </div>
-
+<input type="text" ng-model="holaMundo">
 
     <div class="row" ng-show="verFiltros">
         <div class="col-md-12">

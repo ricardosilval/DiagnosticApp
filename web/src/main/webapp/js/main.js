@@ -254,7 +254,37 @@ DiagnosticApp.config(['$stateProvider', '$urlRouterProvider', function ($statePr
                                 });
                             }]
                     }
+                })
+            
+            // Evaluaciones 
+            
+            .state('private.evaluaciones', {
+                    url: "/evaluaciones",
+                    templateUrl: "views/evaluaciones/listar.html",
+                    data: {
+                        pageTitle: 'Gestor de Evaluaciones'
+                    },
+                    controller: "EvaluacionesCtrl",
+                    resolve: {
+                        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                                return $ocLazyLoad.load({
+                                    name: 'DiagnosticApp',
+                                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                                    files: [
+                                        ///'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.css',
+                                        //'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
+                                        //'/assets/global/plugins/moment.min.js',
+                                        //'/assets/global/plugins/jquery.sparkline.min.js',
+                                        //'/assets/pages/scripts/dashboard.js',
+                                        //'/assets/global/plugins/counterup/jquery.waypoints.min.js',
+                                        //'/assets/global/plugins/counterup/jquery.counterup.min.js',
+                                        'js/controllers/evaluaciones.js'
+                                    ]
+                                });
+                            }]
+                    }
                 });
+    
 
     }]);
 
