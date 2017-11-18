@@ -1,7 +1,7 @@
 <project default="all">
-    <property name="root-dir" location="C:\Users\...ruta\a\repositorio\DiagnosticApp" />
+    <property name="root-dir" location="C:\Users\Charbel\proyectos\collaborate\DiagnosticApp" />
     <property name="project-name" value="DiagnosticApp" />
-    <property name="deploy-dir" location="C:\opt\wildfly\standalone\deployments" />
+    <property name="deploy-dir" location="C:\Users\Charbel\Downloads\wildfly-10.1.0.Final\wildfly-10.1.0.Final\standalone\deployments" />
     <property name="version-file" value="ejb/src/main/resources/version.properties" />
 
 <!-- tareas para el manejo de versiones -->
