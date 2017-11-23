@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<application>
-    <display-name>DiagnosticApp</display-name>
-
-    <module>
-        <web>
-            <web-uri>DiagnosticApp-API.war</web-uri>
-            <context-root>/api</context-root>
-        </web>
-    </module>
-
-    <module>
-        <web>
-            <web-uri>DiagnosticApp-Webapp.war</web-uri>
-            <context-root>/</context-root>
-        </web>
-    </module>
-<!--    <module>
-        <java>DiagnosticApp-Core.jar</java>
-    </module>-->
-  
-    <!--<library-directory>lib</library-directory>-->
-
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd">
+  <display-name>DiagnosticApp</display-name>
+  <module>
+    <web>
+      <web-uri>DiagnosticApp-API.war</web-uri>
+      <context-root>/api</context-root>
+    </web>
+  </module>
+  <module>
+    <web>
+      <web-uri>DiagnosticApp-Webapp.war</web-uri>
+      <context-root>/</context-root>
+    </web>
+  </module>
+  <library-directory>lib</library-directory>
 </application>
