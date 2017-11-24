@@ -1,0 +1,77 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/">Inicio</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="#">Crear Evaluaciones</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+
+    </div>
+</div>
+<h3 class="page-title">Gestor de Evaluaciones <small></small>
+</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+
+<div class="row" ng-controller="EvaluacionCrearCtrl">
+   
+ <div class="portlet light bordered">
+                                    <div class="portlet-title">
+                                        <div class="caption font-red-sunglo">
+                                            <i class="icon-settings font-red-sunglo"></i>
+                                            <span class="caption-subject bold uppercase"> Creacion de Evaluación</span>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="portlet-body form">
+                                        <form role="form">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <label>Titulo</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </span>
+                                                        <input type="text" class="form-control" placeholder="Escriba titulo de evaluacion"> </div>
+                                                </div>
+                                                 
+                                                 <div class="form-group">
+                                                    <label>Categoria</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </span>
+                                                 <ui-select name="Categoria" ng-required="required" ng-model="evaluacion.categoriaId" title="Elija una categoria">
+                                    <ui-select-match placeholder="Elija una categoria  de la lista ...">{{$select.selected.text}}</ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in categorias | filter: $select.search">
+                                        <span ng-bind-html="item.text | highlight: $select.search"></span>
+                                        <small ng-bind-html="item.value | highlight: $select.search"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                                     
+                                                     </div>
+                                                </div>
+                                                
+                                                
+                                                
+                                            </div>
+                                            <div class="form-actions">
+                                                <button type="submit" class="btn blue">Submit</button>
+                                                <button type="button" class="btn default">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+   
+
+
+
+
+
+</div> <!-- Fin ambito controller -->
+

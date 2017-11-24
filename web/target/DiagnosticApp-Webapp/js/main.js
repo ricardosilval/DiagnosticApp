@@ -1,8 +1,8 @@
 /***
- Portal Aduanas AngularJS App Main Script
+
  ***/
 
-/* Aduanas App */
+
 var DiagnosticApp = angular.module("DiagnosticApp", [
     "ui.router",
     "ui.bootstrap",
@@ -45,7 +45,7 @@ DiagnosticApp.factory('settings', ['$rootScope', function ($rootScope) {
             },
             assetsPath: '../assets',
             globalPath: '../assets/global',
-            layoutPath: '../assets/layouts/layout'
+            layoutPath: '../assets/layouts/layout2'
         };
 
         $rootScope.settings = settings;
@@ -254,7 +254,65 @@ DiagnosticApp.config(['$stateProvider', '$urlRouterProvider', function ($statePr
                                 });
                             }]
                     }
+                })
+            
+            // Evaluaciones 
+            
+            .state('private.evaluaciones', {
+                    url: "/evaluaciones",
+                    templateUrl: "views/evaluaciones/listar.html",
+                    data: {
+                        pageTitle: 'Gestor de Evaluaciones'
+                    },
+                    controller: "EvaluacionesCtrl",
+                    resolve: {
+                        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                                return $ocLazyLoad.load({
+                                    name: 'DiagnosticApp',
+                                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                                    files: [
+                                        ///'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.css',
+                                        //'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
+                                        //'/assets/global/plugins/moment.min.js',
+                                        //'/assets/global/plugins/jquery.sparkline.min.js',
+                                        //'/assets/pages/scripts/dashboard.js',
+                                        //'/assets/global/plugins/counterup/jquery.waypoints.min.js',
+                                        //'/assets/global/plugins/counterup/jquery.counterup.min.js',
+                                        'js/controllers/evaluaciones.js'
+                                    ]
+                                });
+                            }]
+                    }
+                })  
+            
+            // Crear Evaluaciones 
+            .state('private.evaluacionesCrear', {
+                    url: "/evaluaciones/crear",
+                    templateUrl: "views/evaluaciones/crear.html",
+                    data: {
+                        pageTitle: 'Creacion de Evaluaciones'
+                    },
+                    controller: "EvaluacionCrearCtrl",
+                    resolve: {
+                        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                                return $ocLazyLoad.load({
+                                    name: 'DiagnosticApp',
+                                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                                    files: [
+                                        ///'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.css',
+                                        //'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
+                                        //'/assets/global/plugins/moment.min.js',
+                                        //'/assets/global/plugins/jquery.sparkline.min.js',
+                                        //'/assets/pages/scripts/dashboard.js',
+                                        //'/assets/global/plugins/counterup/jquery.waypoints.min.js',
+                                        //'/assets/global/plugins/counterup/jquery.counterup.min.js',
+                                        'js/controllers/evaluacion_crear.js'
+                                    ]
+                                });
+                            }]
+                    }
                 });
+    
 
     }]);
 

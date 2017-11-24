@@ -10,22 +10,15 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
             $rootScope.settings.layout.isPrivate = true;
 
 
-
             $scope.optionsRoles = [];
-            $scope.empresas = [];
-            $scope.sucursalesOptions = [];
-            $scope.allSucursalesOptions = [];
-
             $scope.loadRoles();
-            $scope.loadEmpresas();
-            $scope.loadSucursales();
-
             $scope.listar();
 
 
 
         });
-  
+    
+    
     $scope.paginaActual = 1;
     
         $scope.crearUsuarioModal = false;
@@ -33,10 +26,8 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
             nombre: "",
             apellido: "",
             username: "",
-            rut: "",
+            run: "",
             correo: "",
-            cargo: "",
-            roles: [],
             sucursales: [],
             password: "",
             id: ""
@@ -50,22 +41,18 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
         $scope.filtroNombre = "";
         $scope.filtroApellido = "";
         $scope.filtroEmail = "";
-        $scope.filtroEmpresa = "";
-        $scope.filtroSucursales = {
-            "sucursales" : []
-        };
         $scope.filtroEstado = "";
-        $scope.filtroRut = [];
+        $scope.filtroRun = [];
         $scope.filtroRol = "";
 
 //Get de sucursales
-
+    $scope.holaMundo= "Hola Mundo";
+    
+    
         $scope.clearFilter = function () {
             $scope.filtroNombre = "";
             $scope.filtroApellido = "";
             $scope.filtroEmail = "";
-            $scope.filtroEmpresa = "";
-            $scope.filtroSucursales.sucursales = [];
             $scope.filtroEstado = "";
             $scope.filtroRut = [];
             $scope.filtroRol = "";
@@ -86,34 +73,7 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
             });
         };
 
-        $scope.loadEmpresas = function () {
-            api.one('empresas').get().then(function (data) {
-                console.log(data.empresas, "ADUANAS GESTORAS??");
-                $scope.empresas = data.empresas;
-            });
-        };
-
-        $scope.loadSucursales = function () {
-            console.log("Carga Sucursales");
-            $scope.filtroSucursales.sucursales = [];
-            var filterSucursal = {
-            };
-            if ($scope.currentEmpresaRut !== "") {
-                filterSucursal['empresaId'] = $scope.filtroEmpresa;
-                api.one('sucursales').get(filterSucursal).then(function (data) {
-
-                    $scope.sucursalesOptions = data.sucursales;
-                    console.log($scope.sucursalesOptions, "SUCURSALES DISPONIBLES");
-                });
-            }
-            console.log("Carga Sucursales PARA MODAL");
-            api.one('sucursales').get().then(function (data) {
-
-                $scope.allSucursalesOptions = data.sucursales;
-            });
-
-
-        };
+        
 
         $scope.listar = function () {
 
@@ -131,45 +91,20 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
             if ($scope.filtroEmail !== "") {
                 filterrier['correo'] = $scope.filtroEmail;
             }
-            if ($scope.filtroEmpresa !== "") {
-                console.log($scope.filtroEmpresa, "FILTERRIER EMPRESA");
-                filterrier['aduanaGestora'] = $scope.filtroEmpresa;
-            }
-
-            if ($scope.filtroSucursales.sucursales[0] !== "") {
-                filterrier['aduanaLoteadora'] = $scope.filtroSucursales.sucursales;
-            }
-
+            
             if ($scope.filtroEstado !== "") {
                 filterrier['estado'] = $scope.filtroEstado;
             }
             if ($scope.filtroRut.length > 0) {
-                filterrier['rut'] = $scope.filtroRut;
+                filterrier['run'] = $scope.filtroRut;
             }
             if ($scope.filtroRol !== "") {
                 filterrier['rol'] = $scope.filtroRol;
             }
-            if ($scope.filtroEstado !== "") {
-                filterrier['habilitado'] = $scope.filtroEstado;
-            }
+            
           
-            // var api = portalUtil.getApi();
-
-// $scope.totales  =0;
             api.one('usuarios').get(filterrier).then(function (data) {
 
-
-                $.each(
-                        data.usuarios,
-                        function (i, o) {
-                            var ls = '';
-                            $.each(o.sucursales, function (j, s) {
-
-                                ls += '<span class="badge badge-info">' + s.nombre + ' (' + s.codigo + ')</span>';
-                            });
-
-                            data.usuarios[i]["htmlSucursal"] = ls;
-                        });
                 $scope.usuarios = data.usuarios;
                 $scope.paginaActual = data.paginaActual;
                 $scope.totales = data.total;
@@ -233,14 +168,11 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
             api.one('usuarios', $scope.currentUsuario).get().then(function (data) {
                 console.log(data, "EL USUARIO A MODIFICAR");
                 $scope.usuario = data;
-                $scope.usuario.roles = portalUtil.objectToIdArray(data.roles);
-                $scope.usuario.sucursales = portalUtil.objectToIdArray(data.sucursales);
-
+                //$scope.usuario.roles = portalUtil.objectToIdArray(data.roles);
             });
             $scope.crearUsuarioModal = true;
 
         };
-
 
 
     }]);

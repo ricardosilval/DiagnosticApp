@@ -21,74 +21,30 @@ angular.module('DiagnosticApp')
             this.setUser(null);
         };
 
-        this.isAdmin = function () {
-            var user = this.getUser();
-            if (user) {
-                // console.log(user, "USER IS ADMIN?");
-                for (var i = 0; i < user.roles.length; i++) {
-                    if (user.roles[i].nombre.toLowerCase() === 'administrador' || user.roles[i].nombre.toLowerCase() === 'superadministrador')
-                        return true;
-                }
+         this.isAdmin = function () {
+             return true;
+            /*
+             var user = this.getUser();
+            if(user.rol.nombre.toLowerCase === 'administrador'){
+                
+                return true;
             }
-            return false;
+            */
+            
+            //return false;
         };
 
-        this.isConsultor = function () {
+        this.isExaminador = function () {
             var user = this.getUser();
-            if (user) {
-                // console.log(user, "USER IS ADMIN?");
-                for (var i = 0; i < user.roles.length; i++) {
-                    if (user.roles[i].nombre.toLowerCase() === 'consultor')
-                        return true;
-                }
+            if(user.rol.nombre.toLowerCase === 'examinador'){
+                
+                return true;
             }
+            
             return false;
         };
-        this.isPreFacturador = function () {
-            var user = this.getUser();
-            if (user) {
-                // console.log(user, "USER IS ADMIN?");
-                for (var i = 0; i < user.roles.length; i++) {
-                    if (user.roles[i].nombre.toLowerCase() === 'prefacturador')
-                        return true;
-                }
-            }
-            return false;
-        };
-        this.isFacturador = function () {
-            var user = this.getUser();
-            if (user) {
-                // console.log(user, "USER IS ADMIN?");
-                for (var i = 0; i < user.roles.length; i++) {
-                    if (user.roles[i].nombre.toLowerCase() === 'facturador')
-                        return true;
-                }
-            }
-            return false;
-        };
-        this.isGestor = function () {
-            var user = this.getUser();
-            if (user) {
-                // console.log(user, "USER IS ADMIN?");
-                for (var i = 0; i < user.roles.length; i++) {
-                    if (user.roles[i].nombre.toLowerCase() === 'gestor')
-                        return true;
-                }
-            }
-            return false;
-        };
-        this.isGestorNacional = function () {
-            var user = this.getUser();
-            if (user) {
-                // console.log(user, "USER IS ADMIN?");
-                for (var i = 0; i < user.roles.length; i++) {
-                    if (user.roles[i].nombre.toLowerCase() === 'gestor_nacional')
-                        return true;
-                }
-            }
-            return false;
-        };
-
+        
+/*
         this.hasPermission = function (permissionName) {
             var user = this.getUser();
             for (var i = 0; i < user.roles.length; i++) {
@@ -99,5 +55,6 @@ angular.module('DiagnosticApp')
             }
             return false;
         };
+        */
 
             }]);
