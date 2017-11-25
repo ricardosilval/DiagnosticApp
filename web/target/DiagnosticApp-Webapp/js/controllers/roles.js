@@ -20,7 +20,6 @@ angular.module('DiagnosticApp').controller('RolesCtrl', ['$rootScope', '$scope',
             $scope.loadEmpresas();
             $scope.loadSucursales();
             */
-            $scope.loadPermisos();
             $scope.clearFilter();
             
 
@@ -34,9 +33,8 @@ angular.module('DiagnosticApp').controller('RolesCtrl', ['$rootScope', '$scope',
         
         $scope.rol = {
             nombre: "",
-            codigo: "",
-            descripcion: "",
-            permisos: []     
+            descripcion: ""
+          
         };
 
         $scope.currentRol = "";
@@ -46,9 +44,7 @@ angular.module('DiagnosticApp').controller('RolesCtrl', ['$rootScope', '$scope',
             $scope.filtroNombre = "";
             $scope.filtroDescripcion= "";
             $scope.filtroCodigo = "";
-          $scope.filtroPermisos = {
-            "permisos" : []
-        };
+          
             $scope.listar();
         };
         $scope.enableActions = function (id) {
@@ -59,12 +55,7 @@ angular.module('DiagnosticApp').controller('RolesCtrl', ['$rootScope', '$scope',
 
         var api = portalUtil.getApi();
 
-        $scope.loadPermisos = function () {
-            api.one('permisos').get().then(function (data) {
-                console.log(data.permisos, "DATA ERMISPS");
-                $scope.optionsPermisos = data.permisos;
-            });
-        };
+       
 
     
     $scope.listar = function () {
@@ -82,10 +73,7 @@ angular.module('DiagnosticApp').controller('RolesCtrl', ['$rootScope', '$scope',
          if ($scope.filtroCodigo !== "") {
                 filterrier['codigo'] = $scope.filtroCodigo;
             }
-        console.log($scope.filtroPermisos.permisos, "FP");
-           if($scope.filtroPermisos.permisos[0] !== ''){
-                filterrier['permiso'] = $scope.filtroPermisos.permisos;
-           }
+        
             api.one('roles').get(filterrier).then(function (data) {
 
 
@@ -149,7 +137,6 @@ angular.module('DiagnosticApp').controller('RolesCtrl', ['$rootScope', '$scope',
             api.one('roles', $scope.currentRol).get().then(function (data) {
                
                 $scope.rol = data;
-                $scope.rol.permisos = portalUtil.objectToIdArray(data.permisos);
                
             });
             $scope.crearRolModal = true;

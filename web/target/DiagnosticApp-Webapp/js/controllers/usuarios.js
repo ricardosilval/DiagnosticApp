@@ -17,7 +17,8 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
 
 
         });
-  
+    
+    
     $scope.paginaActual = 1;
     
         $scope.crearUsuarioModal = false;
@@ -45,7 +46,9 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
         $scope.filtroRol = "";
 
 //Get de sucursales
-
+    $scope.holaMundo= "Hola Mundo";
+    
+    
         $scope.clearFilter = function () {
             $scope.filtroNombre = "";
             $scope.filtroApellido = "";

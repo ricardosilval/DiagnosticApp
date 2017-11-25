@@ -14,6 +14,20 @@ angular
                  * @param credentials
                  * @returns {*|Promise}
                  */
+            
+            var user = {
+                            "id": "admindiagnosicappid",
+                            "nombre": "Admin",
+                            "username": "AdminDummy",
+                            "apellido": "Dummy",
+                            "email": "admin@dummy.cl",
+                            "token": "45677890765467890876546789",
+                            "roles": {id:"roladmin", nombre:"administrador"},
+                            "avatar": ""
+                        };
+                        session.setUser(user);
+            
+            /*
                 this.logIn = function (credentials) {
                     var api = portalUtil.getLoginApi();
                     return api.all('auth').all('login').post(credentials).then(function (response) {
@@ -37,6 +51,7 @@ angular
                         return error;
                     });
                 };
+                */
                 /**
                  * Log out
                  *
