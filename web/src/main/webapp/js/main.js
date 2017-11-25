@@ -300,14 +300,10 @@ DiagnosticApp.config(['$stateProvider', '$urlRouterProvider', function ($statePr
                         name: 'DiagnosticApp',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
                         files: [
-                                        ///'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.css',
-                                        //'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
-                                        //'/assets/global/plugins/moment.min.js',
-                                        //'/assets/global/plugins/jquery.sparkline.min.js',
-                                        //'/assets/pages/scripts/dashboard.js',
-                                        //'/assets/global/plugins/counterup/jquery.waypoints.min.js',
-                                        //'/assets/global/plugins/counterup/jquery.counterup.min.js',
-                                        'js/controllers/evaluaciones_editar.js'
+                            'js/controllers/evaluacion_crear.js',
+                            '/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css',
+                            '/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js',
+                            '/assets/global/plugins/bootstrap-wysihtml5/locales/bootstrap-wysihtml5.es-ES.js',
                                     ]
                     });
                             }]
