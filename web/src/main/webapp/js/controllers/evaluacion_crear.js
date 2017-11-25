@@ -16,10 +16,10 @@ angular.module('DiagnosticApp').controller('EvaluacionCrearCtrl', ['$rootScope',
             "categoriaId": "",
             "cuerpo": "",
             "estado": "",
-            respuestas: [{"cuerpo" : "", "valor" : ""},
-                         {"cuerpo" : "", "valor" : ""},
-                         {"cuerpo" : "", "valor" : ""},
-                         {"cuerpo" : "", "valor" : ""},]
+            respuestas: [{"cuerpo" : "", "valor" : "", "num":1},
+                         {"cuerpo" : "", "valor" : "", "num":2},
+                         {"cuerpo" : "", "valor" : "", "num":3},
+                         {"cuerpo" : "", "valor" : "", "num":4},]
         };
 
         $scope.evaluacion = {
