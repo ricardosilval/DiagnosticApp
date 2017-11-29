@@ -27,7 +27,7 @@ angular
                         };
                         session.setUser(user);
             
-            /*
+            
                 this.logIn = function (credentials) {
                     var api = portalUtil.getLoginApi();
                     return api.all('auth').all('login').post(credentials).then(function (response) {
@@ -39,10 +39,8 @@ angular
                             "username": data.username,
                             "apellido": data.apellido,
                             "email": data.correoElectronico,
-                            "token": data.token,
-                            "permisos": data.permisos, //??
-                            "roles": data.roles,
-                            "avatar": data.avatar
+//                            "token": data.token,
+                            "rol": data.rol
                         };
                         session.setUser(user);
                         console.log(user, "SESSION DATA");
@@ -51,7 +49,7 @@ angular
                         return error;
                     });
                 };
-                */
+                
                 /**
                  * Log out
                  *

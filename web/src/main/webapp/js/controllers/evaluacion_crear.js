@@ -16,31 +16,33 @@ angular.module('DiagnosticApp').controller('EvaluacionCrearCtrl', ['$rootScope',
             "categoriaId": "",
             "cuerpo": "",
             "estado": "",
-            respuestas: [{"cuerpo" : "", "valor" : "", "num":1},
-                         {"cuerpo" : "", "valor" : "", "num":2},
-                         {"cuerpo" : "", "valor" : "", "num":3},
-                         {"cuerpo" : "", "valor" : "", "num":4},]
+            respuestas: [{
+                    "cuerpo": "",
+                    "valor": 0,
+                    "num": 1
+                },
+                {
+                    "cuerpo": "",
+                    "valor": 0,
+                    "num": 2
+                },
+                {
+                    "cuerpo": "",
+                    "valor": 0,
+                    "num": 3
+                },
+                {
+                    "cuerpo": "",
+                    "valor": 0,
+                    "num": 4
+                }, ]
         };
 
         $scope.evaluacion = {
             "evaluacionId": "",
             "categoriaId": "",
             "titulo": "",
-            "preguntas": [
-                {
-                    "cuerpo": "",
-                    "imagen": "",
-                    "categoria": "",
-                    "respuestas": [
-                        {
-                            "cuerpo": "",
-                            "valor": 0,
-                            "imagen": ""
-                        }
-
-              ]
-          }
-      ]
+            "preguntas": []
         };
     });
 
@@ -100,12 +102,54 @@ angular.module('DiagnosticApp').controller('EvaluacionCrearCtrl', ['$rootScope',
     $scope.modalCrearPregunta = function () {
 
         if ($scope.evaluacion.categoriaId == "") {
-            alert("Debe seleccionar categoria de evalación");
+
+            $("[name='CategoriaEvaluacion']").closest(".input-group").addClass("has-error");
+            $.bootstrapGrowl('<i class="fa fa-ban"></i>  Debe seleccionar categoría de evaluación', {
+                type: 'danger',
+                align: 'right',
+                allow_dismiss: true
+
+            });
+
             return false;
         }
         console.log("MODAL?")
         $scope.cargaSubcategorias();
         $scope.crearPreguntaModal = true;
+
+    };
+
+    $scope.guardaPregunta = function (form) {
+        console.log("entra a guardaPregunta");
+        $scope.evaluacion.preguntas.push($scope.currentPregunta);
+        $scope.currentPregunta = {
+            "imagen": "",
+            "categoriaId": "",
+            "cuerpo": "",
+            "estado": "",
+            respuestas: [{
+                    "cuerpo": "",
+                    "valor": 0,
+                    "num": 1
+                },
+                {
+                    "cuerpo": "",
+                    "valor": 0,
+                    "num": 2
+                },
+                {
+                    "cuerpo": "",
+                    "valor": 0,
+                    "num": 3
+                },
+                {
+                    "cuerpo": "",
+                    "valor": 0,
+                    "num": 4
+                }, ]
+        };
+        $scope.crearPreguntaModal = false;
+
 
     }
 

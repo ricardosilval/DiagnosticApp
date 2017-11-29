@@ -29,25 +29,28 @@
                         <h4 class="modal-title" ng-if="currentCalendarizacion === ''">Registro de Calendarización</h4>
                     </div>
                     <div class="modal-body">
-                        
+
                         <div class="row ">
                             <div class="form-group col-md-6">
                                 <label>Fecha de inicio</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <input type="text" ng-model="calendarizacion.fechaInicio" class="form-control" placeholder="dd-mm-yyyy hh:mm" > 
+
+                                <div class="input-group input-larger date date-picker" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="es">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input ng-model="calendarizacion.fechaInicio" validationmessage="Fecha de inicio es obligatoria" required class="form-control" readonly type="text">
                                 </div>
+
+
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>Fecha de término</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <input class="form-control"  ng-model="calendarizacion.fechaTermino" placeholder="dd-mm-yyyy hh:mm"/>
+                                <div class="input-group input-larger date date-picker" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="es">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input ng-model="calendarizacion.fechaFin" validationmessage="Fecha de fin es obligatoria" required class="form-control" readonly type="text">
                                 </div>
                             </div>
 
@@ -58,7 +61,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    <input type="text" class="form-control" ng-model="calendarizacion.titulo" placeholder="Un título descriptivo" > 
+                                    <input type="text" class="form-control" ng-model="calendarizacion.titulo" placeholder="Un título descriptivo">
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -67,11 +70,11 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-bookmark"></i>
                                     </span>
-                                    <input type="text" class="form-control" ng-model="calendarizacion.descripcion" placeholder="Descripcion de la calendarizacion" > 
+                                    <input type="text" class="form-control" ng-model="calendarizacion.descripcion" placeholder="Descripcion de la calendarizacion">
                                 </div>
                             </div>
 
-                            <input type="hidden" ng-model="calendarizacion.id"> 
+                            <input type="hidden" ng-model="calendarizacion.id">
 
                             <div class="alert alert-danger hidden">
                                 Error
@@ -100,7 +103,7 @@
                     <div class="actions">
                         <a ng-click="listar()" class="btn btn-circle btn-primary">
                             <i class="fa fa-search"></i> Aplicar filtros </a>
-                        <a href="javascript:;"  ng-click="clearFilter()" class="btn btn-circle btn-default btn-sm">
+                        <a href="javascript:;" ng-click="clearFilter()" class="btn btn-circle btn-default btn-sm">
                             <i class="fa fa-eraser"></i> Limpiar Filtros </a>
                     </div>
                 </div>
@@ -129,17 +132,17 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                <select class="form-control">
-                                    <option value="1">Activa</option>
-                                    <option value="1">Inactiva</option>
+                                    <select class="form-control">
+                                        <option value="1">Activa</option>
+                                        <option value="1">Inactiva</option>
                                     </select>
                                 </div>
                             </div>
-                            
-                            
+
+
                         </div>
-                            
-                            
+
+
                     </form>
 
                 </div>
@@ -156,105 +159,104 @@
 
 
 
-<div class="row">
-    <div class="col-md-12">
-        <!-- Begin: life time stats -->
-        <div class="portlet light portlet-fit portlet-datatable bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-send font-dark"></i>
-                    <span class="caption-subject font-dark sbold uppercase">Calendarizaciones existentes</span>
-                </div>
-                <div class="actions">
-                    <div class="btn-toolbar">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Begin: life time stats -->
+            <div class="portlet light portlet-fit portlet-datatable bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-send font-dark"></i>
+                        <span class="caption-subject font-dark sbold uppercase">Calendarizaciones existentes</span>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-toolbar">
 
-                        <div class="btn-group" ng-if="permiteAcciones">
-                            <a class="btn btn-circle btn-default btn-sm" href="javascript:;" ng-click="modificarCalendarizacion()">
-                                <i class="fa fa-edit"></i> Modificar
-                            </a>
+                            <div class="btn-group" ng-if="permiteAcciones">
+                                <a class="btn btn-circle btn-default btn-sm" href="javascript:;" ng-click="modificarCalendarizacion()">
+                                    <i class="fa fa-edit"></i> Modificar
+                                </a>
 
+
+                            </div>
+
+                            <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                <a ng-if="verFiltros === true" ng-click="listar()" class="btn btn-circle btn-primary btn-sm">
+                                    <i class="fa fa-search"></i> Aplicar filtros </a>
+
+                                <label class="btn btn-transparent btn-outline btn-circle btn-sm" ng-class="verFiltros ? 'red' : 'blue'" ng-click="verFiltros = !verFiltros">
+                                    <input class="toggle" type="checkbox"><i class="fa fa-filter"></i> {{ (verFiltros) ? 'Ocultar' : 'Ver'}} Filtros</label>
+
+                                <a ng-click="crear()" class="btn btn-transparent btn-outline btn-circle btn-sm green">
+                                    <i class="fa fa-plus-circle"></i> Crear nueva </a>
+
+
+                                <button class="btn btn-transparent green btn-outline btn-circle btn-sm" ng-click="listar()">
+                                    <i class="fa fa-refresh"></i> </button>
+                            </div>
 
                         </div>
 
-                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <a ng-if="verFiltros === true" ng-click="listar()" class="btn btn-circle btn-primary btn-sm">
-                                <i class="fa fa-search"></i> Aplicar filtros </a>
 
-                            <label class="btn btn-transparent btn-outline btn-circle btn-sm"  ng-class="verFiltros ? 'red' : 'blue'" ng-click="verFiltros = !verFiltros">
-                                <input class="toggle" type="checkbox"><i class="fa fa-filter"></i> {{ (verFiltros) ? 'Ocultar' : 'Ver'}} Filtros</label>
-
-                            <a ng-click="crear()" class="btn btn-transparent btn-outline btn-circle btn-sm green">
-                                <i class="fa fa-plus-circle"></i> Crear nueva </a>
-
-
-                            <button class="btn btn-transparent green btn-outline btn-circle btn-sm" ng-click="listar()">
-                                <i class="fa fa-refresh"></i> </button>
-                        </div>
 
                     </div>
-
-
-
                 </div>
-            </div>
-            <div class="portlet-body flip-scroll"> 
-                <table border="1" class="table table-bordered table-striped table-condensed flip-content">
-                    <thead>
-                        <tr class="heading">
-                            <th></th>
-                            <th>Fecha de inicio</th>
-                            <th>Fecha de Término</th>
-                            <th>Titulo</th>
-                            <th>Estado</th>
+                <div class="portlet-body flip-scroll">
+                    <table border="1" class="table table-bordered table-striped table-condensed flip-content">
+                        <thead>
+                            <tr class="heading">
+                                <th></th>
+                                <th>Fecha de inicio</th>
+                                <th>Fecha de Término</th>
+                                <th>Titulo</th>
+                                <th>Estado</th>
 
-                        </tr>
+                            </tr>
 
-                    </thead>
-                    <tbody>
-                        <tr class="clickable vert-align" ng-repeat="c in calendarizaciones track by $index">
-                            <td>
+                        </thead>
+                        <tbody>
+                            <tr class="clickable vert-align" ng-repeat="c in calendarizaciones track by $index">
+                                <td>
 
-                                <div class="form-group">
-                                    <div class="mt-radio-list">
-                                        <label class="mt-radio"> 
-                                            <input type="radio" class="form-control" name="calendarizacionSelected" ng-model="currentCalendarizacion" ng-click="habilitaAcciones(c.id)"/>
-                                            <span></span>
-                                        </label>
+                                    <div class="form-group">
+                                        <div class="mt-radio-list">
+                                            <label class="mt-radio">
+                                                <input type="radio" class="form-control" name="calendarizacionSelected" ng-model="currentCalendarizacion" ng-click="habilitaAcciones(c.id)" />
+                                                <span></span>
+                                            </label>
 
+                                        </div>
                                     </div>
-                                </div>
 
 
-                            </td>
-                            <td class="col-md-3">{{c.fechaInicio}} {{c.fechaFin}}</td>
-                            <td class="col-md-2"> {{c.titulo}} </td>
-                        
-                            <td class="col-md-1">
-                                <span class="badge badge-success" ng-if="c.estado === 1">ACTIVO</span>
-                                <span class="badge badge-danger" ng-if="c.estado === 2">INACTIVO</span>
-                            </td>
+                                </td>
+                                <td class="col-md-3">{{c.fechaInicio}} {{c.fechaFin}}</td>
+                                <td class="col-md-2"> {{c.titulo}} </td>
+
+                                <td class="col-md-1">
+                                    <span class="badge badge-success" ng-if="c.estado === 1">ACTIVO</span>
+                                    <span class="badge badge-danger" ng-if="c.estado === 2">INACTIVO</span>
+                                </td>
 
 
-                        </tr>
-                    </tbody>
-                </table>
-                
-                
-                
-            </div>
-             <div class="portlet-footer"> 
-                 <div class="col-md-12 text-right">
-                     <ul uib-pagination first-text="Inicio" last-text="Último" previous-text="Anterior" next-text="Siguiente" items-per-page="15" total-items="totales" ng-model="paginaActual" max-size="5" class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="listar()"></ul>
-                
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
                 </div>
+                <div class="portlet-footer">
+                    <div class="col-md-12 text-right">
+                        <ul uib-pagination first-text="Inicio" last-text="Último" previous-text="Anterior" next-text="Siguiente" items-per-page="15" total-items="totales" ng-model="paginaActual" max-size="5" class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="listar()"></ul>
+
+                    </div>
+                </div>
+
             </div>
-            
+
         </div>
-
     </div>
+
+
 </div>
-
-
-</div> <!-- Fin Ambito Controller -->
-
-
+<!-- Fin Ambito Controller -->

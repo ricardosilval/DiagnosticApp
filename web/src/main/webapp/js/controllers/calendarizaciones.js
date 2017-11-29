@@ -12,6 +12,7 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
 
 
         $scope.listar();
+        
 
     });
 
@@ -164,6 +165,22 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
         $scope.crearCalendarizacionModal = true;
 
     };
+    
+    $scope.crear = function(){
+        $scope.crearCalendarizacionModal  = true;
+        
+    }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     }]);

@@ -10,7 +10,9 @@ var DiagnosticApp = angular.module("DiagnosticApp", [
     "ngSanitize",
     "restangular",
     "ui.select",
-    "angular.morris"
+    "angular.morris",
+    'summernote'
+    
 ]);
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -301,9 +303,8 @@ DiagnosticApp.config(['$stateProvider', '$urlRouterProvider', function ($statePr
                         insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
                         files: [
                             'js/controllers/evaluacion_crear.js',
-                            '/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css',
-                            '/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js',
-                            '/assets/global/plugins/bootstrap-wysihtml5/locales/bootstrap-wysihtml5.es-ES.js',
+                            '../assets/global/plugins/bootstrap-growl/jquery.bootstrap-growl.js',
+                            
                                     ]
                     });
                             }]
@@ -361,7 +362,45 @@ DiagnosticApp.config(['$stateProvider', '$urlRouterProvider', function ($statePr
                     });
                             }]
             }
-        });
+        }).state('private.reportes', {
+        url: "/reportes",
+        templateUrl: "views/reportes/main.html",
+        data: {
+            pageTitle: 'Gestor de Reportes'
+        },
+        controller: "ReportesCtrl",
+        resolve: {
+            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                return $ocLazyLoad.load({
+                    name: 'DiagnosticApp',
+                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                    files: [
+                                        'js/controllers/reportes.js'
+                                    ]
+                });
+                            }]
+        }
+
+    }).state('private.alumnos', {
+        url: "/alumnos",
+        templateUrl: "views/alumnos/main.html",
+        data: {
+            pageTitle: 'Gestor de Alumnos'
+        },
+        controller: "AlumnosCtrl",
+        resolve: {
+            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                return $ocLazyLoad.load({
+                    name: 'DiagnosticApp',
+                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                    files: [
+                                        'js/controllers/alumnos.js'
+                                    ]
+                });
+                            }]
+        }
+
+    });
 
 
     }]);

@@ -18,77 +18,6 @@
 <!-- BEGIN MAIN CONTENT -->
 
 <div class="row" ng-controller="EvaluacionesCtrl">
-    <div class="modal fade" data-backdrop="static" modal-show="crearEvaluacionModal">
-        <form name="crearEvaluacion" ng-submit="save(crearEvaluacion)">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" ng-click="crearEvaluacionModal = false;">&times;</button>
-                        <h4 class="modal-title" ng-if="currentEvaluacion !== ''">Edición de Evaluaciones</h4>
-                        <h4 class="modal-title" ng-if="currentEvaluacion === ''">Registro de Evaluaciones</h4>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <div class="row ">
-                            <div class="form-group col-md-6">
-                                <label>Fecha de inicio</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <input type="text" ng-model="evaluacion.fechaInicio" class="form-control" placeholder="dd-mm-yyyy hh:mm" > 
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label>Fecha de término</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <input class="form-control"  ng-model="evaluacion.fechaTermino" placeholder="dd-mm-yyyy hh:mm"/>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group col-md-6">
-                                <label>Título</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <input type="text" class="form-control" ng-model="evaluacion.titulo" placeholder="Un título descriptivo" > 
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Descripcion</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-bookmark"></i>
-                                    </span>
-                                    <input type="text" class="form-control" ng-model="evaluacion.descripcion" placeholder="Descripcion de la Evaluacion" > 
-
-                                </div>
-                            </div>
-
-                            <input type="hidden" ng-model="evaluacion.id"> 
-
-                            <div class="alert alert-danger hidden">
-                                Error
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" ng-click="crearEvaluacionModal = false;">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Aceptar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-
     <div class="row" ng-show="verFiltros">
         <div class="col-md-12">
             <!-- Begin: life time stats -->
@@ -110,7 +39,7 @@
                         <div class="form-body">
                             <div class="form-group col-md-4">
 
-                                <label>Fecha de Inicio</label>
+                                <label>Materia</label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon">
@@ -119,25 +48,14 @@
                                     <input type="text" class="form-control" ng-model="filtroFechaInicio"> </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label>Fecha de término</label>
+                                <label>Fecha de Creación</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
                                     <input type="text" class="form-control" ng-model="filtroFechaFin"> </div>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label>Estado</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                <select class="form-control">
-                                    <option value="1">Activa</option>
-                                    <option value="1">Inactiva</option>
-                                    </select>
-                                </div>
-                            </div>
+                            
                             
                             
                         </div>
@@ -205,10 +123,9 @@
                     <thead>
                         <tr class="heading">
                             <th></th>
-                            <th>Fecha de inicio</th>
-                            <th>Fecha de Término</th>
+                            <th>Materia</th>
+                            <th>Calendario</th>
                             <th>Titulo</th>
-
                             <th>Estado</th>
 
                         </tr>

@@ -3,20 +3,25 @@
     <ul class="page-breadcrumb">
         <li>
             <a href="/">Inicio</a>
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Crear Evaluaciones</a>
+            <a href="#">Evaluaciones</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Crear</a>
         </li>
     </ul>
     <div class="page-toolbar">
 
     </div>
 </div>
-<h3 class="page-title">Gestor de Evaluaciones <small></small>
+<h3 class="page-title">Crear nueva evaluación <small></small>
 </h3>
 <!-- END PAGE HEADER-->
 <!-- BEGIN MAIN CONTENT -->
+
 
 <div class="row" ng-controller="EvaluacionCrearCtrl">
     <!-- MODAL creacion de pregunta -->
@@ -25,7 +30,7 @@
     <div class="modal fade" data-backdrop="static" modal-show="crearPreguntaModal">
 
         <form name="crearPregunta" ng-submit="guardaPregunta(crearPregunta)">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
@@ -33,10 +38,6 @@
                         <h4 class="modal-title">Agregar pregunta</h4>
                     </div>
                     <div class="modal-body">
-                        
-                        <pre>
-                        {{currentPregunta}}
-                        </pre>
 
                         <div class="form-group">
                             <label>Categoria</label>
@@ -51,17 +52,43 @@
 
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group  ">
                             <label>Cuerpo</label>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                <textarea class="form-control" ng-model="currentPregunta.cuerpo"></textarea>
-
+                                <summernote ng-model="currentPregunta.cuerpo"></summernote>
                             </div>
                         </div>
+                        <h4>Respuestas</h4>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Valor</th>
+                                    <th>Descripcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="respuesta in currentPregunta.respuestas">
+                                    <td class="col-md-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="respuesta.valor" />
+                                            <div class="input-group">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-11">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="respuesta.cuerpo" />
+                                            <div class="input-group">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
 
-                        
-                        
+                        </table>
+
+
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" ng-click="crearPreguntaModal = false;">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Aceptar</button>
@@ -78,16 +105,12 @@
     <div class="portlet light bordered">
         <div class="portlet-title">
             <div class="caption font-red-sunglo">
-                <i class="icon-settings font-red-sunglo"></i>
+                <i class="fa fa-check-circle-o  font-red-sunglo"></i>
                 <span class="caption-subject bold uppercase"> Creacion de Evaluación</span>
             </div>
 
         </div>
-        <pre>
-        
-        {{evaluacion}}
-        </pre>
-
+       
 
         <div class="portlet-body form">
             <form name="crearEvaluacion" ng-submit="save(crearEvaluacion)">
@@ -102,28 +125,55 @@
                     <div class="form-group">
                         <label>Categoria</label>
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            <ui-select name="Categoria" ng-required="required" ng-model="evaluacion.categoriaId" title="Elija una categoria">
+                            <span class="input-group-addon"><i class="fa fa-bookmark"></i></span>
+                            <ui-select name="CategoriaEvaluacion" ng-required="required" ng-model="evaluacion.categoriaId" title="Elija una categoria">
                                 <ui-select-match placeholder="Elija una categoria  de la lista ...">{{$select.selected.text}}</ui-select-match>
                                 <ui-select-choices repeat="item.value as item in categorias | filter: $select.search">
                                     <span ng-bind-html="item.text | highlight: $select.search"></span>
-                                    <small ng-bind-html="item.value | highlight: $select.search"></small>
                                 </ui-select-choices>
                             </ui-select>
 
                         </div>
                     </div>
+
                     <div class="form-group text-center">
                         <button type="button" class="btn btn-success" ng-click="modalCrearPregunta()"><i class="fa fa-plus-circle"></i> Agregar nueva pregunta</button>
                     </div>
 
 
+                    <table border="1" class="table table-bordered table-striped table-condensed flip-content">
+                    <thead>
+                        <tr class="heading">
+                            <th class="col-md-2">Categoria</th>
+                            <th class="col-md-5">Cuerpo</th>
+                            <th class="col-md-5">Alternativas</th>
+                            <th class="col-md-5">Acción</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr class="clickable vert-align" ng-repeat="p in evaluacion.preguntas track by $index">
+                            <td class="col-md-3">{{p.categoriaId}}</td>
+                            <td class="col-md-2" ng-bind-html="p.cuerpo">
+                            
+                            </td>
+                            <td>
+                            <ul>
+                            <li ng-repeat="alters in p.respuestas track by $index">{{alters.cuerpo}} <i ng-if="alters.valor > 0" class="fa fa-check"></i>
+                                 </li>
+                                </ul>
+                            </td>
+                            <td><button class="btn btn-circle btn-default btn-sm">Editar</button><button class="btn btn-circle btn-danger btn-sm">Eliminar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
 
                 </div>
-                
-                <div class="form-actions">
-                    <button type="submit" class="btn blue">Submit</button>
-                    <button type="button" class="btn default">Cancel</button>
+
+                <div class="form-actions text-right">
+                    <button type="submit" class="btn btn-success">Grabar</button>
+                    <button type="button" class="btn btn-danger">Cancelar</button>
                 </div>
             </form>
         </div>
