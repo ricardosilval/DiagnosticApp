@@ -1,0 +1,339 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/">Inicio</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="#">Alumnos</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+
+    </div>
+</div>
+<h3 class="page-title">Gestor de Alumnos <small></small></h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+
+<div class="row" ng-controller="AlumnosCtrl">
+    <div class="modal fade" data-backdrop="static" modal-show="crearAlumnoModal">
+        <form name="crearAlumno" ng-submit="save(crearAlumno)">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="crearAlumnoModal = false;">&times;</button>
+                        <h4 class="modal-title" ng-if="currentAlumno !== ''">Edición de Alumno</h4>
+                        <h4 class="modal-title" ng-if="currentAlumno === ''">Registro de Alumno</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Datos básicos</h5>
+                        <div class="row ">
+                            <div class="form-group col-md-6">
+                                <label>Nombre</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input type="text" ng-model="usuario.nombre" class="form-control" placeholder="Nombre" > 
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Apellido</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input class="form-control"  ng-model="usuario.apellido" placeholder="Apellido"/>
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-6">
+                                <label>Correo Electrónico</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="usuario.correo" placeholder="xxxxxx@aduana.cl" > 
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>RUN</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-bookmark"></i>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="usuario.run" placeholder="RUT" > 
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Asignar contraseña</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-asterisk"></i>
+                                        </span>
+                                        <input class="form-control" type="password" ng-model="usuario.password" placeholder="Asigne una contraseña">
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                
+                                <div class="form-group">
+                                    <label>Estado</label>
+                                    <div class="input-group">
+                                        <div class="icheck-list">
+                                            <label>
+                                                <input icheck type="radio" value="1" class="icheck" ng-model="usuario.estado"> Activo </label>
+                                            <label>
+                                                <input icheck type="radio" value="2" class="icheck" ng-model="usuario.estado"> Inactivo </label>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Roles</h5>
+                                <div class="form-group col-md-12">
+                                    <label>Roles</label>
+                                    <select ng-model="usuario.rol" placeholder="Seleccione rol" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <option ng-repeat="rol in optionsRoles" value="{{rol.id}}">{{rol.nombre}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            
+                            <input type="hidden" ng-model="usuario.id"> 
+
+                            <div class="alert alert-danger hidden">
+                                Error
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" ng-click="crearAlumnoModal = false;">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="row" ng-show="verFiltros">
+        <div class="col-md-12">
+            <!-- Begin: life time stats -->
+            <div class="portlet light portlet-fit portlet-datatable bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-search font-dark"></i>
+                        <span class="caption-subject font-dark sbold uppercase">Filtros de busqueda</span>
+                    </div>
+                    <div class="actions">
+                        <a ng-click="listar()" class="btn btn-circle btn-primary">
+                            <i class="fa fa-search"></i> Aplicar filtros </a>
+                        <a href="javascript:;"  ng-click="clearFilter()" class="btn btn-circle btn-default btn-sm">
+                            <i class="fa fa-eraser"></i> Limpiar Filtros </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <form role="form">
+                        <div class="form-body">
+                            <div class="form-group col-md-4">
+                                <label>Nombre</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="filtroNombre"> </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Apellido</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="filtroApellido"> </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Correo electrónico</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="filtroEmail"> </div>
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Rol</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+
+                                    <select ng-model="filtroRol" placeholder="Seleccione rol" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <option ng-repeat="rol in optionsRoles" value="{{rol.id}}">{{rol.nombre}}</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Estado</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <select ng-model="filtroEstado" placeholder="Seleccione Estado" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <option ng-repeat="estado in optionsEstado" value="{{estado.value}}">{{estado.text}}</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-send font-dark"></i>
+                    <span class="caption-subject font-dark sbold uppercase">Alumnos</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-toolbar">
+
+                        <div class="btn-group" ng-if="permiteAcciones">
+                            <a class="btn btn-circle btn-default btn-sm" href="javascript:;" ng-click="modificarAlumno()">
+                                <i class="fa fa-edit"></i> Modificar
+
+                            </a>
+
+
+                        </div>
+
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                            <a ng-if="verFiltros === true" ng-click="listar()" class="btn btn-circle btn-primary btn-sm">
+                                <i class="fa fa-search"></i> Aplicar filtros </a>
+
+                            <label class="btn btn-transparent btn-outline btn-circle btn-sm"  ng-class="verFiltros ? 'red' : 'blue'" ng-click="verFiltros = !verFiltros">
+                                <input class="toggle" type="checkbox"><i class="fa fa-filter"></i> {{ (verFiltros) ? 'Ocultar' : 'Ver'}} Filtros</label>
+
+                            <a ng-click="createAlumno()" class="btn btn-transparent btn-outline btn-circle btn-sm green">
+                                <i class="fa fa-plus-circle"></i> Crear nuevo </a>
+
+
+                            <button class="btn btn-transparent green btn-outline btn-circle btn-sm" ng-click="listar()">
+                                <i class="fa fa-refresh"></i> </button>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="portlet-body flip-scroll"> 
+                <table border="1" class="table table-bordered table-striped table-condensed flip-content">
+                    <thead>
+                        <tr class="heading">
+                            <th></th>
+                            <th>Nombre</th>
+                            <th>RUT</th>
+                            <th>Rol</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr class="clickable vert-align" ng-repeat="u in usuarios track by $index">
+                            <td>
+
+                                <div class="form-group">
+                                    <div class="mt-radio-list">
+                                        <label class="mt-radio"> 
+                                            <input type="radio" class="form-control" name="usuarioSelected" ng-model="currentAlumno" ng-click="enableActions(u.id)"/>
+                                            <span></span>
+                                        </label>
+
+                                    </div>
+                                </div>
+
+
+                            </td>
+                            <td class="col-md-3">{{u.nombre}} {{u.apellido}}</td>
+                            <td class="col-md-2"> {{u.rut}} </td>
+                            <td class="col-md-2"><span ng-repeat="r in u.roles">{{r.nombre}}</span></td>
+                            <td class="col-md-2">{{u.correo}}</td>
+                            <td class="col-md-1">
+                                <span class="badge badge-success" ng-if="u.estado === 1">ACTIVO</span>
+                                <span class="badge badge-danger" ng-if="u.estado === 2">INACTIVO</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                
+                
+            </div>
+             <div class="portlet-footer"> 
+                 <div class="col-md-12 text-right">
+                     <ul uib-pagination first-text="Inicio" last-text="Último" previous-text="Anterior" next-text="Siguiente" items-per-page="15" total-items="totales" ng-model="paginaActual" max-size="5" class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="listar()"></ul>
+                
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+
+
+
+
+<!-- FIN ESTO ES PP -->
+
+</div>
+</div> <!-- Fin ámbito Controller -->
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS-->
+<script>
+            // call any jquery or angularjs code ehre
+</script>
+<!-- BEGIN MAIN JS -->

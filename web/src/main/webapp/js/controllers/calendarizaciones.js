@@ -12,15 +12,16 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
 
 
         $scope.listar();
-        
+
+
 
     });
 
     $scope.paginaActual = 1;
 
     $scope.crearCalendarizacionModal = false;
-    $scope.calendarzacion = {
-        fechanInicio: "",
+    $scope.currentCalendarizacion = {
+        fechaInicio: "",
         fechaTermino: "",
         estado: 0,
         titulo: "",
@@ -51,10 +52,12 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
 
         $scope.listar();
     };
-    $scope.enableActions = function (id) {
-        $scope.habilitaAcciones = true;
-        // console.log("ID Seleccionado: " + id + "(" + $scope.permiteAcciones + ")");
-        $scope.currentCalendarizacion = id;
+  
+
+    $scope.habilitaAcciones = function (cal) {
+        $scope.permiteAcciones = true;
+      
+        $scope.currentCalendarizacion = cal;
     };
 
     var api = portalUtil.getApi();
@@ -64,7 +67,7 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
         /*
         Llamada API de listar calendarizaciones
         */
-        
+
         /*
         var filterrier = {
             pagina: $scope.paginaActual,
@@ -100,8 +103,38 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
 
         });
         */
-        
-        
+
+        $scope.calendarizaciones = [
+            {
+                id: "123",
+                fechaInicio: "2017-01-01",
+                fechaTermino: "2017-03-01",
+                titulo: " Hola Mundo",
+                descripcion: "Descripcion hola mundo",
+                estado: 2,
+                estadoDescripcion: "Inactivo",
+                usuario: {
+                    id: "9876",
+                    "nombre": "Álvaro Garrido"
+                }
+            },
+            {
+                id: "124",
+                fechaInicio: "2018-02-01",
+                fechaTermino: "2018-04-01",
+                titulo: "La del año 2018",
+                descripcion: "VAK+MATH+INGLES",
+                estado: 1,
+                estadoDescripcion: "Activo",
+                usuario: {
+                    id: "9876",
+                    "nombre": "Álvaro Garrido"
+                }
+            }
+        ];
+        $scope.paginaActual = 1;
+        $scope.totales = 10;
+
 
 
     };
@@ -141,13 +174,13 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
     $scope.createCalendarizacion = function () {
 
         $scope.calendarzacion = {
-        fechanInicio: "",
-        fechaTermino: "",
-        estado: 0,
-        titulo: "",
-        descripcion: "",
-        id: ""
-    };
+            fechaInicio: "",
+            fechaTermino: "",
+            estado: 0,
+            titulo: "",
+            descripcion: "",
+            id: ""
+        };
         $scope.currentCalendarizacion = "";
         $scope.crearCalendarizacionModal = true;
 
@@ -166,21 +199,29 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
 
     };
     
-    $scope.crear = function(){
-        $scope.crearCalendarizacionModal  = true;
+    
+    $scope.loadEvaluaciones = function(){
+        
+        $scope.modalAsignacion = true;
         
     }
+    
+    $scope.asignar = function(form){
+        
+        console.log(form, "les form");
+    };
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    $scope.crear = function () {
+        $scope.crearCalendarizacionModal = true;
+
+    }
+
+
+
+
+
+
+
+
 
     }]);
