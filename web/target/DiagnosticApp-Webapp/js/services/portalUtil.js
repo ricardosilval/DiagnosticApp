@@ -31,8 +31,8 @@ angular
                 CAMBIAR AMBIENTE CHARBEL
                 */
                 if (window.location.hostname === '127.0.0.1') {
-                    Restangular.setBaseUrl('http://172.20.10.4:9090/ServiciosDiagnosticApp/rest/servicios/');
-                    //Restangular.setBaseUrl('http://localhost:8080/ServiciosDiagnosticApp/rest/servicios');
+                    //Restangular.setBaseUrl('http://172.20.10.4:9090/ServiciosDiagnosticApp/rest/servicios/');
+                    Restangular.setBaseUrl('http://localhost:8080/');
                 }
                 Restangular.setFullResponse(false);
                 
@@ -45,7 +45,7 @@ angular
 
                     return true; // error not handled
                 });
-                return Restangular.all('');
+                return Restangular.all('api');
             };
             this.getLoginApi = function () {
                 var header = {};
@@ -54,8 +54,8 @@ angular
                 CAMBIAR AMBIENTE CHARBEL
                 */
                 if (window.location.hostname === '127.0.0.1') {
-                    Restangular.setBaseUrl('http://172.20.10.4:9090/ServiciosDiagnosticApp/rest/servicios/');
-                    //Restangular.setBaseUrl('http://localhost:8080/ServiciosDiagnosticApp/rest/servicios');
+                    //Restangular.setBaseUrl('http://172.20.10.4:9090/ServiciosDiagnosticApp/rest/servicios/');
+                    Restangular.setBaseUrl('http://localhost:8080/');
                 }
 
                 Restangular.setDefaultHeaders(header);
@@ -64,7 +64,7 @@ angular
                 Restangular.setErrorInterceptor(function (response, deferred, responseHandler) {
                     return true;
                 });
-                return Restangular.all('');
+                return Restangular.all('api');
             };
             this.validateForm = function (form, scopeError) {
 

@@ -25,12 +25,11 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
         $scope.usuario = {
             nombre: "",
             apellido: "",
-            username: "",
             run: "",
             correo: "",
-            sucursales: [],
             password: "",
-            id: ""
+            id: "",
+            rol: ""
         };
 
         $scope.currentUsuario = "";
@@ -54,7 +53,7 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
             $scope.filtroApellido = "";
             $scope.filtroEmail = "";
             $scope.filtroEstado = "";
-            $scope.filtroRut = [];
+            $scope.filtroRun = [];
             $scope.filtroRol = "";
             $scope.listar();
         };
@@ -95,22 +94,18 @@ angular.module('DiagnosticApp').controller('UsuariosCtrl', ['$rootScope', '$scop
             if ($scope.filtroEstado !== "") {
                 filterrier['estado'] = $scope.filtroEstado;
             }
-            if ($scope.filtroRut.length > 0) {
-                filterrier['run'] = $scope.filtroRut;
+            if ($scope.filtroRun.length > 0) {
+                filterrier['run'] = $scope.filtroRun;
             }
             if ($scope.filtroRol !== "") {
                 filterrier['rol'] = $scope.filtroRol;
             }
-            
           
             api.one('usuarios').get(filterrier).then(function (data) {
-
                 $scope.usuarios = data.usuarios;
                 $scope.paginaActual = data.paginaActual;
                 $scope.totales = data.total;
-             
             });
-
 
         };
 

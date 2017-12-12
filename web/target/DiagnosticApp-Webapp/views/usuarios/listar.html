@@ -63,34 +63,14 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>RUT</label>
+                                <label>RUN</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-bookmark"></i>
                                     </span>
-                                    <input type="text" class="form-control" ng-model="usuario.rut" placeholder="RUT" > 
+                                    <input type="text" class="form-control" ng-model="usuario.run" placeholder="RUT" > 
                                 </div>
                             </div>
-
-                            <div class="form-group col-md-6">
-                                <label>Nombre de Usuario</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <input type="text" class="form-control" ng-model="usuario.username" placeholder="Nombre de usuario"> 
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Cargo</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-angle-double-up"></i>
-                                    </span>
-                                    <input type="text" class="form-control" ng-model="usuario.cargo" placeholder="Cargo" > 
-                                </div>
-                            </div>
-
 
                             <div class="col-md-6">
 
@@ -114,9 +94,9 @@
                                     <div class="input-group">
                                         <div class="icheck-list">
                                             <label>
-                                                <input icheck type="radio" value="1" class="icheck" ng-model="usuario.habilitado"> Activo </label>
+                                                <input icheck type="radio" value="1" class="icheck" ng-model="usuario.estado"> Activo </label>
                                             <label>
-                                                <input icheck type="radio" value="2" class="icheck" ng-model="usuario.habilitado"> Inactivo </label>
+                                                <input icheck type="radio" value="2" class="icheck" ng-model="usuario.estado"> Inactivo </label>
 
                                         </div>
                                     </div>
@@ -129,33 +109,15 @@
                                 <h5>Roles</h5>
                                 <div class="form-group col-md-12">
                                     <label>Roles</label>
-                                    <ui-select ng-model="usuario.roles" multiple title="Elija un rol">
-                                        <ui-select-match placeholder="Elija al menos un rol de la lista ...">{{$item.nombre}}</ui-select-match>
-                                        <ui-select-choices repeat="itemrol.id as itemrol in optionsRoles | filter: $select.search">
-                                            <div ng-bind-html="itemrol.nombre | highlight: $select.search"></div>
-                                        </ui-select-choices>
+                                    <select ng-model="usuario.rol" placeholder="Seleccione rol" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <option ng-repeat="rol in optionsRoles" value="{{rol.id}}">{{rol.nombre}}</option>
 
-                                    </ui-select>
+                                    </select>
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <h5>Aduanas</h5>
-
-                                <div class="form-group col-md-12">
-                                    <label>Aduanas loteadoras</label>
-                                    <ui-select ng-model="usuario.sucursales" multiple title="Elija un rol">
-                                        <ui-select-match placeholder="Elija al menos una adiuana de la lista ...">{{$item.nombre}}</ui-select-match>
-                                        <ui-select-choices repeat="item.id as item in allSucursalesOptions | filter: $select.search">
-                                            <div ng-bind-html="item.nombre | highlight: $select.search"></div>
-                                        </ui-select-choices>
-                                    </ui-select>                                                                  
-
-                                </div>
-
-                            </div>
-
-
+                            
                             <input type="hidden" ng-model="usuario.id"> 
 
                             <div class="alert alert-danger hidden">
@@ -246,7 +208,7 @@
                                 </div>
                             </div>
                             
-                            
+                        </div>
                     </form>
 
                 </div>
@@ -260,7 +222,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 
 <div class="row">
@@ -312,11 +274,9 @@
                             <th></th>
                             <th>Nombre</th>
                             <th>RUT</th>
-                            <th>Aduanas</th>
-                            <th>Roles</th>
+                            <th>Rol</th>
                             <th>Correo</th>
                             <th>Estado</th>
-
                         </tr>
 
                     </thead>
@@ -338,17 +298,12 @@
                             </td>
                             <td class="col-md-3">{{u.nombre}} {{u.apellido}}</td>
                             <td class="col-md-2"> {{u.rut}} </td>
-                            <td class="col-md-2">
-                                <button uib-popover-html="u.htmlSucursal" popover-trigger="mouseenter" class="btn btn-default">Sucursales</button>
-                            </td>
                             <td class="col-md-2"><span ng-repeat="r in u.roles">{{r.nombre}}</span></td>
                             <td class="col-md-2">{{u.correo}}</td>
                             <td class="col-md-1">
-                                <span class="badge badge-success" ng-if="u.habilitado === 1">ACTIVO</span>
-                                <span class="badge badge-danger" ng-if="u.habilitado === 2">INACTIVO</span>
+                                <span class="badge badge-success" ng-if="u.estado === 1">ACTIVO</span>
+                                <span class="badge badge-danger" ng-if="u.estado === 2">INACTIVO</span>
                             </td>
-
-
                         </tr>
                     </tbody>
                 </table>
@@ -366,7 +321,7 @@
         </div>
 
     </div>
-</div>
+
 
 
 
@@ -375,6 +330,7 @@
 <!-- FIN ESTO ES PP -->
 
 </div>
+</div> <!-- Fin ámbito Controller -->
 <!-- END MAIN CONTENT -->
 <!-- BEGIN MAIN JS-->
 <script>

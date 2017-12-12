@@ -16,24 +16,15 @@
             </a>
         </li>
         <li class="nav-item">
-              <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="fa fa-wpforms"></i>
+            <a href="#/calendarizaciones" class="nav-link nav-toggle">
+                <i class="fa fa-calendar"></i>
                 <span class="title">Calendarizaciones</span>
-                <span class="arrow "></span>
+
             </a>
-            <ul class="sub-menu">
-                <li>
-                    <!-- ui-sref="private.prefacturas" -->
-                    <a href="#/calendarizaciones">
-                        <i class="fa fa-eye"></i> Listar
-                    </a>
-                </li>
-                
 
-
-            </ul>
         </li>
-       
+
+
         <li class="nav-item">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-wpforms"></i>
@@ -53,9 +44,22 @@
                         <i class="fa fa-plus-square"></i> Crear nueva evaluacion
                     </a>
                 </li>
-
-
             </ul>
+        </li>
+
+        <li class="nav-item">
+            <a href="#/reportes" class="nav-link nav-toggle">
+                <i class="fa fa-file-excel-o"></i>
+                <span class="title">Reportes</span>
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a href="#/alumnos" class="nav-link nav-toggle">
+                <i class="fa fa-address-book-o"></i>
+                <span class="title">Alumnos Matriculados</span>
+            </a>
+
         </li>
 
         <li ng-show="session.isAdmin()" class="nav-item">
@@ -65,19 +69,17 @@
                 <span class="arrow "></span>
             </a>
             <ul class="sub-menu">
-               
+
                 <li ng-show="session.isAdmin()">
                     <a href="#/admin/usuarios">
                         <i class="fa fa-circle"></i> Usuarios </a>
                 </li>
-               
-               
-               
-                <li ng-show="session.isAdmin()">
-                    <!-- Productos en BD  ui-sref="private.roles" -->
+
+                <!-- <li ng-show="session.isAdmin()">
                     <a href="#/admin/roles">
                         <i class="fa fa-circle"></i> Roles </a>
-                </li>
+                </li> -->
+
 
             </ul>
         </li>
