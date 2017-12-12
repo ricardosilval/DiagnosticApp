@@ -1,0 +1,53 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/">Inicio</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Evaluaciones</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Contestar</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+
+    </div>
+</div>
+<h3 class="page-title">Contestar evaluación <small></small>
+</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+
+
+<div class="row" ng-controller="EvaluacionContestarCtrl">
+    <div class="portlet light bordered">
+        <form name="contestarEvaluacion" ng-submit="enviaRespuestas(contestarEvaluacion)">
+        <div class="portlet-title">
+            <div class="caption font-red-sunglo">
+                <i class="fa fa-check-circle-o  font-red-sunglo"></i>
+                <span class="caption-subject bold uppercase"> Contestar evaluación de {{evaluacion.categoria.nombre}} "{{evaluacion.titulo}}"</span>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <div ng-repeat="p in evaluacion.preguntas">
+                <h4 ng-bind-html="p.cuerpo"></h4>
+                <div class="mt-radio-list">
+                    <label class="mt-radio" ng-repeat="r in p.respuestas track by $index">
+                        <input type="radio" ng-click="seleccion(p.id,r.id)" name="optionsRadios{{p.id}}" value="t.valor"> {{r.cuerpo}}
+                        <span></span>
+                    </label>
+
+                </div>
+            </div>
+        </div>
+        <div class="portlet-footer form text-right">
+            <button class="btn btn-success">Finalizar <i class="fa fa-check"></i></button>
+                   
+        </div>
+    </div>
+</div>
+<!-- Fin ambito controller -->

@@ -52,11 +52,11 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
 
         $scope.listar();
     };
-  
+
 
     $scope.habilitaAcciones = function (cal) {
         $scope.permiteAcciones = true;
-      
+
         $scope.currentCalendarizacion = cal;
     };
 
@@ -198,16 +198,16 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
         $scope.crearCalendarizacionModal = true;
 
     };
-    
-    
-    $scope.loadEvaluaciones = function(){
-        
+
+
+    $scope.loadEvaluaciones = function () {
+
         $scope.modalAsignacion = true;
-        
+
     }
-    
-    $scope.asignar = function(form){
-        
+
+    $scope.asignar = function (form) {
+
         console.log(form, "les form");
     };
 

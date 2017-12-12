@@ -232,39 +232,32 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-send font-dark"></i>
-                    <span class="caption-subject font-dark sbold uppercase">Alumnos</span>
+                    <span class="caption-subject font-dark sbold uppercase">Listado de Alumnos</span>
                 </div>
                 <div class="actions">
                     <div class="btn-toolbar">
 
                         <div class="btn-group" ng-if="permiteAcciones">
-                            <a class="btn btn-circle btn-default btn-sm" href="javascript:;" ng-click="modificarAlumno()">
+                            <!-- <a class="btn btn-circle btn-default btn-sm" href="javascript:;" ng-click="modificarAlumno()">
                                 <i class="fa fa-edit"></i> Modificar
 
-                            </a>
+                            </a>-->
 
 
                         </div>
 
                         <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <a ng-if="verFiltros === true" ng-click="listar()" class="btn btn-circle btn-primary btn-sm">
-                                <i class="fa fa-search"></i> Aplicar filtros </a>
+                            <!-- <a ng-if="verFiltros === true" ng-click="listar()" class="btn btn-circle btn-primary btn-sm">
+                                <i class="fa fa-search"></i> Aplicar filtros </a> -->
 
-                            <label class="btn btn-transparent btn-outline btn-circle btn-sm"  ng-class="verFiltros ? 'red' : 'blue'" ng-click="verFiltros = !verFiltros">
-                                <input class="toggle" type="checkbox"><i class="fa fa-filter"></i> {{ (verFiltros) ? 'Ocultar' : 'Ver'}} Filtros</label>
+                           <!-- <label class="btn btn-transparent btn-outline btn-circle btn-sm"  ng-class="verFiltros ? 'red' : 'blue'" ng-click="verFiltros = !verFiltros">
+                                <input class="toggle" type="checkbox"><i class="fa fa-filter"></i> {{ (verFiltros) ? 'Ocultar' : 'Ver'}} Filtros</label> -->
 
-                            <a ng-click="createAlumno()" class="btn btn-transparent btn-outline btn-circle btn-sm green">
-                                <i class="fa fa-plus-circle"></i> Crear nuevo </a>
-
-
+                            
                             <button class="btn btn-transparent green btn-outline btn-circle btn-sm" ng-click="listar()">
                                 <i class="fa fa-refresh"></i> </button>
                         </div>
-
                     </div>
-
-
-
                 </div>
             </div>
             <div class="portlet-body flip-scroll"> 
@@ -273,67 +266,36 @@
                         <tr class="heading">
                             <th></th>
                             <th>Nombre</th>
-                            <th>RUT</th>
-                            <th>Rol</th>
+                            <th>RUN</th>
                             <th>Correo</th>
-                            <th>Estado</th>
+                            <th>Carrera</th>
+                            <th>Jornada</th>
+                            <th>Estado Evaluaciones</th>
                         </tr>
-
                     </thead>
                     <tbody>
-                        <tr class="clickable vert-align" ng-repeat="u in usuarios track by $index">
-                            <td>
+                        <tr class="clickable vert-align" ng-repeat="a in alumnos track by $index">
 
-                                <div class="form-group">
-                                    <div class="mt-radio-list">
-                                        <label class="mt-radio"> 
-                                            <input type="radio" class="form-control" name="usuarioSelected" ng-model="currentAlumno" ng-click="enableActions(u.id)"/>
-                                            <span></span>
-                                        </label>
-
-                                    </div>
-                                </div>
-
-
-                            </td>
-                            <td class="col-md-3">{{u.nombre}} {{u.apellido}}</td>
-                            <td class="col-md-2"> {{u.rut}} </td>
-                            <td class="col-md-2"><span ng-repeat="r in u.roles">{{r.nombre}}</span></td>
-                            <td class="col-md-2">{{u.correo}}</td>
+                            <td class="col-md-3">{{a.nombre}} {{a.apellido}}</td>
+                            <td class="col-md-2"> {{a.run}} </td>
+                            <td class="col-md-2">{{a.correo}}</td>
+                            <td class="col-md-2">{{a.carrera}}</td>
+                            <td class="col-md-2">{{a.jornada}}</td>
                             <td class="col-md-1">
-                                <span class="badge badge-success" ng-if="u.estado === 1">ACTIVO</span>
-                                <span class="badge badge-danger" ng-if="u.estado === 2">INACTIVO</span>
+                                <span class="badge badge-danger">0 / 3</span>
                             </td>
                         </tr>
                     </tbody>
-                </table>
-                
-                
-                
+                </table>     
             </div>
              <div class="portlet-footer"> 
                  <div class="col-md-12 text-right">
                      <ul uib-pagination first-text="Inicio" last-text="Último" previous-text="Anterior" next-text="Siguiente" items-per-page="15" total-items="totales" ng-model="paginaActual" max-size="5" class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="listar()"></ul>
-                
                 </div>
             </div>
-            
         </div>
-
     </div>
-
-
-
-
-
-
 <!-- FIN ESTO ES PP -->
 
 </div>
 </div> <!-- Fin ámbito Controller -->
-<!-- END MAIN CONTENT -->
-<!-- BEGIN MAIN JS-->
-<script>
-            // call any jquery or angularjs code ehre
-</script>
-<!-- BEGIN MAIN JS -->

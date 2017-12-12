@@ -10,8 +10,13 @@ var DiagnosticApp = angular.module("DiagnosticApp", [
     "ngSanitize",
     "restangular",
     "ui.select",
-    "angular.morris"
-]);
+    "angular.morris",
+    'summernote'
+
+]).config(function ($httpProvider) {
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    });
+
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
 DiagnosticApp.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
@@ -300,14 +305,9 @@ DiagnosticApp.config(['$stateProvider', '$urlRouterProvider', function ($statePr
                         name: 'DiagnosticApp',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
                         files: [
-                                        ///'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.css',
-                                        //'/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
-                                        //'/assets/global/plugins/moment.min.js',
-                                        //'/assets/global/plugins/jquery.sparkline.min.js',
-                                        //'/assets/pages/scripts/dashboard.js',
-                                        //'/assets/global/plugins/counterup/jquery.waypoints.min.js',
-                                        //'/assets/global/plugins/counterup/jquery.counterup.min.js',
-                                        'js/controllers/evaluaciones_editar.js'
+                            'js/controllers/evaluacion_crear.js',
+                            '../assets/global/plugins/bootstrap-growl/jquery.bootstrap-growl.js',
+
                                     ]
                     });
                             }]
@@ -365,6 +365,63 @@ DiagnosticApp.config(['$stateProvider', '$urlRouterProvider', function ($statePr
                     });
                             }]
             }
+        }).state('private.reportes', {
+            url: "/reportes",
+            templateUrl: "views/reportes/main.html",
+            data: {
+                pageTitle: 'Gestor de Reportes'
+            },
+            controller: "ReportesCtrl",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'DiagnosticApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                        files: [
+                                        'js/controllers/reportes.js'
+                                    ]
+                    });
+                            }]
+            }
+
+        }).state('private.alumnos', {
+            url: "/alumnos",
+            templateUrl: "views/alumnos/main.html",
+            data: {
+                pageTitle: 'Gestor de Alumnos'
+            },
+            controller: "AlumnosCtrl",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'DiagnosticApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                        files: [
+                                        'js/controllers/alumnos.js'
+                                    ]
+                    });
+                            }]
+            }
+
+        }).state('private.evaluacionContestar', {
+            url: "/evaluacion/contestar/{id}",
+            templateUrl: "views/evaluaciones/contestar.html",
+            data: {
+                pageTitle: 'Contestar evaluación'
+            },
+            controller: "EvaluacionContestarCtrl",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'DiagnosticApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                        files: [
+                                        'js/controllers/evaluacion_contestar.js'
+                                    ]
+                    });
+                            }]
+            }
+
         });
 
 

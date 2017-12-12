@@ -15,7 +15,7 @@ angular
                  * @returns {*|Promise}
                  */
             
-            var user = {
+           /* var user = {
                             "id": "admindiagnosicappid",
                             "nombre": "Admin",
                             "username": "AdminDummy",
@@ -25,13 +25,16 @@ angular
                             "roles": {id:"roladmin", nombre:"administrador"},
                             "avatar": ""
                         };
-                        session.setUser(user);
+                        session.setUser(user);*/
             
-            /*
+            
                 this.logIn = function (credentials) {
+                   
                     var api = portalUtil.getLoginApi();
+                    console.log(credentials, "Les cred");
                     return api.all('auth').all('login').post(credentials).then(function (response) {
                         console.log(response, "RESPONSE LOGIN");
+                        return f;
                         var data = response.data;
                         var user = {
                             "id": data.usuarioId,
@@ -39,19 +42,18 @@ angular
                             "username": data.username,
                             "apellido": data.apellido,
                             "email": data.correoElectronico,
-                            "token": data.token,
-                            "permisos": data.permisos, //??
-                            "roles": data.roles,
-                            "avatar": data.avatar
+//                            "token": data.token,
+                            "rol": data.rol
                         };
                         session.setUser(user);
                         console.log(user, "SESSION DATA");
                         return response;
                     }, function (error) {
+                        alert("error");
                         return error;
                     });
                 };
-                */
+                
                 /**
                  * Log out
                  *

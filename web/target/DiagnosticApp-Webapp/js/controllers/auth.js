@@ -47,9 +47,12 @@ angular.module('DiagnosticApp').controller('AuthCtrl', ['$rootScope', '$scope', 
                 $scope.authError = "Favor ingresar con RUT o email válido";
                 return;
             }
+
+
+            
             // Try to login
             auth.logIn(credentials)
-                    .then(function (response) {
+                .then(function (response) {
                         console.log(response, "LOGIN RESPONSE");
                         if (response.status !== 200) {
                             $scope.authError = 'Error de conexión: ' + response.statusText;
@@ -57,44 +60,46 @@ angular.module('DiagnosticApp').controller('AuthCtrl', ['$rootScope', '$scope', 
                             $scope.authError = 'Nombre de usuario o contraseña incorrectos.';
                         } else if (response.status === 206 && !response.data.token) {
                             $scope.authError = response.message;
-                        } 
-                        
-                        
+                        }
+
+
                         if (response.cambioPassword) {
                             console.log(response.cambioPassword, "CP");
                             $scope.changePass = true;
 
                         } else {
-                            
+
                             $state.go('private.dashboard');
                         }
                     },
-                            function (error) {
-                                $scope.authError = error;
-                            });
-            
-           // $state.go('private.dashboard');
+                    function (error) {
+                        $scope.authError = error;
+                    });
+
+            // $state.go('private.dashboard');
         };
 
         $scope.passwordRecovery = function () {
             console.log("Passowrdrecovery");
-            var email = {"email": $scope.recoveryEmail};
+            var email = {
+                "email": $scope.recoveryEmail
+            };
             var api = portalUtil.getLoginApi();
             api.all('auth/recovery').post(email).then(
-                    function (response) {
-                        console.log("Envió", response);
-                        $scope.recoveryPass = false;
-                        $scope.loadingAuth = true;
-                        $scope.loadingAuthMsg = response.data.message;
-                    },
-                    function (error) {
-                        console.log("Error", error);
-                        /** do some other thing **/
-                        $scope.recoveryPass = false;
-                        $scope.loadingAuth = true;
-                        $scope.authError = error.data.message;
+                function (response) {
+                    console.log("Envió", response);
+                    $scope.recoveryPass = false;
+                    $scope.loadingAuth = true;
+                    $scope.loadingAuthMsg = response.data.message;
+                },
+                function (error) {
+                    console.log("Error", error);
+                    /** do some other thing **/
+                    $scope.recoveryPass = false;
+                    $scope.loadingAuth = true;
+                    $scope.authError = error.data.message;
 
-                    }, "");
+                }, "");
 
 
         };
@@ -106,23 +111,22 @@ angular.module('DiagnosticApp').controller('AuthCtrl', ['$rootScope', '$scope', 
             var api = portalUtil.getApi();
             // api.all('subastas/' + $scope.currentSubasta).customPUT({
             api.all('usuarios/' + session.getUser().id).customPUT($scope.resetPass).then(
-                    function (response) {
-                        console.log("Envió", response);
-                        $scope.changePass = false;
-                        $scope.loadingAuth = true;
-                        $scope.loadingAuthMsg = response.message;
-                    },
-                    function (error) {
-                        console.log("Error", error);
-                        /** do some other thing **/
+                function (response) {
+                    console.log("Envió", response);
+                    $scope.changePass = false;
+                    $scope.loadingAuth = true;
+                    $scope.loadingAuthMsg = response.message;
+                },
+                function (error) {
+                    console.log("Error", error);
+                    /** do some other thing **/
 
-                        $scope.recoveryPass = true;
-                        $scope.loadingAuth = true;
-                        $scope.loadingAuthMsg = error.message;
+                    $scope.recoveryPass = true;
+                    $scope.loadingAuth = true;
+                    $scope.loadingAuthMsg = error.message;
 
-                    }, null);
+                }, null);
 
 
         };
     }]);
-

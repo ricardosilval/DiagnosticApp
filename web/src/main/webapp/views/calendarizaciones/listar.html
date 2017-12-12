@@ -43,7 +43,7 @@
 
 
                             </div>
-                            
+
 
                             <div class="form-group col-md-6">
                                 <label>Fecha de término</label>
@@ -54,9 +54,9 @@
                                     <input ng-model="currentCalendarizacion.fechaTermino" validationmessage="Fecha de fin es obligatoria" required class="form-control" readonly type="text">
                                 </div>
                             </div>
-                            
 
-                            
+
+
 
 
                             <div class="form-group col-md-6">
@@ -93,10 +93,7 @@
             </div>
         </form>
     </div>
-    
     <!-- Fin modal creacion/modificacion -->
-    
-    
     <div class="modal fade" data-backdrop="static" modal-show="modalAsignacion">
         <form name="asignarEvaluaciones" ng-submit="asignar(asignarEvaluaciones)">
             <div class="modal-dialog modal-lg">
@@ -104,63 +101,57 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" ng-click="modalAsignacion = false;">&times;</button>
-                        <h4 class="modal-title">Asignar evaluaciones</h4>
-                        
+                        <h4 class="modal-title">Detalle de evaluación</h4>
                     </div>
                     <div class="modal-body">
+                        <div class="col-md-12">
+                            <p>El siguiente listado son las evaluaciones que se incluyen en esta calendarización:</p>
+                            <ul>
+                                <li><a href="#" target="_blank">Matemáticas <i class="fa fa-external-link"></i></a></li>
 
-                        
+                            </ul>
+                        </div>
                         <p>Por favor seleccione del listado las evaluaciones que desee asignar en esta calendarización:</p>
-                        
-                    
                         <table border="1" class="table table-bordered table-striped table-condensed flip-content">
-                        <thead>
-                            <tr class="heading">
-                                <th></th>
-                                <th>Titulo</th>
-                                <th>Categoria</th>
-                                <th>Creado por</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="clickable vert-align" ng-repeat="e in evaluaciones track by $index">
-                                <td class="col-md-1"> 
+                            <thead>
+                                <tr class="heading">
+                                    <th></th>
+                                    <th>Titulo</th>
+                                    <th>Categoria</th>
+                                    <th>Creado por</th>
+                                    <th>Asignar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="clickable vert-align" ng-repeat="e in evaluaciones track by $index">
+                                    <td class="col-md-1">
+                                        <div class="form-group">
+                                            <div class="mt-check-list">
+                                                <label class="mt-check">
+                                                    <input type="checkbox" class="form-control" name="calendarizacionSelected" ng-model="currentCalendarizacion" ng-click="habilitaAcciones(c)" />
+                                                    <span></span>
+                                                </label>
 
-                                    <div class="form-group">
-                                        <div class="mt-check-list">
-                                            <label class="mt-check">
-                                                <input type="checkbox" class="form-control" name="calendarizacionSelected" ng-model="currentCalendarizacion" ng-click="habilitaAcciones(c)" />
-                                                <span></span>
-                                            </label>
-
+                                            </div>
                                         </div>
-                                    </div>
-
-
-                                </td>
-                                <td class="col-md-3">{{e.titulo}}</td>
-                                <td class="col-md-3">{{e.categoria}}</td>
-                                <td class="col-md-2"> {{e.usuario}} </td>
-                                
-                            </tr>
-                        </tbody>
-                    </table>
-                        
-                        
+                                    </td>
+                                    <td class="col-md-3">{{e.titulo}}</td>
+                                    <td class="col-md-3">{{e.categoria}}</td>
+                                    <td class="col-md-2"> {{e.usuario}} </td>
+                                    <td class="col-md-2"> <button class="btn btn-success">Asignar</button> </td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" ng-click="modalAsignacion = false;">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Asignar</button>
+                            <button type="button" class="btn btn-default" ng-click="modalAsignacion = false;">Cerrar</button>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    
-    
-    
-
-<!-- Fin modal asignacion -->
+    <!-- Fin modal asignacion -->
     <div class="row" ng-show="verFiltros">
         <div class="col-md-12">
             <!-- Begin: life time stats -->
@@ -208,11 +199,7 @@
                                     </select>
                                 </div>
                             </div>
-
-
                         </div>
-
-
                     </form>
 
                 </div>
@@ -221,13 +208,9 @@
 
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-
-
 
     <div class="row">
         <div class="col-md-12">
@@ -246,7 +229,7 @@
                                     <i class="fa fa-edit"></i> Modificar
                                 </a>
                                 <a class="btn btn-circle btn-default btn-sm" href="javascript:;" ng-click="loadEvaluaciones()">
-                                    <i class="fa fa-edit"></i> Asignar Evaluaciones
+                                    <i class="fa fa-edit"></i> Detalle de la Evaluación
                                 </a>
 
 
@@ -289,7 +272,7 @@
                         </thead>
                         <tbody>
                             <tr class="clickable vert-align" ng-repeat="c in calendarizaciones track by $index">
-                                <td class="col-md-1"> 
+                                <td class="col-md-1">
 
                                     <div class="form-group">
                                         <div class="mt-radio-list">
