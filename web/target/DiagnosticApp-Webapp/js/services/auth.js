@@ -34,7 +34,6 @@ angular
                     console.log(credentials, "Les cred");
                     return api.all('auth').all('login').post(credentials).then(function (response) {
                         console.log(response, "RESPONSE LOGIN");
-                        return f;
                         var data = response.data;
                         var user = {
                             "id": data.usuarioId,
