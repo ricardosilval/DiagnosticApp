@@ -32,9 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "calendarizaciones")
 @XmlRootElement
 public class Calendarizacion extends BaseModel implements Serializable {
-    
-   
-
     @Id
     @Column(name = "calendarizacion_id")
     private String id;

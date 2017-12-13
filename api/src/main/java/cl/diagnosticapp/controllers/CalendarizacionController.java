@@ -5,14 +5,9 @@
  */
 package cl.diagnosticapp.controllers;
 
-import cl.diagnosticapp.model.responses.RolListResponse;
-import cl.diagnosticapp.annotations.Secured;
 import cl.diagnosticapp.dao.CalendarizacionDao;
-import cl.diagnosticapp.dao.RolDao;
-import cl.diagnosticapp.model.Rol;
 import cl.diagnosticapp.handlers.BaseException;
 import cl.diagnosticapp.handlers.Messages;
-import cl.diagnosticapp.log.BaseLogger;
 import cl.diagnosticapp.model.BaseModel;
 import cl.diagnosticapp.model.Calendarizacion;
 import cl.diagnosticapp.model.requests.CalendarizacionRequest;
@@ -20,13 +15,8 @@ import cl.diagnosticapp.model.responses.BaseResponse;
 import cl.diagnosticapp.model.responses.CalendarizacionListResponse;
 import cl.diagnosticapp.model.responses.CalendarizacionResponse;
 import cl.diagnosticapp.utils.PortalUtil;
-import freemarker.core.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;
-import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;

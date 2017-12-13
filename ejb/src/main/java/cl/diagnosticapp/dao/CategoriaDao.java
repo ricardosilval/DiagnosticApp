@@ -25,5 +25,9 @@ public class CategoriaDao extends BaseDao<Categoria> {
 
         private static final CategoriaDao INSTANCE = new CategoriaDao();
     }
+    
+     public Categoria get(String id) {
+        return super.getById(id);
+    }
 
 }

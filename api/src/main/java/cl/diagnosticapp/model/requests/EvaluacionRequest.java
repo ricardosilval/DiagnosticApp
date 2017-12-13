@@ -11,16 +11,19 @@ import javax.validation.constraints.NotNull;
 public class EvaluacionRequest extends PortalRequest {
 
     @NotNull //opcional
-    private String campo;
-    //private List<String> listas;
+    private String titulo;
+    private String categoria;
 
-//    public String getCampo() {
-//        return rut;
-//    }
-//
-//    public List<String> getListas() {
-//        return sucursales;
-//    }
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+ 
+    
 
 
 }

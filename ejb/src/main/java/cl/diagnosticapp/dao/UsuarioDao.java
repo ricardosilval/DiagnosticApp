@@ -7,6 +7,7 @@ package cl.diagnosticapp.dao;
 
 import cl.diagnosticapp.handlers.BaseException;
 import cl.diagnosticapp.handlers.Messages;
+import cl.diagnosticapp.model.Evaluacion;
 import cl.diagnosticapp.model.Usuario;
 import cl.diagnosticapp.models.Credentials;
 import cl.diagnosticapp.utils.HibernateUtil;
@@ -36,6 +37,9 @@ public class UsuarioDao extends BaseDao<Usuario> {
 
     public enum LoginType {
         MAIL, USERNAME
+    }
+     public Usuario get(String id) {
+        return super.getById(id);
     }
 
     public Usuario login(LoginType type, Credentials credentials) throws BaseException {
