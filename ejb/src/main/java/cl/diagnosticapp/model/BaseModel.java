@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cl.diagnosticapp.model;
 
 /**
  *
  * @author ricardo
  */
-
 import cl.diagnosticapp.handlers.BaseException;
 import cl.diagnosticapp.handlers.Messages.Errores;
 import cl.diagnosticapp.utils.JsonUtil;
@@ -23,11 +21,14 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 
 /**
- * Modelo generico para clases de Mapeo de Base de Datos. 
- * Contiene metodos de uso comun entre los modelos
+ * Modelo generico para clases de Mapeo de Base de Datos. Contiene metodos de
+ * uso comun entre los modelos
  *
  */
 public abstract class BaseModel extends Observable {
+
+    public static final int ESTADO_HABILITADO = 1;
+    public static final int ESTADO_BLOQUEADO = 2;
 
     public abstract String getId();
 
