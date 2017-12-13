@@ -25,8 +25,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" ng-click="crearCalendarizacionModal = false;">&times;</button>
-                        <h4 class="modal-title" ng-if="currentCalendarizacion !== ''">Edición de Calendarización</h4>
-                        <h4 class="modal-title" ng-if="currentCalendarizacion === ''">Registro de Calendarización</h4>
+                        <h4 class="modal-title" ng-if="calendarizacion !== ''">Edición de Calendarización</h4>
+                        <h4 class="modal-title" ng-if="calendarizacion === ''">Registro de Calendarización</h4>
                     </div>
                     <div class="modal-body">
 
@@ -38,7 +38,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input ng-model="currentCalendarizacion.fechaInicio" validationmessage="Fecha de inicio es obligatoria" required class="form-control" readonly type="text">
+                                    <input ng-model="calendarizacion.fechaInicio" validationmessage="Fecha de inicio es obligatoria" required class="form-control" readonly type="text">
                                 </div>
 
 
@@ -51,7 +51,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input ng-model="currentCalendarizacion.fechaTermino" validationmessage="Fecha de fin es obligatoria" required class="form-control" readonly type="text">
+                                    <input ng-model="calendarizacion.fechaTermino" validationmessage="Fecha de fin es obligatoria" required class="form-control" readonly type="text">
                                 </div>
                             </div>
 
@@ -65,7 +65,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    <input type="text" class="form-control" ng-model="currentCalendarizacion.titulo" placeholder="Un título descriptivo">
+                                    <input type="text" class="form-control" ng-model="calendarizacion.titulo" placeholder="Un título descriptivo">
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -74,11 +74,11 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-bookmark"></i>
                                     </span>
-                                    <input type="text" class="form-control" ng-model="currentCalendarizacion.descripcion" placeholder="Descripcion de la calendarizacion">
+                                    <input type="text" class="form-control" ng-model="calendarizacion.descripcion" placeholder="Descripcion de la calendarizacion">
                                 </div>
                             </div>
 
-                            <input type="hidden" ng-model="currentCalendarizacion.id">
+                            <input type="hidden" ng-model="calendarizacion.id">
 
                             <div class="alert alert-danger hidden">
                                 Error
@@ -128,7 +128,7 @@
                                         <div class="form-group">
                                             <div class="mt-check-list">
                                                 <label class="mt-check">
-                                                    <input type="checkbox" class="form-control" name="calendarizacionSelected" ng-model="currentCalendarizacion" ng-click="habilitaAcciones(c)" />
+                                                    <input type="checkbox" class="form-control" name="calendarizacionSelected" ng-model="calendarizacion" ng-click="habilitaAcciones(c)" />
                                                     <span></span>
                                                 </label>
 
@@ -168,34 +168,35 @@
                             <i class="fa fa-eraser"></i> Limpiar Filtros </a>
                     </div>
                 </div>
+                
+                
+                
+                
+                
                 <div class="portlet-body">
                     <form role="form">
                         <div class="form-body">
                             <div class="form-group col-md-4">
                                 <label>Fecha de Inicio</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <input type="text" class="form-control" ng-model="filtroFechaInicio"> </div>
+                                <div class="input-group input-larger date date-picker" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="es">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input ng-model="filtroFechaInicio" validationmessage="Fecha de inicio es obligatoria" required class="form-control" readonly type="text">
+                                </div>
+                                
                             </div>
-                            <div class="form-group col-md-4">
-                                <label>Fecha de término</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <input type="text" class="form-control" ng-model="filtroFechaFin"> </div>
-                            </div>
+                            
                             <div class="form-group col-md-4">
                                 <label>Estado</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    <select class="form-control">
+                                    <select class="form-control" ng-model="filtroEstado">
+                                        <option value="">Seleccione</option>
                                         <option value="1">Activa</option>
-                                        <option value="1">Inactiva</option>
+                                        <option value="2">Inactiva</option>
                                     </select>
                                 </div>
                             </div>
@@ -277,7 +278,7 @@
                                     <div class="form-group">
                                         <div class="mt-radio-list">
                                             <label class="mt-radio">
-                                                <input type="radio" class="form-control" name="calendarizacionSelected" ng-model="currentCalendarizacion" ng-click="habilitaAcciones(c)" />
+                                                <input type="radio" class="form-control" name="calendarizacionSelected" ng-model="calendarizacion" ng-click="habilitaAcciones(c)" />
                                                 <span></span>
                                             </label>
 

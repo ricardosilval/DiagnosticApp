@@ -18,24 +18,16 @@ angular
                     array.splice(index, 1);
                 }
             };
-            this.getApi = function () {
+             this.getApi = function () {
                 var header = {};
                 header['X-Token'] = session.getUser().token;
-                 
-                 header['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
                 // header['X-Company'] = $rootScope.company;
                 Restangular.setDefaultHeaders(header);
                 // console.log(window.location);
-                
-                /**
-                CAMBIAR AMBIENTE CHARBEL
-                */
                 if (window.location.hostname === '127.0.0.1') {
-                    //Restangular.setBaseUrl('http://172.20.10.4:9090/ServiciosDiagnosticApp/rest/servicios/');
                     Restangular.setBaseUrl('http://localhost:8080/');
                 }
                 Restangular.setFullResponse(false);
-                
                 Restangular.setErrorInterceptor(function (response, deferred, responseHandler) {
                     if (response.status === 401) {
                         session.destroy();
@@ -50,11 +42,7 @@ angular
             this.getLoginApi = function () {
                 var header = {};
 
-                /**
-                CAMBIAR AMBIENTE CHARBEL
-                */
                 if (window.location.hostname === '127.0.0.1') {
-                    //Restangular.setBaseUrl('http://172.20.10.4:9090/ServiciosDiagnosticApp/rest/servicios/');
                     Restangular.setBaseUrl('http://localhost:8080/');
                 }
 

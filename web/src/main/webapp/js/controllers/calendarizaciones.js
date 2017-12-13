@@ -10,21 +10,22 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
         $rootScope.settings.layout.isPrivate = true;
 
 
-
+        $scope.clearFilter();
         $scope.listar();
 
-    $scope.currentCalendarizacion = {
-        fechaInicio: "",
-        fechaTermino: "",
-        estado: 0,
-        titulo: "",
-        descripcion: "",
-        id: ""
-    };
+        $scope.calendarizacion = {
+            fechaInicio: "",
+            fechaTermino: "",
+            estado: "",
+            titulo: "",
+            descripcion: "",
+            id: ""
+        };
+        $scope.paginaActual = 1;
 
     });
+    var api = portalUtil.getApi();
 
-    $scope.paginaActual = 1;
 
     $scope.crearCalendarizacionModal = false;
 
@@ -37,49 +38,33 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
         "text": "Inactivos"
     }];
 
-
-    //Inicializa filters
-    $scope.filtroFechaInicio = "";
-    $scope.filtroFechaTermino = "";
-    $scope.filtroEstado = 0;
-
-
     $scope.clearFilter = function () {
-        $scope.filtroFechaInicio = "";
-        $scope.filtroFechaTermino = "";
-        $scope.filtroEstado = 0;
 
+        $scope.filtroFechaInicio = "";
+        $scope.filtroEstado = "";
         $scope.listar();
     };
 
-
     $scope.habilitaAcciones = function (cal) {
         $scope.permiteAcciones = true;
-
-        $scope.currentCalendarizacion = cal;
+        $scope.calendarizacion = cal;
     };
 
-    var api = portalUtil.getApi();
-
     $scope.listar = function () {
-
         /*
         Llamada API de listar calendarizaciones
         */
-
-
         var filterrier = {
             pagina: $scope.paginaActual,
             filas: 15
         };
 
-
-        /*if ($scope.filtroEstado !== "") {
+        if ($scope.filtroEstado !== "") {
             filterrier['estado'] = $scope.filtroEstado;
-        }*/
-
-
-
+        }
+        if ($scope.filtroFechaInicio !== "") {
+            filterrier['fechaInicio'] = $scope.filtroFechaInicio;
+        }
         api.one('calendarizacion').get(filterrier).then(function (data) {
             console.log(data, "RESPONSE")
             $scope.calendarizaciones = data.calendarizaciones;
@@ -92,21 +77,21 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
 
     $scope.save = function (form) {
 
-        console.log($scope.currentCalendarizacion, "LA CAL");
+        console.log($scope.calendarizacion, "LA CAL");
 
         $scope.userError = [];
         portalUtil.validateForm(form, $scope.userError);
         if ($scope.userError.length)
             return;
-        if ($scope.currentCalendarizacion.id === "") {
+        if ($scope.calendarizacion.id === "") {
             console.log("Entra a post");
-            api.all('calendarizacion').post($scope.currentCalendarizacion).then(function () {
+            api.all('calendarizacion').post($scope.calendarizacion).then(function () {
                 $scope.listar();
                 $scope.crearCalendarizacionModal = false;
             }, saveError);
         } else {
             console.log("Entra a put");
-            $scope.currentCalendarizacion.put().then(function () {
+            $scope.calendarizacion.put().then(function () {
                 $scope.listar();
                 $scope.crearCalendarizacionModal = false;
             }, saveError);
@@ -123,30 +108,15 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
         console.log("Error al guardar");
     };
 
-    $scope.createCalendarizacion = function () {
 
-        $scope.calendarzacion = {
-            fechaInicio: "",
-            fechaTermino: "",
-            estado: 0,
-            titulo: "",
-            descripcion: "",
-            id: ""
-        };
-        $scope.currentCalendarizacion = "";
-        $scope.crearCalendarizacionModal = true;
-
-    };
 
     $scope.modificarCalendarizacion = function () {
         //Llamada  a buscar Calendarizacion y setearlo en $scope.Calendarizacion
-        /*
-        api.one('Calendarizacions', $scope.currentCalendarizacion).get().then(function (data) {
+        api.one('calendarizacion', $scope.calendarizacion.id).get().then(function (data) {
             console.log(data, "EL Calendarizacion A MODIFICAR");
             $scope.calendarizacion = data;
-            //$scope.Calendarizacion.roles = portalUtil.objectToIdArray(data.roles);
         });
-        */
+
         $scope.crearCalendarizacionModal = true;
 
     };
@@ -164,6 +134,16 @@ angular.module('DiagnosticApp').controller('CalendarizacionesCtrl', ['$rootScope
     };
 
     $scope.crear = function () {
+
+
+        $scope.calendarizacion = {
+            fechaInicio: "",
+            fechaTermino: "",
+            estado: 0,
+            titulo: "",
+            descripcion: "",
+            id: ""
+        };
         $scope.crearCalendarizacionModal = true;
 
     }

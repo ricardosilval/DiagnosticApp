@@ -27,8 +27,8 @@ import javax.persistence.Table;
  */
 public abstract class BaseModel extends Observable {
 
-    public static final int ESTADO_HABILITADO = 1;
-    public static final int ESTADO_BLOQUEADO = 2;
+    public static final int ESTADO_ACTIVO = 1;
+    public static final int ESTADO_INACTIVO = 2;
 
     public abstract String getId();
 

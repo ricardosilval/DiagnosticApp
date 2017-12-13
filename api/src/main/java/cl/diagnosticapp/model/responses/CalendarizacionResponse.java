@@ -5,6 +5,7 @@
  */
 package cl.diagnosticapp.model.responses;
 
+import cl.diagnosticapp.model.BaseModel;
 import cl.diagnosticapp.model.Calendarizacion;
 import java.util.Date;
 
@@ -19,7 +20,8 @@ public class CalendarizacionResponse {
     private final Date fechaTermino;
     private final String titulo;
     private final String descripcion;
-    
+    private final Integer estado;
+   
 
     public CalendarizacionResponse(Calendarizacion model) {
         id = model.getId();
@@ -27,7 +29,7 @@ public class CalendarizacionResponse {
         fechaTermino = model.getFechaTermino();
         titulo = model.getTitulo();
         descripcion = model.getDescripcion();
-        
+        estado = model.getEstado();
         
 
     }
@@ -52,6 +54,9 @@ public class CalendarizacionResponse {
         return descripcion;
     }
 
+    public Integer getEstado() {
+        return estado;
+    }
 
 
 }

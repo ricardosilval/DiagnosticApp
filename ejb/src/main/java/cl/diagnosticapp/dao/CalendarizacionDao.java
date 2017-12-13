@@ -46,7 +46,7 @@ public class CalendarizacionDao extends BaseDao<Calendarizacion> {
 
     @SuppressWarnings("unchecked")
     public Pair<List<Calendarizacion>, Long> getAll(
-            Long fechaInicio,
+            Date fechaInicio,
             Integer estado,
             int pagina,
             int filas
@@ -57,13 +57,13 @@ public class CalendarizacionDao extends BaseDao<Calendarizacion> {
 //        whereBuilder.append("s.estado <> :eliminado AND ");
 //        params.put("eliminado", Subasta.STATUS_DELETED);
         if (fechaInicio != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new Date(fechaInicio));
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTime(new Date(fechaInicio));
+//            calendar.set(Calendar.HOUR_OF_DAY, 0);
+//            calendar.set(Calendar.MINUTE, 0);
+//            calendar.set(Calendar.SECOND, 0);
             whereBuilder.append("c.fechaInicio >= :fechaInicio AND ");
-            params.put("fechaInicio", calendar.getTime());
+            params.put("fechaInicio", fechaInicio);
 
         }
 

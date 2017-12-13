@@ -21,6 +21,7 @@ import cl.diagnosticapp.model.responses.CalendarizacionListResponse;
 import cl.diagnosticapp.model.responses.CalendarizacionResponse;
 import cl.diagnosticapp.utils.PortalUtil;
 import freemarker.core.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,33 +44,34 @@ import org.apache.commons.lang3.tuple.Pair;
 
 /**
  *
- * @author benjamin
+ * @author ricardo
  */
 @Path("/calendarizacion")
 public class CalendarizacionController {
-    
-    @Inject
-    private BaseLogger log;
+
     @Context
     private SecurityContext securityContext;
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(
             @QueryParam("pagina") @DefaultValue("1") int pagina,
             @QueryParam("filas") @DefaultValue("15") int filas,
-            @QueryParam("fechaInicio") Long fechaInicio,
+            @QueryParam("fechaInicio") String fechaInicio,
             @QueryParam("estado") Integer estado
     ) {
         try {
-            Pair<List<Calendarizacion>, Long> calendarizacion = CalendarizacionDao.getInstance().getAll(fechaInicio, estado, pagina, filas);
+            
+            
+            Date dFechaInicio = PortalUtil.stringToDate(fechaInicio + " 00:00:00", "yyyy-MM-dd hh:mm:ss");
+            Pair<List<Calendarizacion>, Long> calendarizacion = CalendarizacionDao.getInstance().getAll(dFechaInicio, estado, pagina, filas);
             return Response.ok(new CalendarizacionListResponse(calendarizacion.getLeft(), calendarizacion.getRight(), pagina, filas)).build();
         } catch (BaseException e) {
-            log.error("E!", e);
+
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }
     }
-    
+
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -81,12 +83,11 @@ public class CalendarizacionController {
             }
             return Response.ok(new CalendarizacionResponse(calendarizacion)).build();
         } catch (BaseException e) {
-            log.error("E!", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }
-        
+
     }
-    
+
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -102,10 +103,10 @@ public class CalendarizacionController {
             Setear nuevos valores
              */
             if (req.getFechaInicio() != null) {
-                calendarizacion.setFechaInicio(PortalUtil.stringToDate(req.getFechaInicio(), "yyyy-mm-dd hh:mm:ss"));
+                calendarizacion.setFechaInicio(PortalUtil.stringToDate(req.getFechaInicio() + " 00:00:00", "yyyy-mm-dd hh:mm:ss"));
             }
             if (req.getFechaTermino() != null) {
-                calendarizacion.setFechaTermino(PortalUtil.stringToDate(req.getFechaTermino(), "yyyy-mm-dd hh:mm:ss"));
+                calendarizacion.setFechaTermino(PortalUtil.stringToDate(req.getFechaTermino() + " 00:00:00", "yyyy-mm-dd hh:mm:ss"));
             }
             if (req.getTitulo() != null) {
                 calendarizacion.setTitulo(req.getTitulo());
@@ -113,45 +114,48 @@ public class CalendarizacionController {
             if (req.getEstado() != null) {
                 calendarizacion.setEstado(req.getEstado());
             }
-            
+            if (req.getDescripcion() != null) {
+                calendarizacion.setDescripcion(req.getDescripcion());
+            }
+           
+
             calendarizacion = CalendarizacionDao.getInstance().update(calendarizacion);
             calendarizacion = CalendarizacionDao.getInstance().get(calendarizacion.getId());
             return Response.ok(new CalendarizacionResponse(calendarizacion)).build();
         } catch (BaseException e) {
-            log.error("E!", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }
-        
+
     }
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@Valid CalendarizacionRequest req) {
+    public Response create(CalendarizacionRequest req) {
         try {
-            
+
             if (req.getFechaInicio() == null || req.getFechaTermino() == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(new BaseResponse(Messages.Errores.INVALID_ARGUMENT)).build();
             }
-            
+
             if (req.getTitulo() == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(new BaseResponse(Messages.Errores.INVALID_ARGUMENT)).build();
             }
-            
+
             Calendarizacion cal = new Calendarizacion();
-            cal.setFechaInicio(PortalUtil.stringToDate(req.getFechaInicio(), "yyyy-MM-dd hh:mm:ss"));
-            cal.setFechaTermino(PortalUtil.stringToDate(req.getFechaTermino(), "yyyy-MM-dd hh:mm:ss"));
+            System.out.println("Fecha de inicio: " + req.getFechaInicio());
+            cal.setFechaInicio(PortalUtil.stringToDate(req.getFechaInicio() + " 00:00:00", "yyyy-MM-dd hh:mm:ss"));
+            cal.setFechaTermino(PortalUtil.stringToDate(req.getFechaTermino() + " 00:00:00", "yyyy-MM-dd hh:mm:ss"));
             cal.setTitulo(req.getTitulo());
             cal.setDescripcion(req.getDescripcion());
-            cal.setEstado(BaseModel.ESTADO_HABILITADO);
-           
+            cal.setEstado(BaseModel.ESTADO_ACTIVO);
+
             cal = CalendarizacionDao.getInstance().insert(cal);
             cal = CalendarizacionDao.getInstance().get(cal.getId());
             return Response.status(Response.Status.CREATED).entity(new CalendarizacionResponse(cal)).build();
         } catch (BaseException e) {
-            log.error("E!", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }
     }
-    
+
 }
