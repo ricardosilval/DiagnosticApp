@@ -10,6 +10,7 @@ cl/diagnosticapp/model/responses/MainChartResponse.class
 cl/diagnosticapp/model/responses/PasswordRecoveryResponse.class
 cl/diagnosticapp/model/responses/RespuestaListResponse.class
 cl/diagnosticapp/model/responses/CalendarizacionListResponse.class
+cl/diagnosticapp/controllers/CategoriaController.class
 cl/diagnosticapp/model/responses/CategoriaResponse.class
 cl/diagnosticapp/model/responses/JornadaResponse.class
 cl/diagnosticapp/controllers/CalendarizacionController.class
@@ -41,6 +42,7 @@ cl/diagnosticapp/model/responses/EvaluacionResponse.class
 cl/diagnosticapp/controllers/AuthController.class
 cl/diagnosticapp/filters/AuthenticationFilter.class
 cl/diagnosticapp/controllers/UsuariosController.class
+cl/diagnosticapp/controllers/EvaluacionController.class
 cl/diagnosticapp/controllers/RolesController.class
 cl/diagnosticapp/filters/AuthenticationFilter$1.class
 cl/diagnosticapp/model/responses/AlumnoListResponse.class

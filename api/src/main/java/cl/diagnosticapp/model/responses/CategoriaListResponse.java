@@ -27,7 +27,7 @@ public class CategoriaListResponse {
         this.filas = filas;
     }
 
-    public List<CategoriaResponse> getCategoriaos() {
+    public List<CategoriaResponse> getCategorias() {
         return categorias;
     }
 

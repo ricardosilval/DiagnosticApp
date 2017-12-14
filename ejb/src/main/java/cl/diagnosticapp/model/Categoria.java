@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Categoria extends BaseModel implements Serializable {
 
     @Id
-    @Column(name = "cateogoria_id")
+    @Column(name = "categoria_id")
     private String id;
     @Column(name = "nombre")
     private String nombre;
