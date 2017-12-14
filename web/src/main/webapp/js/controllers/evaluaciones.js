@@ -150,15 +150,25 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
 
 
         $scope.evaluacion = {
-            fechaInicio: "",
-            fechaTermino: "",
-            estado: 0,
             titulo: "",
-            descripcion: "",
+            categoriaId: "",
+            usuarioId: "",
+            calendarizacionId: "",
             id: ""
         };
         $scope.crearEvaluacionModal = true;
 
     };
+    
+    $scope.visualizarEvaluacion = function(){
+         
+         api.one('evaluacion', $scope.evaluacion.id).get().then(function (data) {
+            console.log(data, "EL Evaluacion A VER");
+            $scope.evaluacion = data;
+        });
+        
+        
+        
+    }
 
     }]);

@@ -19,12 +19,7 @@
 
 <div class="row" ng-controller="EvaluacionesCtrl">
     
-    
-    <code>
-    {{evaluaciones}}
-    </code>
-    </div>
-    
+   
     
     <div class="row" ng-show="verFiltros">
         <div class="col-md-12">
@@ -49,11 +44,24 @@
 
                                 <label>Materia</label>
 
+                                
+                                
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    <input type="text" class="form-control" ng-model="filtroFechaInicio"> </div>
+                                    
+                                <ui-select name="Categoria" ng-model="evaluacion.categoriaId" ng-required="required"  title="Elija una categoria">
+                                    <ui-select-match placeholder="Elija una categoria de la lista ...">
+                                        {{$select.selected.nombre}} 
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.id as item in subastas | filter: $select.search">
+                                        <div>
+                                            <span ng-bind-html="item.nombre | highlight: $select.search"></span> (<span ng-bind-html="item.descripcion | highlight: $select.search"></span>)
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Fecha de Creación</label>
@@ -101,6 +109,9 @@
                             <a class="btn btn-circle btn-default btn-sm" href="javascript:;" ng-click="modificarEvaluacion()">
                                 <i class="fa fa-edit"></i> Modificar
                             </a>
+                            <a class="btn btn-circle btn-default btn-sm" href="javascript:;" ng-click="visualizarEvaluacion()">
+                                <i class="fa fa-edit"></i> Visualizar
+                            </a>
 
 
                         </div>
@@ -112,7 +123,7 @@
                             <label class="btn btn-transparent btn-outline btn-circle btn-sm"  ng-class="verFiltros ? 'red' : 'blue'" ng-click="verFiltros = !verFiltros">
                                 <input class="toggle" type="checkbox"><i class="fa fa-filter"></i> {{ (verFiltros) ? 'Ocultar' : 'Ver'}} Filtros</label>
 
-                            <a ng-click="crear()" class="btn btn-transparent btn-outline btn-circle btn-sm green">
+                            <a href="#/evaluaciones/crear" class="btn">
                                 <i class="fa fa-plus-circle"></i> Crear nueva </a>
 
 
@@ -132,21 +143,21 @@
                         <tr class="heading">
                             <th></th>
                             <th>Materia</th>
-                            <th>Calendario</th>
                             <th>Titulo</th>
-                            <th>Estado</th>
+                            <th>Creado por</th>
+                            
 
                         </tr>
 
                     </thead>
                     <tbody>
-                        <tr class="clickable vert-align" ng-repeat="c in evaluaciones track by $index">
-                            <td>
+                        <tr class="clickable vert-align" ng-repeat="e in evaluaciones track by $index">
+                            <td class="col-md-1">
 
                                 <div class="form-group">
                                     <div class="mt-radio-list">
                                         <label class="mt-radio"> 
-                                            <input type="radio" class="form-control" name="EvaluacionSelected" ng-model="evaluacion" ng-click="habilitaAcciones(c.id)"/>
+                                            <input type="radio" class="form-control" name="EvaluacionSelected" ng-model="evaluacion" ng-click="habilitaAcciones(e.id)"/>
                                             <span></span>
                                         </label>
 
@@ -155,13 +166,11 @@
 
 
                             </td>
-                            <td class="col-md-3">{{c.fechaInicio}} {{c.fechaFin}}</td>
-                            <td class="col-md-2"> {{c.titulo}} </td>
+                            <td class="col-md-4">{{e.categoria.nombre}} </td>
+                            <td class="col-md-3"> {{e.titulo}} </td>
+                            <td class="col-md-2"> {{e.usuario.nombre}} </td>
                         
-                            <td class="col-md-1">
-                                <span class="badge badge-success" ng-if="c.estado === 1">ACTIVO</span>
-                                <span class="badge badge-danger" ng-if="c.estado === 2">INACTIVO</span>
-                            </td>
+                            
 
 
                         </tr>

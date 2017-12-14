@@ -19,6 +19,7 @@ public class EvaluacionResponse{
     private final CategoriaResponse categoria;
     private final UsuarioResponse usuario;
     private final CalendarizacionResponse calendarizacion;
+    private final CalendarizacionResponse calendarizacion;
 
     public EvaluacionResponse(Evaluacion model) {
         id = model.getId();
