@@ -13,14 +13,14 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
 
         
         $scope.evaluacion = {
-            fechaInicio: "",
-            fechaTermino: "",
-            estado: "",
             titulo: "",
-            descripcion: "",
+            categoriaId: "",
+            usuarioId: "",
+            calendarizacionId: "",
             id: ""
         };
 
+        $scope.evaluaciones = [];
         $scope.categorias = [];
         
         $scope.loadCategorias();
@@ -76,12 +76,12 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
             filas: 15
         };
 
-        if ($scope.filtroEstado !== "") {
+       /* if ($scope.filtroEstado !== "") {
             filterrier['estado'] = $scope.filtroEstado;
         }
         if ($scope.filtroFechaInicio !== "") {
             filterrier['fechaInicio'] = $scope.filtroFechaInicio;
-        }
+        }*/
         api.one('evaluacion').get(filterrier).then(function (data) {
             console.log(data, "RESPONSE")
             $scope.evaluaciones = data.evaluaciones;

@@ -27,7 +27,7 @@ public class EvaluacionListResponse {
         this.filas = filas;
     }
 
-    public List<EvaluacionResponse> getEvaluacionos() {
+    public List<EvaluacionResponse> getEvaluaciones() {
         return evaluaciones;
     }
 

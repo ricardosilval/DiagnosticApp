@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 public class CarreraRequest extends PortalRequest {
 
     @NotNull //opcional
-    private String campo;
-    //private List<String> listas;
+    private String nombre;
+    private List<String> jonadas;
 
 //    public String getCampo() {
 //        return rut;

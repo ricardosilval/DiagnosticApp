@@ -18,6 +18,14 @@
 <!-- BEGIN MAIN CONTENT -->
 
 <div class="row" ng-controller="EvaluacionesCtrl">
+    
+    
+    <code>
+    {{evaluaciones}}
+    </code>
+    </div>
+    
+    
     <div class="row" ng-show="verFiltros">
         <div class="col-md-12">
             <!-- Begin: life time stats -->
@@ -132,13 +140,13 @@
 
                     </thead>
                     <tbody>
-                        <tr class="clickable vert-align" ng-repeat="c in Evaluaciones track by $index">
+                        <tr class="clickable vert-align" ng-repeat="c in evaluaciones track by $index">
                             <td>
 
                                 <div class="form-group">
                                     <div class="mt-radio-list">
                                         <label class="mt-radio"> 
-                                            <input type="radio" class="form-control" name="EvaluacionSelected" ng-model="currentEvaluacion" ng-click="habilitaAcciones(c.id)"/>
+                                            <input type="radio" class="form-control" name="EvaluacionSelected" ng-model="evaluacion" ng-click="habilitaAcciones(c.id)"/>
                                             <span></span>
                                         </label>
 
