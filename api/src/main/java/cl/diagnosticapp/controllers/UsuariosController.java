@@ -69,13 +69,13 @@ public class UsuariosController {
             if (UsuarioDao.getInstance().hasPermission(usuario, "listar_usuarios")) 
             {
                 results = UsuarioDao.getInstance().getAll(rut, aduanasLoteadoras, roles, aduanaGestora, correo, nombre, apellido, habilitado, pagina, filas, null);
+                UsuarioDao.getInstance().getall
             } else {
                 List<Empresa> empresasUsuario = usuario.getSucursales().stream().map(Sucursal::getEmpresa).distinct().collect(Collectors.toList());
                 results = UsuarioDao.getInstance().getAll(rut, aduanasLoteadoras, roles, aduanaGestora, correo, nombre, apellido, habilitado, pagina, filas, empresasUsuario);
             }
             UsuarioListResponse response = new UsuarioListResponse(results.getKey(), results.getValue(), pagina, filas);
             return Response.ok(response).build();
-
         } catch (BaseException e) {
             log.error("E!", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new PortalResponse(e)).build();

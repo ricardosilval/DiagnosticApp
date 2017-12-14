@@ -108,8 +108,8 @@ public class PreguntaDao extends BaseDao<Pregunta> {
                     .set("clase", this.getClass().getSimpleName())
                     .set("stacktrace", LOG.cleanStacktrace(e));
         }
-
     }
+
     /**
      * TODO: Crear validacion si existe pregunta para un rango 
      * @param fechaInicio
