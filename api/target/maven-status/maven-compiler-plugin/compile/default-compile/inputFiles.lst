@@ -1,4 +1,6 @@
+/Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/controllers/CategoriaController.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/requests/RespuestaRequest.java
+/Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/controllers/EvaluacionController.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/requests/LoginRequest.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/responses/RolListResponse.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/requests/AlumnoRequest.java

@@ -8,28 +8,45 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
         $rootScope.settings.layout.pageSidebarClosed = false;
         $rootScope.settings.layout.isPublic = false;
         $rootScope.settings.layout.isPrivate = true;
-
-
-
+        $scope.clearFilter();
         $scope.listar();
+
+        
+        $scope.evaluacion = {
+            fechaInicio: "",
+            fechaTermino: "",
+            estado: "",
+            titulo: "",
+            descripcion: "",
+            id: ""
+        };
+
+        $scope.categorias = [];
+        
+        $scope.loadCategorias();
+
 
     });
 
-    $scope.paginaActual = 1;
 
-    $scope.crearUsuarioModal = false;
-    $scope.usuario = {
-        nombre: "",
-        apellido: "",
-        username: "",
-        run: "",
-        correo: "",
-        sucursales: [],
-        password: "",
-        id: ""
-    };
+    $scope.loadCategorias = function () {
+        var filterrierCategorias = {
+            pagina: 1,
+            filas: 100
+        };
 
-    $scope.currentUsuario = "";
+        api.one('categoria').get(filterrierCategorias).then(function (data) {
+            console.log(data, "RESPONSE cat")
+            $scope.evaluaciones = data.categorias;
+        });
+    }
+
+    var api = portalUtil.getApi();
+
+
+    $scope.crearEvaluacionModal = false;
+
+
     $scope.optionsEstado = [{
         "value": 1,
         "text": "Activos"
@@ -38,103 +55,65 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
         "text": "Inactivos"
     }];
 
-
-    //Inicializa filters
-    $scope.filtroNombre = "";
-    $scope.filtroApellido = "";
-    $scope.filtroEmail = "";
-    $scope.filtroEstado = "";
-    $scope.filtroRun = [];
-    $scope.filtroRol = "";
-
-    //Get de sucursales
-    $scope.holaMundo = "Hola Mundo";
-
-
     $scope.clearFilter = function () {
-        $scope.filtroNombre = "";
-        $scope.filtroApellido = "";
-        $scope.filtroEmail = "";
+
+        $scope.filtroFechaInicio = "";
         $scope.filtroEstado = "";
-        $scope.filtroRut = [];
-        $scope.filtroRol = "";
         $scope.listar();
     };
-    $scope.enableActions = function (id) {
+
+    $scope.habilitaAcciones = function (cal) {
         $scope.permiteAcciones = true;
-        // console.log("ID Seleccionado: " + id + "(" + $scope.permiteAcciones + ")");
-        $scope.currentUsuario = id;
+        $scope.evaluacion = cal;
     };
-
-    var api = portalUtil.getApi();
-
-    $scope.loadRoles = function () {
-        api.one('roles').get().then(function (data) {
-            console.log(data.roles, "ROLES??");
-            $scope.optionsRoles = data.roles;
-        });
-    };
-
-
 
     $scope.listar = function () {
-
+        /*
+        Llamada API de listar evaluaciones
+        */
         var filterrier = {
             pagina: $scope.paginaActual,
             filas: 15
         };
-        if ($scope.filtroNombre !== "") {
-            filterrier['nombre'] = $scope.filtroNombre;
-        }
-        if ($scope.filtroApellido !== "") {
-            filterrier['apellido'] = $scope.filtroApellido;
-        }
-
-        if ($scope.filtroEmail !== "") {
-            filterrier['correo'] = $scope.filtroEmail;
-        }
 
         if ($scope.filtroEstado !== "") {
             filterrier['estado'] = $scope.filtroEstado;
         }
-        if ($scope.filtroRut.length > 0) {
-            filterrier['run'] = $scope.filtroRut;
+        if ($scope.filtroFechaInicio !== "") {
+            filterrier['fechaInicio'] = $scope.filtroFechaInicio;
         }
-        if ($scope.filtroRol !== "") {
-            filterrier['rol'] = $scope.filtroRol;
-        }
-
-
-        api.one('usuarios').get(filterrier).then(function (data) {
-
-            $scope.usuarios = data.usuarios;
+        api.one('evaluacion').get(filterrier).then(function (data) {
+            console.log(data, "RESPONSE")
+            $scope.evaluaciones = data.evaluaciones;
             $scope.paginaActual = data.paginaActual;
             $scope.totales = data.total;
 
         });
 
-
     };
 
     $scope.save = function (form) {
-        console.log($scope.usuario, "EL USER");
+
+        console.log($scope.evaluacion, "LA CAL");
 
         $scope.userError = [];
         portalUtil.validateForm(form, $scope.userError);
         if ($scope.userError.length)
             return;
-        if ($scope.usuario.id === "") {
-            api.all('usuarios').post($scope.usuario).then(function () {
+        if ($scope.evaluacion.id === "") {
+            console.log("Entra a post");
+            api.all('evaluacion').post($scope.evaluacion).then(function () {
                 $scope.listar();
-                $scope.crearUsuarioModal = false;
+                $scope.crearEvaluacionModal = false;
             }, saveError);
         } else {
-
-            $scope.usuario.put().then(function () {
+            console.log("Entra a put");
+            $scope.evaluacion.put().then(function () {
                 $scope.listar();
-                $scope.crearUsuarioModal = false;
+                $scope.crearEvaluacionModal = false;
             }, saveError);
         }
+
 
     };
 
@@ -142,39 +121,44 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
         if (error.data && error.data.message)
             $scope.userError.push(error.data.message);
         else
-            $scope.userError.push("Error guardando usuario.");
+            $scope.userError.push("Error guardando Evaluacion.");
         console.log("Error al guardar");
     };
 
-    $scope.createUsuario = function () {
 
-        $scope.usuario = {
-            nombre: "",
-            apellido: "",
-            username: "",
-            rut: "",
-            correo: "",
-            cargo: "",
-            roles: [],
-            sucursales: [],
-            password: "",
+
+    $scope.modificarEvaluacion = function () {
+        //Llamada  a buscar Evaluacion y setearlo en $scope.Evaluacion
+        api.one('evaluacion', $scope.evaluacion.id).get().then(function (data) {
+            console.log(data, "EL Evaluacion A MODIFICAR");
+            $scope.evaluacion = data;
+        });
+
+        $scope.crearEvaluacionModal = true;
+
+    };
+
+
+
+
+    $scope.asignar = function (form) {
+
+        console.log(form, "les form");
+    };
+
+    $scope.crear = function () {
+
+
+        $scope.evaluacion = {
+            fechaInicio: "",
+            fechaTermino: "",
+            estado: 0,
+            titulo: "",
+            descripcion: "",
             id: ""
         };
-        $scope.currentUsuario = "";
-        $scope.crearUsuarioModal = true;
+        $scope.crearEvaluacionModal = true;
 
     };
-
-    $scope.modificarUsuario = function () {
-        //Llamada  a buscar USUARIO y setearlo en $scope.usuario
-        api.one('usuarios', $scope.currentUsuario).get().then(function (data) {
-            console.log(data, "EL USUARIO A MODIFICAR");
-            $scope.usuario = data;
-            //$scope.usuario.roles = portalUtil.objectToIdArray(data.roles);
-        });
-        $scope.crearUsuarioModal = true;
-
-    };
-
 
     }]);
