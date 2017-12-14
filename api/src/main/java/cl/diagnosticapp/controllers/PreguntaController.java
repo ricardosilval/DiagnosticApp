@@ -5,17 +5,17 @@
  */
 package cl.diagnosticapp.controllers;
 
-import cl.diagnosticapp.dao.CalendarizacionDao;
+import cl.diagnosticapp.dao.CategoriaDao;
+import cl.diagnosticapp.dao.EvaluacionDao;
+import cl.diagnosticapp.dao.PreguntaDao;
 import cl.diagnosticapp.handlers.BaseException;
 import cl.diagnosticapp.handlers.Messages;
 import cl.diagnosticapp.model.BaseModel;
-import cl.diagnosticapp.model.Calendarizacion;
-import cl.diagnosticapp.model.requests.CalendarizacionRequest;
+import cl.diagnosticapp.model.Pregunta;
+import cl.diagnosticapp.model.requests.PreguntaRequest;
 import cl.diagnosticapp.model.responses.BaseResponse;
-import cl.diagnosticapp.model.responses.CalendarizacionListResponse;
-import cl.diagnosticapp.model.responses.CalendarizacionResponse;
-import cl.diagnosticapp.utils.PortalUtil;
-import java.util.Date;
+import cl.diagnosticapp.model.responses.PreguntaListResponse;
+import cl.diagnosticapp.model.responses.PreguntaResponse;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
@@ -36,7 +36,7 @@ import org.apache.commons.lang3.tuple.Pair;
  *
  * @author ricardo
  */
-@Path("/calendarizacion")
+@Path("/pregunta")
 public class PreguntaController {
 
     @Context
@@ -47,15 +47,12 @@ public class PreguntaController {
     public Response getAll(
             @QueryParam("pagina") @DefaultValue("1") int pagina,
             @QueryParam("filas") @DefaultValue("15") int filas,
-            @QueryParam("fechaInicio") String fechaInicio,
+            @QueryParam("categoria") String categoria,
             @QueryParam("estado") Integer estado
     ) {
-        try {
-            
-            
-            Date dFechaInicio = PortalUtil.stringToDate(fechaInicio + " 00:00:00", "yyyy-MM-dd hh:mm:ss");
-            Pair<List<Calendarizacion>, Long> calendarizacion = CalendarizacionDao.getInstance().getAll(dFechaInicio, estado, pagina, filas);
-            return Response.ok(new CalendarizacionListResponse(calendarizacion.getLeft(), calendarizacion.getRight(), pagina, filas)).build();
+        try {            
+            Pair<List<Pregunta>, Long> pregunta = PreguntaDao.getInstance().getAll(categoria, estado, pagina, filas);
+            return Response.ok(new PreguntaListResponse(pregunta.getLeft(), pregunta.getRight(), pagina, filas)).build();
         } catch (BaseException e) {
 
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
@@ -67,11 +64,11 @@ public class PreguntaController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") String id) {
         try {
-            Calendarizacion calendarizacion = CalendarizacionDao.getInstance().get(id);
-            if (calendarizacion == null) {
+            Pregunta pregunta = PreguntaDao.getInstance().get(id);
+            if (pregunta == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity(new BaseResponse(Messages.Errores.OBJECT_NOT_FOUND)).build();
             }
-            return Response.ok(new CalendarizacionResponse(calendarizacion)).build();
+            return Response.ok(new PreguntaResponse(pregunta)).build();
         } catch (BaseException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }
@@ -82,36 +79,34 @@ public class PreguntaController {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, CalendarizacionRequest req) {
+    public Response update(@PathParam("id") String id, PreguntaRequest req) {
         try {
-            Calendarizacion calendarizacion = CalendarizacionDao.getInstance().getById(id);
-            if (calendarizacion == null) {
+            Pregunta pregunta = PreguntaDao.getInstance().getById(id);
+            if (pregunta == null) {
                 throw new BaseException(Messages.Errores.OBJECT_NOT_FOUND);
             }
-
             /*
             Setear nuevos valores
              */
-            if (req.getFechaInicio() != null) {
-                calendarizacion.setFechaInicio(PortalUtil.stringToDate(req.getFechaInicio() + " 00:00:00", "yyyy-mm-dd hh:mm:ss"));
+            if (req.getCategoria() != null) {
+                pregunta.setSubcategoria(CategoriaDao.getInstance().getById(req.getCategoria()));
             }
-            if (req.getFechaTermino() != null) {
-                calendarizacion.setFechaTermino(PortalUtil.stringToDate(req.getFechaTermino() + " 00:00:00", "yyyy-mm-dd hh:mm:ss"));
+            if (req.getEvaluacion() != null) {
+                pregunta.setEvaluacion(EvaluacionDao.getInstance().getById(req.getEvaluacion()));
             }
-            if (req.getTitulo() != null) {
-                calendarizacion.setTitulo(req.getTitulo());
+            if (req.getIdentificador() != null) {
+                pregunta.setId(req.getIdentificador());
             }
-            if (req.getEstado() != null) {
-                calendarizacion.setEstado(req.getEstado());
+            if (req.getEstado() != 0) {
+                pregunta.setEstado(req.getEstado());
             }
-            if (req.getDescripcion() != null) {
-                calendarizacion.setDescripcion(req.getDescripcion());
+            if (req.getCuerpo() != null) {
+                pregunta.setCuerpo(req.getCuerpo());
             }
            
-
-            calendarizacion = CalendarizacionDao.getInstance().update(calendarizacion);
-            calendarizacion = CalendarizacionDao.getInstance().get(calendarizacion.getId());
-            return Response.ok(new CalendarizacionResponse(calendarizacion)).build();
+            pregunta = PreguntaDao.getInstance().update(pregunta);
+            pregunta = PreguntaDao.getInstance().get(pregunta.getId());
+            return Response.ok(new PreguntaResponse(pregunta)).build();
         } catch (BaseException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }
@@ -121,28 +116,27 @@ public class PreguntaController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(CalendarizacionRequest req) {
+    public Response create(PreguntaRequest req) {
         try {
 
-            if (req.getFechaInicio() == null || req.getFechaTermino() == null) {
+            if (req.getEvaluacion() == null || req.getCategoria() == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(new BaseResponse(Messages.Errores.INVALID_ARGUMENT)).build();
             }
 
-            if (req.getTitulo() == null) {
+            if (req.getCuerpo() == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(new BaseResponse(Messages.Errores.INVALID_ARGUMENT)).build();
             }
 
-            Calendarizacion cal = new Calendarizacion();
-            System.out.println("Fecha de inicio: " + req.getFechaInicio());
-            cal.setFechaInicio(PortalUtil.stringToDate(req.getFechaInicio() + " 00:00:00", "yyyy-MM-dd hh:mm:ss"));
-            cal.setFechaTermino(PortalUtil.stringToDate(req.getFechaTermino() + " 00:00:00", "yyyy-MM-dd hh:mm:ss"));
-            cal.setTitulo(req.getTitulo());
-            cal.setDescripcion(req.getDescripcion());
-            cal.setEstado(BaseModel.ESTADO_ACTIVO);
-
-            cal = CalendarizacionDao.getInstance().insert(cal);
-            cal = CalendarizacionDao.getInstance().get(cal.getId());
-            return Response.status(Response.Status.CREATED).entity(new CalendarizacionResponse(cal)).build();
+            Pregunta pregunta = new Pregunta();
+            System.out.println("Categoria: " + req.getCategoria());
+            pregunta.setCuerpo( req.getCuerpo() );
+            pregunta.setEstado(req.getEstado());
+            pregunta.setEvaluacion(EvaluacionDao.getInstance().getById(req.getEvaluacion()));
+            pregunta.setSubcategoria(CategoriaDao.getInstance().getById(req.getCategoria()));
+            pregunta.setEstado(BaseModel.ESTADO_ACTIVO);
+            pregunta = PreguntaDao.getInstance().insert(pregunta);
+            pregunta = PreguntaDao.getInstance().get(pregunta.getId());
+            return Response.status(Response.Status.CREATED).entity(new PreguntaResponse(pregunta)).build();
         } catch (BaseException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }

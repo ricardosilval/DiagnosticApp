@@ -45,7 +45,7 @@ public class PreguntaDao extends BaseDao<Pregunta> {
 
     @SuppressWarnings("unchecked")
     public Pair<List<Pregunta>, Long> getAll(
-            Date fechaInicio,
+            String categoria,
             Integer estado,
             int pagina,
             int filas
@@ -55,14 +55,14 @@ public class PreguntaDao extends BaseDao<Pregunta> {
         HashMap<String, Object> params = new HashMap<>();
 //        whereBuilder.append("s.estado <> :eliminado AND ");
 //        params.put("eliminado", Subasta.STATUS_DELETED);
-        if (fechaInicio != null) {
+        if (categoria != null) {
 //            Calendar calendar = Calendar.getInstance();
 //            calendar.setTime(new Date(fechaInicio));
 //            calendar.set(Calendar.HOUR_OF_DAY, 0);
 //            calendar.set(Calendar.MINUTE, 0);
 //            calendar.set(Calendar.SECOND, 0);
-            whereBuilder.append("c.fechaInicio >= :fechaInicio AND ");
-            params.put("fechaInicio", fechaInicio);
+            whereBuilder.append("c.categoria = :categoria AND ");
+            params.put("categoria", categoria);
 
         }
 
