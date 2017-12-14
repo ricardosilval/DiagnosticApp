@@ -15,7 +15,6 @@ import cl.diagnosticapp.model.Respuesta;
 public class RespuestaResponse{
 
     private final String id;
-    private final PreguntaResponse pregunta;
     private final String cuerpo;
     private final int valor;
     private final int estadoCodigo;
@@ -24,7 +23,6 @@ public class RespuestaResponse{
 
     public RespuestaResponse(Respuesta model) {
         id = model.getId();
-        pregunta = new PreguntaResponse(model.getPregunta());
         cuerpo = model.getCuerpo();
         valor = model.getValor();
         estadoCodigo = model.getEstado();
@@ -33,10 +31,6 @@ public class RespuestaResponse{
 
     public String getId() {
         return id;
-    }
-
-    public PreguntaResponse getPregunta() {
-        return pregunta;
     }
 
     public String getCuerpo() {

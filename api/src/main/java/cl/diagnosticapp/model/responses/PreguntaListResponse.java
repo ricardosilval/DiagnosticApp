@@ -18,7 +18,7 @@ public class PreguntaListResponse {
 
     public PreguntaListResponse(List<Pregunta> preguntas) {
         this.preguntas = new ArrayList<>();
-        preguntas.forEach((r) -> this.preguntas.add(new PreguntaResponse(r)));
+        preguntas.forEach((r) -> this.preguntas.add(new PreguntaResponse(r,null)));
     }
     public PreguntaListResponse(List<Pregunta> preguntas, long total, long paginaActual, long filas) {
         this(preguntas);

@@ -8,14 +8,18 @@ package cl.diagnosticapp.controllers;
 import cl.diagnosticapp.dao.CategoriaDao;
 import cl.diagnosticapp.dao.EvaluacionDao;
 import cl.diagnosticapp.dao.PreguntaDao;
+import cl.diagnosticapp.dao.RespuestaDao;
 import cl.diagnosticapp.handlers.BaseException;
 import cl.diagnosticapp.handlers.Messages;
 import cl.diagnosticapp.model.BaseModel;
+import cl.diagnosticapp.model.Evaluacion;
 import cl.diagnosticapp.model.Pregunta;
+import cl.diagnosticapp.model.Respuesta;
 import cl.diagnosticapp.model.requests.PreguntaRequest;
 import cl.diagnosticapp.model.responses.BaseResponse;
 import cl.diagnosticapp.model.responses.PreguntaListResponse;
 import cl.diagnosticapp.model.responses.PreguntaResponse;
+import java.util.HashMap;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
@@ -48,10 +52,11 @@ public class PreguntaController {
             @QueryParam("pagina") @DefaultValue("1") int pagina,
             @QueryParam("filas") @DefaultValue("15") int filas,
             @QueryParam("categoria") String categoria,
-            @QueryParam("estado") Integer estado
+            @QueryParam("estado") Integer estado,
+            @QueryParam("evaluacion") String evaluacion
     ) {
-        try {            
-            Pair<List<Pregunta>, Long> pregunta = PreguntaDao.getInstance().getAll(categoria, estado, pagina, filas);
+        try {
+            Pair<List<Pregunta>, Long> pregunta = PreguntaDao.getInstance().getAll(categoria, estado, evaluacion, pagina,  filas);
             return Response.ok(new PreguntaListResponse(pregunta.getLeft(), pregunta.getRight(), pagina, filas)).build();
         } catch (BaseException e) {
 
@@ -68,7 +73,17 @@ public class PreguntaController {
             if (pregunta == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity(new BaseResponse(Messages.Errores.OBJECT_NOT_FOUND)).build();
             }
-            return Response.ok(new PreguntaResponse(pregunta)).build();
+            
+            
+      
+                HashMap<String, Object> fieldsPr = new HashMap<>();
+                fieldsPr.put("pregunta_id", pregunta.getId());
+
+                List<Respuesta> respuestas = RespuestaDao.getInstance().getListByFields(fieldsPr);
+        
+            
+            
+            return Response.ok(new PreguntaResponse(pregunta,respuestas)).build();
         } catch (BaseException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }
@@ -91,9 +106,9 @@ public class PreguntaController {
             if (req.getCategoria() != null) {
                 pregunta.setSubcategoria(CategoriaDao.getInstance().getById(req.getCategoria()));
             }
-            if (req.getEvaluacion() != null) {
-                pregunta.setEvaluacion(EvaluacionDao.getInstance().getById(req.getEvaluacion()));
-            }
+//            if (req.getEvaluacion() != null) {
+//                pregunta.setEvaluacion(EvaluacionDao.getInstance().getById(req.getEvaluacion()));
+//            }
             if (req.getIdentificador() != null) {
                 pregunta.setId(req.getIdentificador());
             }
@@ -103,10 +118,16 @@ public class PreguntaController {
             if (req.getCuerpo() != null) {
                 pregunta.setCuerpo(req.getCuerpo());
             }
-           
+
             pregunta = PreguntaDao.getInstance().update(pregunta);
             pregunta = PreguntaDao.getInstance().get(pregunta.getId());
-            return Response.ok(new PreguntaResponse(pregunta)).build();
+            
+             HashMap<String, Object> fieldsPr = new HashMap<>();
+                fieldsPr.put("pregunta_id", pregunta.getId());
+
+                List<Respuesta> respuestas = RespuestaDao.getInstance().getListByFields(fieldsPr);
+            
+            return Response.ok(new PreguntaResponse(pregunta, respuestas)).build();
         } catch (BaseException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }
@@ -127,16 +148,22 @@ public class PreguntaController {
                 return Response.status(Response.Status.BAD_REQUEST).entity(new BaseResponse(Messages.Errores.INVALID_ARGUMENT)).build();
             }
 
+            Evaluacion evaluacion = EvaluacionDao.getInstance().get(req.getEvaluacion());
+
+            if (evaluacion == null) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(new BaseResponse(Messages.Errores.INVALID_ARGUMENT)).build();
+            }
+            
             Pregunta pregunta = new Pregunta();
             System.out.println("Categoria: " + req.getCategoria());
-            pregunta.setCuerpo( req.getCuerpo() );
+            pregunta.setCuerpo(req.getCuerpo());
             pregunta.setEstado(req.getEstado());
-            pregunta.setEvaluacion(EvaluacionDao.getInstance().getById(req.getEvaluacion()));
+            pregunta.setEvaluacion(evaluacion);
             pregunta.setSubcategoria(CategoriaDao.getInstance().getById(req.getCategoria()));
             pregunta.setEstado(BaseModel.ESTADO_ACTIVO);
             pregunta = PreguntaDao.getInstance().insert(pregunta);
             pregunta = PreguntaDao.getInstance().get(pregunta.getId());
-            return Response.status(Response.Status.CREATED).entity(new PreguntaResponse(pregunta)).build();
+            return Response.status(Response.Status.CREATED).entity(new PreguntaResponse(pregunta, null)).build();
         } catch (BaseException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(e)).build();
         }

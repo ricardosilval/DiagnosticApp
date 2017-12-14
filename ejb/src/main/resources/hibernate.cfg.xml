@@ -19,6 +19,7 @@
         <mapping class="cl.diagnosticapp.model.Usuario"/>
         <mapping class="cl.diagnosticapp.model.Log"/>
         <mapping class="cl.diagnosticapp.model.Token"/>
+        <mapping class="cl.diagnosticapp.model.AlumnoRespuesta"/>
 
         
     </session-factory>  

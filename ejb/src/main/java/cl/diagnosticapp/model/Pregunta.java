@@ -8,12 +8,18 @@ package cl.diagnosticapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -46,14 +52,18 @@ public class Pregunta extends BaseModel implements Serializable {
     private String cuerpo;
     @Column(name = "estado")
     private int estado;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pregunta", cascade = CascadeType.ALL)
+//    private Set<Respuesta> respuestas = new HashSet<Respuesta>();
 
     public Pregunta() {
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
@@ -98,4 +108,21 @@ public class Pregunta extends BaseModel implements Serializable {
         this.estado = estado;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+//    public Set<Respuesta> getRespuestas() {
+//        return respuestas;
+//    }
+//
+//    public void setRespuestas(Set<Respuesta> respuestas) {
+//        this.respuestas = respuestas;
+//    }
+
+    
 }

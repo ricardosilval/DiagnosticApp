@@ -6,7 +6,8 @@
 package cl.diagnosticapp.model.responses;
 
 import cl.diagnosticapp.model.Pregunta;
-
+import cl.diagnosticapp.model.Respuesta;
+import java.util.List;
 
 /**
  *
@@ -15,32 +16,28 @@ import cl.diagnosticapp.model.Pregunta;
 public class PreguntaResponse extends BaseResponse {
 
     private final String id;
-    private final EvaluacionResponse evaluacion;
+//    private final EvaluacionResponse evaluacion;
     private final CategoriaResponse categoria;
     private final String cuerpo;
     private final int estadoCodigo;
     private final String estadoNombre;
+    private final List<Respuesta> respuestas;
 
-    public PreguntaResponse(Pregunta model) {
+    public PreguntaResponse(Pregunta model, List<Respuesta> listRespuestas) {
         id = model.getId();
-        evaluacion = new EvaluacionResponse(model.getEvaluacion());
+//        evaluacion = new EvaluacionResponse(model.getEvaluacion());
         categoria = new CategoriaResponse(model.getSubcategoria());
         estadoCodigo = model.getEstado();
         estadoNombre = model.getEstado() == 1 ? "Activo" : "Inactivo";
         cuerpo = model.getCuerpo();
+        respuestas = listRespuestas;
     }
 
     public String getId() {
         return id;
     }
-    
-    
+
 //Generar geter y ssetter
-
-    public EvaluacionResponse getEvaluacion() {
-        return evaluacion;
-    }
-
     public CategoriaResponse getCategoria() {
         return categoria;
     }
@@ -55,6 +52,10 @@ public class PreguntaResponse extends BaseResponse {
 
     public String getEstadoNombre() {
         return estadoNombre;
+    }
+
+    public List<Respuesta> getRespuestas() {
+        return respuestas;
     }
 
 }

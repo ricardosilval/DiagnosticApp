@@ -10,31 +10,32 @@ angular.module('DiagnosticApp').controller('DashboardCtrl', ['$rootScope', '$sco
         $rootScope.settings.layout.isPublic = false;
         $rootScope.settings.layout.isPrivate = true;
 
+
+        $scope.evaluaciones = [];
+        $scope.listar();
+
     });
 
 
+    var api = portalUtil.getApi();
 
-    $scope.evaluaciones = [{
-        "id" : "aa",
-        "titulo": "Matematicas amigables",
-        categoria: {
-            "id": "asad1",
-            "nombre": "Matematicas"
-        }
-    }, {"id" : "bb",
-        "titulo": "Inglés Básico",
-        categoria: {
-            "id": "asad1",
-            "nombre": "Inglés"
-        }
-    }, {
-        id: "cc",
-        "titulo": "Tendencia de Estilo de Aprendizaje",
-        categoria: {
-            "id": "asad2",
-            "nombre": "Psicología"
-        }
-    }];
+
+    $scope.listar = function () {
+        /*
+        Llamada API de listar evaluaciones
+        */
+        var filterrier = {
+            pagina: 1,
+            filas: 15
+        };
+
+        api.one('evaluacion').get(filterrier).then(function (data) {
+            $scope.evaluaciones = data.evaluaciones;
+
+
+        });
+
+    };
 
 
     }]);

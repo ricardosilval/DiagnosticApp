@@ -93,7 +93,8 @@ public class Messages {
          * RUN invalido
          */
         ERROR_VALIDATING_RUT(222, "El RUN ingresado no es valido"),
-        EMAIL_NOTIFICATION(222, "El email ingresado no es valido");
+        EMAIL_NOTIFICATION(223, "El email ingresado no es valido"),
+        ERROR_COMMUNICACION_UMAS(301, "Error al comunicarse con UMAS");
 
         private final int code;
         private final String message;

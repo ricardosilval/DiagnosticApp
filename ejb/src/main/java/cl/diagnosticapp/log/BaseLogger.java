@@ -111,7 +111,8 @@ public class BaseLogger implements LogInterface {
      */
     @Override
     public void info(String message) {
-        LogLocation caller = getCaller(Thread.currentThread().getStackTrace());
+        LogLocation caller;
+        caller = getCaller(Thread.currentThread().getStackTrace());
         log(INFO, message, null, caller.getClase(), caller.getMethod(), caller.getLine(), null);
     }
 

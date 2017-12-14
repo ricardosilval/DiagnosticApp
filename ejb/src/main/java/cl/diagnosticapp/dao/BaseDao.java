@@ -303,6 +303,9 @@ public abstract class BaseDao<T extends BaseModel> {
 
             sql = sql.substring(0, sql.length() - 4);
 
+            
+            System.out.println("SQL: " + sql);
+            
             Query query = session.createQuery(sql);
             if (fields != null && !fields.isEmpty()) {
                 for (Map.Entry pair : fields.entrySet()) {

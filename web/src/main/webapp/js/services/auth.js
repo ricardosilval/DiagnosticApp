@@ -48,7 +48,6 @@ angular
                         console.log(user, "SESSION DATA");
                         return response;
                     }, function (error) {
-                        alert("error");
                         return error;
                     });
                 };

@@ -5,6 +5,7 @@
  */
 package cl.diagnosticapp.controllers;
 
+import cl.diagnosticapp.dao.AlumnoLogic;
 import cl.diagnosticapp.dao.TokenDao;
 import cl.diagnosticapp.dao.UsuarioDao;
 import cl.diagnosticapp.handlers.Messages;
@@ -16,11 +17,15 @@ import cl.diagnosticapp.model.requests.LoginRequest;
 import cl.diagnosticapp.model.requests.PasswordRecoveryRequest;
 import cl.diagnosticapp.model.responses.LoginResponse;
 import cl.diagnosticapp.model.responses.BaseResponse;
+import cl.diagnosticapp.models.AlumnoUmas;
 import cl.diagnosticapp.models.Credentials;
+import cl.diagnosticapp.services.UmasService;
 import cl.diagnosticapp.utils.LogicUtil;
 import cl.diagnosticapp.utils.PortalUtil;
+import cl.febos.api.ObtenerAlumnoByRunResponse;
 import java.util.HashMap;
 import javax.annotation.ManagedBean;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -38,6 +43,8 @@ import javax.ws.rs.core.Response;
 public class AuthController {
 
     private static final BaseLogger LOG = new BaseLogger();
+    @Inject
+    private UmasService umasService;
 
     @Path("/login")
     @POST
@@ -53,18 +60,55 @@ public class AuthController {
             UsuarioDao.LoginType type;
             if (request.getMail() != null) {
                 credentials.setUsername(request.getMail());
-                System.out.println("correo: "+request.getMail());
+                System.out.println("correo: " + request.getMail());
                 type = UsuarioDao.LoginType.MAIL;
             } else {
-                credentials.setUsername(request.getUsername());
-                System.out.println("username: "+request.getUsername());
+                credentials.setUsername(request.getRut());
+                System.out.println("username: " + request.getRut());
                 type = UsuarioDao.LoginType.USERNAME;
             }
-            
-            System.out.println("clave: "+request.getPassword());
+
+            if (type == UsuarioDao.LoginType.USERNAME) {
+
+                if (request.getRut().equals(request.getPassword())) {
+                    ObtenerAlumnoByRunResponse.Response alumnoUmas = UmasService.obtenerAlumno(request.getRut());
+
+                    AlumnoUmas umas = new AlumnoUmas();
+                    //  umas.setRun(run);
+
+                    umas.setNombres(alumnoUmas.getData().getVariable().stream()
+                            .filter((v) -> v.getName().equals("nombres"))
+                            .findAny().get().getValue());
+                    umas.setApellidoPaterno(alumnoUmas.getData().getVariable().stream()
+                            .filter((v) -> v.getName().equals("apellidoPaterno"))
+                            .findAny().get().getValue());
+                    umas.setApellidoMaterno(alumnoUmas.getData().getVariable().stream()
+                            .filter((v) -> v.getName().equals("apellidoMaterno"))
+                            .findAny().get().getValue());
+
+                    umas.setJornada(alumnoUmas.getData().getVariable().stream()
+                            .filter((v) -> v.getName().equals("jornada"))
+                            .findAny().get().getValue());
+
+                    umas.setCodigoCarrera(alumnoUmas.getData().getVariable().stream()
+                            .filter((v) -> v.getName().equals("codigoCarrera"))
+                            .findAny().get().getValue());
+                    umas.setNombreCarrera(alumnoUmas.getData().getVariable().stream()
+                            .filter((v) -> v.getName().equals("nombreCarrera"))
+                            .findAny().get().getValue());
+                    umas.setRun(request.getRut());
+
+                    AlumnoLogic.crearAlumnoFromUmas(umas);
+                } else {
+                    return Response.status(Response.Status.UNAUTHORIZED).entity(new BaseResponse(Messages.Errores.LOGIN_INCORRECT)).build();
+                }
+            }
+
+            System.out.println("clave: " + request.getPassword());
             credentials.setPass(request.getPassword());
 
             System.out.println("Entrando al login del dao");
+
             Usuario usuario = UsuarioDao.getInstance().login(type, credentials);
             if (usuario == null) {
                 return Response.status(Response.Status.UNAUTHORIZED).entity(new BaseResponse(Messages.Errores.LOGIN_INCORRECT)).build();
@@ -72,12 +116,12 @@ public class AuthController {
             if (usuario.getEstado() == Usuario.ESTADO_INACTIVO) {
                 return Response.status(Response.Status.UNAUTHORIZED).entity(new BaseResponse(Messages.Errores.FORBIDDEN_ACCESS)).build();
             }
-                
+
             UsuarioDao.getInstance().update(usuario);
             Token token = TokenDao.getInstance().issueToken(usuario);
             return Response.ok(new LoginResponse(usuario, token)).build();
         } catch (BaseException ex) {
-            System.out.println("Error "+ ex.getLocalizedMessage());
+            System.out.println("Error " + ex.getLocalizedMessage());
             LOG.error("Error realizando login", ex);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new BaseResponse(ex)).build();
         }
@@ -90,7 +134,7 @@ public class AuthController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response recovery(PasswordRecoveryRequest request) {
         LOG.info("request: " + request.getEmail());
-        
+
         try {
 
             if (request.getEmail() == null || request.getEmail().equals("")) {
@@ -119,7 +163,6 @@ public class AuthController {
 //            String urPortal = "http://diagnosticapp.ciisa.cl";
 //            fmb.addBodyPart("Sr./Sra. " + usuario.getNombre() + " " + usuario.getApellido() + ",<br/>Le informamos que se le envian una nueva clave en el portal diagnosticapp diagnosticapp.<br/> <strong>Su nombre de usuario es: </strong>" + usuario.getRut() + " o " + usuario.getCorreo() + " <br/> <strong>Su nueva clave es: </strong>" + cadenaClave + " <br/> Puede acceder con su nombre de usuario haciendo click <a href=\"" + urPortal + "\">Aqui</a> <br/> Atentamente,");
 //            String id = MailGunService.send("notificaciones@empresas.diagnosticapp.cl", usuario.getCorreo(), asunto, fmb.build(), "", null, (File) null);
-
             LOG.info("ENTRA Email!: " + request.getEmail());
 
             // LOG.info("Entro al mail5" + response);

@@ -12,7 +12,7 @@ public class CarreraRequest extends PortalRequest {
 
     @NotNull //opcional
     private String nombre;
-    private List<String> jonadas;
+    
 
 //    public String getCampo() {
 //        return rut;

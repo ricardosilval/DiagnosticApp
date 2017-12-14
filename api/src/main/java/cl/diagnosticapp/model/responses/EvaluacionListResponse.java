@@ -18,7 +18,7 @@ public class EvaluacionListResponse {
 
     public EvaluacionListResponse(List<Evaluacion> evaluaciones) {
         this.evaluaciones = new ArrayList<>();
-        evaluaciones.forEach((r) -> this.evaluaciones.add(new EvaluacionResponse(r)));
+        evaluaciones.forEach((r) -> this.evaluaciones.add(new EvaluacionResponse(r,null)));
     }
     public EvaluacionListResponse(List<Evaluacion> evaluaciones, long total, long paginaActual, long filas) {
         this(evaluaciones);

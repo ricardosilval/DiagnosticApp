@@ -7,11 +7,21 @@ package cl.diagnosticapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -23,7 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "evaluaciones")
 @XmlRootElement
-public class Evaluacion  extends BaseModel implements Serializable {
+public class Evaluacion extends BaseModel implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "evaluacion_id")
@@ -42,14 +54,25 @@ public class Evaluacion  extends BaseModel implements Serializable {
     @JoinColumn(name = "calendarizacion_id")
     @JsonIgnore
     private Calendarizacion calendarizacion;
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "pregunta_id")
+//    private List<Pregunta> preguntas = new ArrayList<>();
+
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "evaluacion", cascade = CascadeType.ALL)
+//    private List<Pregunta> preguntas = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "pregunta_id")
+//    private Set<Pregunta> preguntas = new HashSet<>();
 
     public Evaluacion() {
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
@@ -85,5 +108,13 @@ public class Evaluacion  extends BaseModel implements Serializable {
     public void setCalendarizacion(Calendarizacion calendarizacion) {
         this.calendarizacion = calendarizacion;
     }
+
+//    public Set<Pregunta> getPreguntas() {
+//        return preguntas;
+//    }
+//
+//    public void setPreguntas(Set<Pregunta> preguntas) {
+//        this.preguntas = preguntas;
+//    }
 
 }

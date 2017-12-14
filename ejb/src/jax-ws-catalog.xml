@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:2011/FebosAPI/Users?wsdl" uri="wsdl/localhost_2011/FebosAPI/Users.wsdl"/>
+    <system systemId="http://localhost:2011/FebosAPI/Users?xsd=1" uri="wsdl/localhost_2011/FebosAPI/Users.xsd_1.xsd"/>
+</catalog>

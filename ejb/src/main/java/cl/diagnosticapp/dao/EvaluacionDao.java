@@ -85,6 +85,11 @@ public class EvaluacionDao extends BaseDao<Evaluacion> {
             results.stream().forEach((eval) -> {
                 Hibernate.initialize(eval.getCategoria());
                 Hibernate.initialize(eval.getUsuario());
+               
+//                Hibernate.initialize(eval.getPreguntas());
+//                eval.getPreguntas().stream().forEach((p) -> {
+//                    Hibernate.initialize(p.getRespuestas());
+//                });
 
             });
             Query countQuery = session.createQuery(hql.toString().replace("SELECT DISTINCT e", "SELECT COUNT(e.id)").replace(" ORDER BY e.titulo DESC", ""));

@@ -47,10 +47,10 @@ public class Alumno extends BaseModel implements Serializable {
     @JoinColumn(name = "jornada_id")
     @JsonIgnore
     private Jornada jornada;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "alumnos_respuestas", joinColumns = @JoinColumn(name = "alumno_id"), inverseJoinColumns = @JoinColumn(name = "respuesta_id"))
-    @JsonIgnore
-    private Set<Respuesta> respuestas;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "alumnos_respuestas", joinColumns = @JoinColumn(name = "alumno_id"), inverseJoinColumns = @JoinColumn(name = "respuesta_id"))
+//    @JsonIgnore
+//    private Set<Respuesta> respuestas;
 
     public Alumno() {
     }
@@ -111,13 +111,13 @@ public class Alumno extends BaseModel implements Serializable {
         this.jornada = jornada;
     }
 
-    public Set<Respuesta> getRespuestas() {
-        return respuestas;
-    }
-
-    public void setRespuestas(Set<Respuesta> respuestas) {
-        this.respuestas = respuestas;
-    }
+//    public Set<Respuesta> getRespuestas() {
+//        return respuestas;
+//    }
+//
+//    public void setRespuestas(Set<Respuesta> respuestas) {
+//        this.respuestas = respuestas;
+//    }
 
     
 }

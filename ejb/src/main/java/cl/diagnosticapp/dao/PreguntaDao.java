@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -38,8 +39,8 @@ public class PreguntaDao extends BaseDao<Pregunta> {
 
         private static final PreguntaDao INSTANCE = new PreguntaDao();
     }
-    
-     public Pregunta get(String id) {
+
+    public Pregunta get(String id) {
         return super.getById(id);
     }
 
@@ -47,37 +48,39 @@ public class PreguntaDao extends BaseDao<Pregunta> {
     public Pair<List<Pregunta>, Long> getAll(
             String categoria,
             Integer estado,
+            String evaluacionId,
             int pagina,
             int filas
     ) throws BaseException {
-        StringBuilder hql = new StringBuilder("SELECT DISTINCT c FROM Pregunta c ");
+        StringBuilder hql = new StringBuilder("SELECT DISTINCT p FROM Pregunta p ");
         StringBuilder whereBuilder = new StringBuilder();
         HashMap<String, Object> params = new HashMap<>();
 //        whereBuilder.append("s.estado <> :eliminado AND ");
 //        params.put("eliminado", Subasta.STATUS_DELETED);
-        if (categoria != null) {
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.setTime(new Date(fechaInicio));
-//            calendar.set(Calendar.HOUR_OF_DAY, 0);
-//            calendar.set(Calendar.MINUTE, 0);
-//            calendar.set(Calendar.SECOND, 0);
-            whereBuilder.append("c.categoria = :categoria AND ");
+
+        if (evaluacionId != null) {
+            whereBuilder.append("p.categoria = :categoria AND ");
             params.put("categoria", categoria);
+        } else {
+            if (categoria != null) {
+                whereBuilder.append("p.categoria = :categoria AND ");
+                params.put("categoria", categoria);
 
-        }
+            }
 
-        if (estado != null) {
-            whereBuilder.append("c.estado = :estado AND ");
-            params.put("estado", estado);
+            if (estado != null) {
+                whereBuilder.append("p.estado = :estado AND ");
+                params.put("estado", estado);
+            }
         }
 
         if (whereBuilder.length() > 0) {
             hql.append("WHERE ");
             hql.append(whereBuilder.toString().substring(0, whereBuilder.length() - 4));
         }
-        hql.append(" ORDER BY c.fechaInicio DESC");
+        hql.append(" ORDER BY p.cuerpo DESC");
         //LOG.info(hql.toString());
-        System.out.println(""+ hql.toString());
+        System.out.println("" + hql.toString());
         Transaction transaction = null;
         try {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -86,11 +89,17 @@ public class PreguntaDao extends BaseDao<Pregunta> {
             params.entrySet().stream().forEach((pair) -> {
                 query.setParameter(pair.getKey(), pair.getValue());
             });
+            
             query.setFirstResult((pagina - 1) * filas);
             query.setMaxResults(filas);
             List<Pregunta> results = query.list();
+             
+            results.stream().forEach((eval) -> {
+                Hibernate.initialize(eval.getCategoria());
+            });
+     
 
-            Query countQuery = session.createQuery(hql.toString().replace("SELECT DISTINCT c", "SELECT COUNT(c.id)").replace(" ORDER BY c.fechaInicio DESC", ""));
+            Query countQuery = session.createQuery(hql.toString().replace("SELECT DISTINCT p", "SELECT COUNT(p.id)").replace(" ORDER BY p.cuerpo DESC", ""));
             params.entrySet().stream().forEach((pair) -> {
                 countQuery.setParameter(pair.getKey(), pair.getValue());
             });
@@ -111,13 +120,14 @@ public class PreguntaDao extends BaseDao<Pregunta> {
     }
 
     /**
-     * TODO: Crear validacion si existe pregunta para un rango 
+     * TODO: Crear validacion si existe pregunta para un rango
+     *
      * @param fechaInicio
      * @param fechaTermino
-     * @return 
+     * @return
      */
     public boolean existByDate(Date fechaInicio, Date fechaTermino) {
-        
+
         return false;
     }
 

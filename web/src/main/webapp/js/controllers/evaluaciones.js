@@ -19,6 +19,8 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
             calendarizacionId: "",
             id: ""
         };
+        
+        $scope.evaluacionId = "";
 
         $scope.evaluaciones = [];
         $scope.categorias = [];
@@ -28,7 +30,7 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
 
     });
 
-
+ var api = portalUtil.getApi();
     $scope.loadCategorias = function () {
         var filterrierCategorias = {
             pagina: 1,
@@ -41,7 +43,7 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
         });
     }
 
-    var api = portalUtil.getApi();
+   
 
 
     $scope.crearEvaluacionModal = false;
@@ -62,9 +64,9 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
         $scope.listar();
     };
 
-    $scope.habilitaAcciones = function (cal) {
+    $scope.habilitaAcciones = function (id) {
         $scope.permiteAcciones = true;
-        $scope.evaluacion = cal;
+        $scope.evaluacionId = id;
     };
 
     $scope.listar = function () {
@@ -161,14 +163,12 @@ angular.module('DiagnosticApp').controller('EvaluacionesCtrl', ['$rootScope', '$
     };
     
     $scope.visualizarEvaluacion = function(){
-         
-         api.one('evaluacion', $scope.evaluacion.id).get().then(function (data) {
+        
+         api.one('evaluacion', $scope.evaluacionId).get().then(function (data) {
             console.log(data, "EL Evaluacion A VER");
             $scope.evaluacion = data;
         });
-        
-        
-        
-    }
+          
+    };
 
     }]);
