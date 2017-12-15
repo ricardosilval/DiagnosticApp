@@ -10,6 +10,7 @@ Diagnostic-App, contempla la disponibilización de una serie de test preconfigur
 
 
 ## Sobre la Arquitectura
+
 DiagnosticApp está desarrollado en lenguaje Java 8, y está compuesto por tres proyectos:
 * DiagnosticApp - Core
   * Es un proyecto Java, en el cual se encuentran los Modelos, DAOs y Servicios externos.
