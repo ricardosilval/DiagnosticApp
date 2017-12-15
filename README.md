@@ -1,6 +1,7 @@
 # DiagnosticApp
+DiagnosticApp fue realizada dentro del contexto del curso de Proyecto de Ingenieria de Software. Tiene propósitos con fines educativos y no lucrativos.
+
 ## Propósito
-DiagnosticApp fue realizada dentro del contexto del curso de Proyecto de Ingenieria de Software.
 El propósito  de este software es apoyar al proceso de evaluación de entrada (Ingreso al IP) que, a través de un generador de pruebas de diagnóstico, con esta herramienta se podrá tener una visión general del nivel de los conocimientos en diversas materias  y algunas características psicológicas de la generación entrante a la institución, con el fin de poder preparar a las respectivas áreas pedagógicas de la institución con esta información para que éstas puedan tomar acciones que se anticipen a la posible deserción por causas académicas
 
 
