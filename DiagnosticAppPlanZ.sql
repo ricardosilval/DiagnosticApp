@@ -45,6 +45,7 @@ CREATE TABLE `alumnos` (
 
 LOCK TABLES `alumnos` WRITE;
 /*!40000 ALTER TABLE `alumnos` DISABLE KEYS */;
+INSERT INTO `alumnos` VALUES ('4a361bac25ce424a842836220c6e065ffc6f','Hernan Bernardino','Barra','Morales','18974786-1','51e7a2b92b135248912813b240ae222fbcdd','b5fd28782c5dc24ea12ac0d2ae4872029227'),('75079b5e2d9c7240242b1e42a675db22be64','José Felipe Charbel','Pavez','Gassibe','19113615-2','97fbcd6c29db924bff29b7d2c0bf117c561f','b5fd28782c5dc24ea12ac0d2ae4872029227'),('86d050532782b241a92961024903f1ce53b9','Juanito Ernesto','Lopez','Sepulveda','1-9','73be36442e277240012a107269e1d42ec8b8','b5fd28782c5dc24ea12ac0d2ae4872029227');
 /*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +102,7 @@ CREATE TABLE `calendarizaciones` (
 
 LOCK TABLES `calendarizaciones` WRITE;
 /*!40000 ALTER TABLE `calendarizaciones` DISABLE KEYS */;
-INSERT INTO `calendarizaciones` VALUES ('0423463a2705d24754287ad2bf8047ea4a93','2017-01-08 00:00:00','2017-01-26 00:00:00','Solo diurnos !!!!','dfdgf',NULL,1),('2f6b2d40-d561-11e7-a15f-cecfa4c5f064','2017-01-29 00:00:00','2027-01-29 00:00:00','Evaluacion VAK','Test para medir tu estilo de aprendizaje','85f10aec-d55f-11e7-a15f-cecfa4c5f064',1),('a654e9fa23afa247de2968529ab3e93d078f','2017-12-15 00:00:00','2017-11-30 00:00:00','dgfdf','dfdgf',NULL,1),('cb27a5ee2c63a249a42ab2c2521e3231d0be','2017-12-12 00:00:00','2017-12-20 00:00:00','efrdfdfsd','fsdfsdxfd',NULL,1),('e11915a12d15a241222aeb82a573880087a3','2018-01-01 00:00:00','2018-01-31 00:00:00','Generacion 2020','Para tecnicos programadores',NULL,1);
+INSERT INTO `calendarizaciones` VALUES ('0423463a2705d24754287ad2bf8047ea4a93','2017-01-08 00:00:00','2017-01-26 00:00:00','Solo diurnos !!!!','dfdgf',NULL,1),('2f6b2d40-d561-11e7-a15f-cecfa4c5f064','2017-01-29 00:00:00','2027-01-29 00:00:00','Evaluacion VAK','Test para medir tu estilo de aprendizaje','85f10aec-d55f-11e7-a15f-cecfa4c5f064',1),('a654e9fa23afa247de2968529ab3e93d078f','2017-12-15 00:00:00','2017-11-30 00:00:00','dgfdf','dfdgf',NULL,1),('b795f87d227df24d662b6f428b11ddd19550','2017-12-01 00:00:00','2018-02-28 00:00:00','Matriculas 2018','Periodo en curso',NULL,1),('cb27a5ee2c63a249a42ab2c2521e3231d0be','2017-12-12 00:00:00','2017-12-20 00:00:00','efrdfdfsd','fsdfsdxfd',NULL,1),('e11915a12d15a241222aeb82a573880087a3','2018-01-01 00:00:00','2018-01-31 00:00:00','Generacion 2020','Para tecnicos programadores',NULL,1);
 /*!40000 ALTER TABLE `calendarizaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,6 +155,7 @@ CREATE TABLE `carreras` (
 
 LOCK TABLES `carreras` WRITE;
 /*!40000 ALTER TABLE `carreras` DISABLE KEYS */;
+INSERT INTO `carreras` VALUES ('105743f628645240a728d1b2bc1203000701','IECIRE923','Ingenieria en Informática'),('51e7a2b92b135248912813b240ae222fbcdd','INGPAMAR','Ingenieria en Pavimentacion Marina'),('73be36442e277240012a107269e1d42ec8b8','TPCIRE99','Técnico en Programación'),('97fbcd6c29db924bff29b7d2c0bf117c561f','IECIRE928','Ingenieria en Informática');
 /*!40000 ALTER TABLE `carreras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +214,7 @@ CREATE TABLE `evaluaciones` (
 
 LOCK TABLES `evaluaciones` WRITE;
 /*!40000 ALTER TABLE `evaluaciones` DISABLE KEYS */;
-INSERT INTO `evaluaciones` VALUES ('45d52890-d563-11e7-a15f-cecfa4c5f064','Evaliacion VAK','1','85f10aec-d55f-11e7-a15f-cecfa4c5f064','2f6b2d40-d561-11e7-a15f-cecfa4c5f064');
+INSERT INTO `evaluaciones` VALUES ('45d52890-d563-11e7-a15f-cecfa4c5f064','Evaluación VAK','1','85f10aec-d55f-11e7-a15f-cecfa4c5f064','2f6b2d40-d561-11e7-a15f-cecfa4c5f064');
 /*!40000 ALTER TABLE `evaluaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +251,7 @@ DROP TABLE IF EXISTS `jornadas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `jornadas` (
   `jornada_id` varchar(36) NOT NULL,
-  `codigo` varchar(1) DEFAULT NULL,
+  `codigo` varchar(45) DEFAULT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`jornada_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -261,6 +263,7 @@ CREATE TABLE `jornadas` (
 
 LOCK TABLES `jornadas` WRITE;
 /*!40000 ALTER TABLE `jornadas` DISABLE KEYS */;
+INSERT INTO `jornadas` VALUES ('b5fd28782c5dc24ea12ac0d2ae4872029227','diurno','diurno');
 /*!40000 ALTER TABLE `jornadas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,11 +344,11 @@ CREATE TABLE `respuestas` (
   `cuerpo` longtext,
   `valor` int(11) DEFAULT NULL,
   `estado` tinyint(4) DEFAULT NULL,
-  `imagenes_imagen_id` varchar(36) DEFAULT '',
+  `imagen_id` varchar(36) DEFAULT '',
   PRIMARY KEY (`respuesta_id`),
   KEY `fk_respuestas_preguntas1_idx` (`pregunta_id`),
-  KEY `fk_respuestas_imagenes1_idx` (`imagenes_imagen_id`),
-  CONSTRAINT `fk_respuestas_imagenes1` FOREIGN KEY (`imagenes_imagen_id`) REFERENCES `imagenes` (`imagen_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_respuestas_imagenes1_idx` (`imagen_id`),
+  CONSTRAINT `fk_respuestas_imagenes1` FOREIGN KEY (`imagen_id`) REFERENCES `imagenes` (`imagen_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_respuestas_preguntas1` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`pregunta_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -409,7 +412,7 @@ CREATE TABLE `tokens` (
 
 LOCK TABLES `tokens` WRITE;
 /*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
-INSERT INTO `tokens` VALUES ('2442669e20c8124dcb292f2271efc0a7f6ba','2017-12-13 08:11:21','2017-12-13 08:41:21',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('2e7fc85d25da62448628bef27f30e72c7da1','2017-12-12 18:58:47','2017-12-12 19:28:47',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('32c0261f2683d2435b294862d7365a6d05ed','2017-12-11 23:50:13','2017-12-12 00:20:13',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('6825ced82b20e24cfc2b4d72876c5f932bf4','2017-12-12 21:34:03','2017-12-12 22:04:03',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('84fccee127b8b24c7828dab2798dc429ba3c','2017-12-11 23:50:38','2017-12-12 00:20:38',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('bdcf9ae1209e62449528ff724b0d1644b818','2017-12-12 19:11:55','2017-12-12 19:41:55',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('df195a5f2b9492499e2a6d6274638d890890','2017-12-12 21:37:14','2017-12-12 22:07:14',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('e46e4f0f2ea03241582bf98273c7a55dbd59','2017-12-11 23:48:17','2017-12-12 00:18:17',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e');
+INSERT INTO `tokens` VALUES ('00081c272e17224fa828cdc2c9258833080f','2017-12-14 14:33:21','2017-12-14 15:03:21',1,'483377de2da7e247e02a977201d017069ede'),('1f2447bf2d2582460b2b8d52a503eb0e1c1e','2017-12-14 14:20:54','2017-12-14 14:50:54',1,'9a9444af2f46f24e472a4192bbcc9c45a667'),('2442669e20c8124dcb292f2271efc0a7f6ba','2017-12-13 08:11:21','2017-12-13 08:41:21',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('262bb10327e5b2418d28a4027bc6cde1838d','2017-12-14 14:41:11','2017-12-14 15:11:11',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('2e5562d32f097242ff2bb5329b5d479e70fb','2017-12-14 14:26:18','2017-12-14 14:56:18',1,'483377de2da7e247e02a977201d017069ede'),('2e7fc85d25da62448628bef27f30e72c7da1','2017-12-12 18:58:47','2017-12-12 19:28:47',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('32c0261f2683d2435b294862d7365a6d05ed','2017-12-11 23:50:13','2017-12-12 00:20:13',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('472f69dc28d3824f55294e12cec56e2dd8ac','2017-12-14 19:07:23','2017-12-14 19:37:23',1,'fa7f52332d7402431b2a9c12b8b7ebaf35a7'),('49912b9e2d47424b5529f572841da9b55705','2017-12-14 14:30:59','2017-12-14 15:00:59',1,'483377de2da7e247e02a977201d017069ede'),('6825ced82b20e24cfc2b4d72876c5f932bf4','2017-12-12 21:34:03','2017-12-12 22:04:03',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('84fccee127b8b24c7828dab2798dc429ba3c','2017-12-11 23:50:38','2017-12-12 00:20:38',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('8e3c93f7217642483a2bd9d22d7b2dc51d1c','2017-12-14 17:50:47','2017-12-14 18:20:47',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('8f4c658b2b32824444297b6226813ef4e31e','2017-12-14 19:46:58','2017-12-14 20:16:58',1,'bf621cd42aa2324f432b8352b5ce9e870c8a'),('afe835ae2d5fd246702af39203affc2f6d63','2017-12-14 14:26:55','2017-12-14 14:56:55',1,'483377de2da7e247e02a977201d017069ede'),('bdcf9ae1209e62449528ff724b0d1644b818','2017-12-12 19:11:55','2017-12-12 19:41:55',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('d8b98944210be240032ae0823aebe486f2e5','2017-12-14 14:27:39','2017-12-14 14:57:39',1,'483377de2da7e247e02a977201d017069ede'),('df195a5f2b9492499e2a6d6274638d890890','2017-12-12 21:37:14','2017-12-12 22:07:14',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e'),('e46e4f0f2ea03241582bf98273c7a55dbd59','2017-12-11 23:48:17','2017-12-12 00:18:17',1,'670621dd-f2e0-4bcd-904a-f8c651cf250e');
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -444,7 +447,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES ('670621dd-f2e0-4bcd-904a-f8c651cf250e','admin@da.cl','Super','Administrador','1-9','superadmindiagnosticapp','ciisa',NULL,1,'2017-11-12 16:45:00'),('85f10aec-d55f-11e7-a15f-cecfa4c5f064','bbdd@da.cl','BBDD','Administrador','1-8','BBDDdiagnosticapp','BBDD',NULL,1,'2017-11-29 20:46:30');
+INSERT INTO `usuarios` VALUES ('483377de2da7e247e02a977201d017069ede',NULL,'Hernan Nanito Ernesto Alejando','Barra','18974786-1','5656e043-38c9-4eb4-aeb2-3cd3ffac3eed','18974786-1',NULL,1,'2017-12-14 14:26:18'),('670621dd-f2e0-4bcd-904a-f8c651cf250e','admin@da.cl','Super','Administrador','1-9','superadmindiagnosticapp','ciisa',NULL,1,'2017-11-12 16:45:00'),('85f10aec-d55f-11e7-a15f-cecfa4c5f064','bbdd@da.cl','Sistema','Administrador','1-8','BBDDdiagnosticapp','BBDD',NULL,1,'2017-11-29 20:46:30'),('bf621cd42aa2324f432b8352b5ce9e870c8a',NULL,'José Felipe Charbel','Pavez','19113615-2','5656e043-38c9-4eb4-aeb2-3cd3ffac3eed','19113615-2',NULL,1,'2017-12-14 19:46:58');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -457,4 +460,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-13 21:33:31
+-- Dump completed on 2017-12-14 21:50:51

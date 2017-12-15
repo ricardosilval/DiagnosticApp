@@ -1,4 +1,3 @@
-/Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/controllers/CategoriaController.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/requests/RespuestaRequest.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/controllers/EvaluacionController.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/requests/LoginRequest.java
@@ -40,13 +39,16 @@
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/responses/UsuarioListResponse.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/controllers/UsuariosController.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/requests/EvaluacionRequest.java
+/Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/requests/RespuestaAlumnoRequest.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/responses/PasswordRecoveryResponse.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/annotations/Secured.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/responses/CalendarizacionListResponse.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/responses/CalendarizacionResponse.java
+/Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/controllers/RespuestaController.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/requests/CalendarizacionRequest.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/responses/BaseResponse.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/controllers/DashboardController.java
+/Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/controllers/PreguntaController.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/responses/PreguntaResponse.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/model/responses/CarreraListResponse.java
 /Users/ricardo/Code/CIISA/diagnosticapp/api/src/main/java/cl/diagnosticapp/controllers/StartHandler.java
